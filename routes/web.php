@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,28 @@ Route::middleware(['auth', 'user-access:0'])->group(function () {
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:1'])->group(function () {
+Route::middleware(['auth', 'user-access:1'])->prefix('/admin')->name('admin.')->group(function () {
   
-    Route::get('/admin/dashboard', [HomeController::class, 'adminHome'])->name('admin.dashboard');
+    Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('dashboard');
+    Route::prefix('/users')->name('users.')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update', 'update')->name('update');
+        Route::get('/destroy', 'destroy')->name('destroy');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+    });
+    Route::prefix('/administrators')->name('administrators.')->controller(UserController::class)->group(function () {
+        Route::get('/', 'indexAdmin')->name('index');
+        Route::get('/edit/{id}', 'editAdmin')->name('edit');
+        Route::put('/update', 'updateAdmin')->name('update');
+        Route::get('/destroy', 'destroyAdmin')->name('destroy');
+        Route::get('/create', 'createAdmin')->name('create');
+        Route::post('/store', 'storeAdmin')->name('store');
+    });
+    
+});
+
+Route::get('/test', function () {
+    return view('admin.users.index');
 });
