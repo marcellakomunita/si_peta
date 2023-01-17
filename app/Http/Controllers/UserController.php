@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -151,17 +152,8 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->save();
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-            var_dump('Exception Message: '. $message);
-  
-            $code = $e->getCode();       
-            var_dump('Exception Code: '. $code);
-  
-            $string = $e->__toString();       
-            var_dump('Exception String: '. $string);
-
-            exit;
+        } catch (QueryException $ex) { 
+            dd($ex->errorInfo[1]);
         }  
 
         return redirect('/admin/users/');

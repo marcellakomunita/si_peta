@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +30,11 @@ All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:0'])->group(function () {
-  
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
+
+Route::get('/content/cover/{id}', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess');
+Route::get('/not-found', [FileController::class, 'notfound']);
   
 /*------------------------------------------
 --------------------------------------------
@@ -55,6 +59,15 @@ Route::middleware(['auth', 'user-access:1'])->prefix('/admin')->name('admin.')->
         Route::get('/destroy', 'destroyAdmin')->name('destroy');
         Route::get('/create', 'createAdmin')->name('create');
         Route::post('/store', 'storeAdmin')->name('store');
+    });
+    Route::prefix('/books')->name('books.')->controller(BookController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        // Route::get('/show/{id}', 'show')->name('show');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update', 'update')->name('update');
+        Route::get('/destroy', 'destroy')->name('destroy');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
     });
     
 });
