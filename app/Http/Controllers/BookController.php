@@ -181,12 +181,12 @@ class BookController extends Controller
     {
         $book = Book::find($request->id);
         // dd($book->file_ebook);
-        // if (file_exists($book->file_ebook)) {
+        if (file_exists($book->file_ebook)) {
             unlink($book->file_ebook);
-        // }
-        // if (file_exists($book->img_cover)) {
+        }
+        if (file_exists($book->img_cover)) {
             unlink($book->img_cover);
-        // }
+        }
         $book->delete();
         return redirect('/admin/books');
     }

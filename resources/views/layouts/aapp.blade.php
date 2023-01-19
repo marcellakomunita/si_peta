@@ -24,5 +24,5 @@
 
         <x-admin.footer/>
     </div>
-    </div>
+</div>
 @endsection

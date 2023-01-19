@@ -19,7 +19,7 @@
         <form role="form" action="{{ route('admin.books.store') }}" method="POST" enctype="multipart/form-data">
             <div class="grid grid-cols-2 gap-6">
                 @csrf
-                <div class="grid grid-cols-2 gap-6 col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-6 md:col-span-3">
                     <div class="col-span-2 sm:col-span-1">
                         <label for="isbn" class="text-sm font-medium text-gray-900 block mb-2">ISBN</label>
                         <input type="text" name="isbn" id="isbn" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
@@ -58,7 +58,7 @@
                     <label for="sinopsis" class="text-sm font-medium text-gray-900 block mb-2">Sinopsis</label>
                     <textarea style="white-space: pre-line" rows='12' type="text" name="sinopsis" id="sinopsis" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required></textarea>
                 </div>
-                <div class="grid grid-cols-2 gap-6 col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-6 md:col-span-3">
                     <div class="col-span-3 sm:col-span-1">
                         <label for="img_cover" class="flex align-center items-center h-16 custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 w-full p-2.5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 icon icon-tabler icon-tabler-file-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

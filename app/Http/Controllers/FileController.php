@@ -31,6 +31,6 @@ class FileController extends Controller
 
     public function notfound() 
     {
-        return view('404');
+        return view('vendor.404');
     }
 }
