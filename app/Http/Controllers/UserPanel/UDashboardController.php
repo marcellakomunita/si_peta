@@ -20,4 +20,9 @@ class UDashboardController extends Controller
             'favoriteBooks' => $favoriteBooks,
         ]);
     }
+
+    public function profile()
+    {
+        return view('user.profile');
+    }
 }

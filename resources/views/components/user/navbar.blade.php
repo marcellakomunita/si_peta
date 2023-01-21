@@ -1,4 +1,4 @@
-<nav class="px-8 bg-white border-b border-gray-200 fixed z-30 w-full">
+<nav class="px-12 lg:px-24 bg-white border-b border-gray-200 fixed z-30 w-full">
     <div class="py-3">
       <div class="flex items-center justify-between">
           <button data-collapse-toggle="navbar-default" type="button" class="flex-0 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -66,7 +66,7 @@
                   <li>
                     <a
                       class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-                      href="#"
+                      href="{{ route('user.books.favorites') }}"
                       >Favorit Saya</a
                     >
                   </li>
@@ -80,7 +80,7 @@
                   <li>
                     <a
                       class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-                      href="#"
+                      href="{{ route('user.profile') }}"
                       >Profile</a
                     >
                   </li>

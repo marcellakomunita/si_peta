@@ -39,10 +39,13 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
     Route::get('/home', [UDashboardController::class, 'index'])->name('home');
+    Route::get('/my-profile', [UDashboardController::class, 'profile'])->name('profile');
 
     Route::prefix('/')->name('books.')->controller(UserPanelController::class)->group(function () {
         Route::get('categories', 'categories')->name('categories');
         Route::get('book', 'book')->name('book');
+        Route::get('search', 'search')->name('search');
+        Route::get('my-favorites', 'favorites')->name('favorites');
     });
 
 });

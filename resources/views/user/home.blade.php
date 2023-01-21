@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="px-8 pt-40" style="background-color: #f8f8f8">
+<div class="pt-40" style="background-color: #f8f8f8">
     <div class="w-full">
         
         <!-- Jumbotron -->
@@ -26,7 +26,7 @@
         <!-- Categories -->
         <div class="mx-auto py-8">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">Kategori</h2>
-            <div class="mt-2 grid grid-cols-2 gap-y-10 gap-x-4 sm:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
+            <div class="mt-2 grid grid-cols-2 gap-y-10 gap-x-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
                 
                 <div class="group relative">
                     <div class="max-w-sm px-6 py-4 bg-rose-100 rounded-lg">
@@ -101,7 +101,7 @@
         <!-- e-Book Favorit -->
         <div class="mx-auto py-8">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">e-Book Favorit</h2>
-            <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-4 lg:grid-cols-6 xl:gap-x-8">
+            <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
                 
                 <div class="group relative rounded-t-xl">
                     <div class="">
@@ -225,7 +225,7 @@
         <!-- e-Book Favorit -->
         <div class="mx-auto py-8">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">e-Book Terbaru</h2>
-            <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-4 lg:grid-cols-6 xl:gap-x-8">
+            <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
                 
                 <div class="group relative rounded-t-xl">
                     <div class="">

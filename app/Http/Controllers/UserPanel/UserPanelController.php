@@ -16,4 +16,14 @@ class UserPanelController extends Controller
     {
         return view('user.books.book');
     }
+
+    public function search()
+    {
+        return view('user.books.search');
+    }
+
+    public function favorites()
+    {
+        return view('user.books.favorites');
+    }
 }

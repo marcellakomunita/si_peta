@@ -1,6 +1,6 @@
 
-<footer class="px-12">
-    <div class="grid grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4">
+<footer class="px-12 lg:px-24">
+    <div class="grid grid-cols-2 gap-8 py-8 md:grid-cols-4">
         <div>
             <h1>LOGO</h1>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
