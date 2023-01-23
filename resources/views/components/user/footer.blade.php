@@ -1,5 +1,5 @@
 
-<footer class="px-12 lg:px-24">
+<footer class="px-12 lg:px-24 py-16" id="footer">
     <div class="grid grid-cols-2 gap-8 py-8 md:grid-cols-4">
         <div>
             <h1>LOGO</h1>

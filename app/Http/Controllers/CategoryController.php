@@ -57,7 +57,7 @@ class CategoryController extends Controller
                 
                 
                 $file = $request->file('img_icon');
-                $path = public_path() . '/' . 'images/' . $category->id . '.' . $file->extension();
+                $path = public_path() . '\images\icon\\' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . $file->extension();
                 move_uploaded_file($file->getRealPath(), $path);
 
                 DB::table('categories')->where('id', $category->id)->update([

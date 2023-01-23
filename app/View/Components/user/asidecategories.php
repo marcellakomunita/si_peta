@@ -4,16 +4,18 @@ namespace App\View\Components\user;
 
 use Illuminate\View\Component;
 
-class aside-categories extends Component
+class asidecategories extends Component
 {
+    public $categories;
+    
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($categories)
     {
-        //
+        $this->categories = $categories;
     }
 
     /**
@@ -23,6 +25,6 @@ class aside-categories extends Component
      */
     public function render()
     {
-        return view('components.user.aside-categories');
+        return view('components.user.asidecategories');
     }
 }

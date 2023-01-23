@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('sinopsis');
             $table->string('img_cover');
             $table->string('file_ebook'); // can be imgs or pdf
-            // $table->string('jlh_dibaca');
+            // $table->unsignedBigInteger('number_of_reads');
             $table->timestamps();
         });
     }

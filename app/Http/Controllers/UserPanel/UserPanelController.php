@@ -3,27 +3,132 @@
 namespace App\Http\Controllers\UserPanel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
+use App\Models\BookReadHistory;
+use App\Models\Category;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserPanelController extends Controller
 {
-    public function categories()
-    {   
-        return view('user.books.categories');
+    // public function index(Request $request) {
+    //      // Validate the parameters
+    //     $validatedData = $request->validate([
+    //         'q' => 'nullable|string',
+    //         'based_on' => 'nullable|in:latest,most-favorite',
+    //     ]);
+
+    //     $query = DB::table('books')
+    //             ->select('books.id', 'books.judul', 'books.penulis', DB::raw('COUNT(book_read_history.id) as number_of_reads'))
+    //             ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
+    //             ->groupBy('books.id');
+
+
+    //     // Sort the books based on the 'based_on' parameter
+    //     switch ($request->based_on) {
+    //         case 'latest':
+    //             $query->orderBy('books.created_at', 'desc');
+    //             break;
+    //         case 'most-favorite':
+    //             $query->orderBy('number_of_reads', 'desc');
+    //             break;
+    //     }
+        
+    //     $books = $query->paginate(16);
+
+    //     return view('user.books.search', compact('books'));
+    // }
+
+    // public function insearch()
+    // {
+        
+    //     $categories = Category::get();
+    //     return view('user.books.search', compact('categories'));
+    // }
+
+    public function search(Request $request)
+    {
+       $validatedData = $request->validate([
+            'q' => 'nullable|string',
+            'category' => 'nullable|numeric|exists:categories,id',
+           'based_on' => 'nullable|in:latest,most-favorite',
+       ]);
+
+
+        $query = DB::table('books')
+                ->select('books.id', 'books.judul', 'books.penulis', DB::raw('COUNT(book_read_history.id) as number_of_reads'))
+                ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
+                ->groupBy('books.id');
+
+        // Search for books by judul
+        if ($request->has('q')) {
+            $query->where('judul', 'like', '%'.$request->q.'%');
+        }
+
+        if ($request->has('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Sort the books based on the 'based_on' parameter
+        switch ($request->based_on) {
+            case 'latest':
+                $query->orderBy('books.created_at', 'desc');
+                break;
+            case 'most-favorite':
+                $query->orderBy('number_of_reads', 'desc');
+                break;
+        }
+        
+        $categories = Category::get();
+        $books = $query->paginate(16);
+
+
+        return view('user.books.search', compact('categories', 'books'));
+        // return response()->json($books);
     }
 
-    public function book()
+    // public function categories()
+    // {   
+    //     return view('user.books.categories');
+    // }
+
+    public function show(Request $request, Book $book)
     {
-        return view('user.books.book');
+        $book = Book::findOrFail($request->id);
+        $number_of_reads = DB::table('book_read_history')
+                            ->select('id')
+                            ->where('book_id', '=', $request->id)
+                            ->count();
+
+        $is_favorite = DB::table('favorites')
+                        ->select('id')
+                        ->where('user_id', '=', Auth::id())
+                        ->where('book_id', '=', $request->id)
+                        ->count();
+        if($is_favorite == 0) {
+            $is_favorite = false;
+        } elseif($is_favorite == 1) {
+            $is_favorite = true;
+        }
+
+        
+        $reviews = Review::where('book_id', $request->id);
+        $book_rate = $reviews->avg('star');
+        $reviews = $reviews->get();
+        if(count($reviews) == 0) {
+            $book_rate = 0;
+        }
+
+        $related_books = Book::where('category_id', $book->category_id)->inRandomOrder()->take(5)->get();
+
+        return view('user.books.book', compact('book', 'is_favorite', 'reviews', 'book_rate', 'number_of_reads', 'related_books'));
+        // return view('user.books.book');
     }
 
-    public function search()
-    {
-        return view('user.books.search');
-    }
-
-    public function favorites()
-    {
-        return view('user.books.favorites');
-    }
+    // public function favorites()
+    // {
+    //     return view('user.books.favorites');
+    // }
 }

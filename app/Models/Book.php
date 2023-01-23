@@ -49,4 +49,18 @@ class Book extends Model
         return 'char';
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function read_histories()
+    {
+        return $this->hasMany(BookReadHistory::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasOne(Category::class);
+    }
 }

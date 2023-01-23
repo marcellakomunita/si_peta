@@ -7,7 +7,9 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPanel\UDashboardController;
+use App\Http\Controllers\UserPanel\UserFavoritesController;
 use App\Http\Controllers\UserPanel\UserPanelController;
+use App\Http\Controllers\UserPanel\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -29,7 +31,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/content/cover/{id}', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess');
+Route::get('/content/cover/{id}', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
+Route::get('/content/uprofile/{id}', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
 Route::get('/not-found', [FileController::class, 'notfound']);
 
 /*------------------------------------------
@@ -39,13 +42,27 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
     Route::get('/home', [UDashboardController::class, 'index'])->name('home');
-    Route::get('/my-profile', [UDashboardController::class, 'profile'])->name('profile');
+    Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('about-us');
+
+    Route::prefix('/profile')->name('profile.')->controller(UserProfileController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/update', 'update')->name('update');
+
+    });
 
     Route::prefix('/')->name('books.')->controller(UserPanelController::class)->group(function () {
-        Route::get('categories', 'categories')->name('categories');
-        Route::get('book', 'book')->name('book');
+        // Route::get('categories', 'categories')->name('categories');
+        Route::get('book', 'show')->name('book');
         Route::get('search', 'search')->name('search');
-        Route::get('my-favorites', 'favorites')->name('favorites');
+
+        Route::prefix('/my-favorites')->name('favorites.')->controller(UserFavoritesController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/destroy', 'destroy')->name('destroy');
+            Route::post('/store', 'store')->name('store');
+            Route::post('/toggle', 'toggle')->name('toggle');
+            Route::get('/is-favorite/{id}', 'isFavorite')->name('isFavorite');
+        });
+        
     });
 
 });

@@ -17,6 +17,15 @@ class FileController extends Controller
         return response()->file($path);
     }
 
+    public function uimageShow($image)
+    {
+        $path = 'E:/hpics-upimg/' . $image . '.jpg';
+        if (!file_exists($path)) {
+            return response()->json(['error' => 'File not found'], 404);
+        }
+        return response()->file($path);
+    }
+
     public function fileShow($file)
     {
         $client = new Client();

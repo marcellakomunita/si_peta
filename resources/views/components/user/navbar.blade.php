@@ -11,13 +11,14 @@
             {{-- SI-PETA --}}
           </div>
 
-          <form action="#" method="GET" class="w-full shrink hidden md:block md:px-12">
+          <form action="{{ route('user.books.search') }}" method="GET" class="w-full shrink hidden md:block md:px-12">
             <label for="topbar-search" class="sr-only">Search</label>
             <div class="mt-1 relative lg:w-64">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
               </div>
-              <input type="text" name="email" id="topbar-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full pl-10 p-2.5" placeholder="Search">
+              <input type="text" name="q" placeholder="Search books..." value="{{ request()->query('q') }}" id="topbar-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full pl-10 p-2.5">
+              <input type="hidden" name="based_on" value="{{ request()->query('based_on') }}">
             </div>
           </form>
 
@@ -52,9 +53,8 @@
                   aria-expanded="false"
                 >
                   <img
-                    src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                    class="rounded-full"
-                    style="height: 25px; width: 25px"
+                    src="{{ route('content.uprofile', ['id'=> Auth::user()->id]) }}"
+                    class="rounded-full h-8 w-8"
                     alt=""
                     loading="lazy"
                   />
@@ -66,21 +66,21 @@
                   <li>
                     <a
                       class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-                      href="{{ route('user.books.favorites') }}"
+                      href="{{ route('user.books.favorites.index') }}"
                       >Favorit Saya</a
                     >
                   </li>
-                  <li>
+                  {{-- <li>
                     <a
                       class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                       href="#"
                       >Notifications</a
                     >
-                  </li>
+                  </li> --}}
                   <li>
                     <a
                       class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-                      href="{{ route('user.profile') }}"
+                      href="{{ route('user.profile.index') }}"
                       >Profile</a
                     >
                   </li>
@@ -110,17 +110,14 @@
     <div class="md:pb-1 md:pt">
       <div class="hidden w-full md:block md:w-auto" id="navbar-default">
         <ul class="flex flex-col md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
-          {{-- <li>
-            <a href="#" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
-          </li> --}}
           <li>
-            <a href="#" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Kategori</a>
+            <a href="{{ route('user.home') }}" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" aria-current="page">Home</a>
           </li>
           <li>
-            <a href="#" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Kontak</a>
+            <a href="#footer" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Kontak</a>
           </li>
           <li>
-            <a href="#" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Tentang Kami</a>
+            <a href="{{ route('user.about-us') }}" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Tentang Kami</a>
           </li>
         </ul>
       </div>

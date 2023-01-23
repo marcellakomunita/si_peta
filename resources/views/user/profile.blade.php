@@ -5,24 +5,25 @@
     <div class="w-full">
         <div class="mb-8 bg-white rounded-md shadow-sm p-4">  
                 <div class="space-y-6">
-                    <form role="form" action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+                    <form role="form" action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data">
                         <div class="flex justify-between">
 
                             <span class="w-2/3">
                                 <!-- Modal body -->
                                 <div class="grid grid-cols-2 gap-6">
                                     @csrf
+                                    @method('PUT')
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Nama</label>
-                                        <input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
+                                        <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="email" class="text-sm font-medium text-gray-900 block mb-2">Email</label>
-                                        <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="example@company.com" required>
+                                        <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="example@company.com" required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="phone" class="text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
-                                        <input type="number" name="phone" id="phone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. +(12)3456 789" required>
+                                        <input type="number" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. +(12)3456 789" required>
                                     </div>
                                 </div> 
 
@@ -35,7 +36,11 @@
                             <!-- Profile Photo -->
                             <span>
                                 <div class="rounded-md border-gray-500 shadow-sm w-48 h-64">
-                                    <img src="https://upload.wikimedia.org/wikipedia/id/1/18/Spring_in_London_%28sampul%29.jpg" alt="" class="w-full h-full">
+                                    @if($user->photo == '' || is_null(($user->photo)))
+                                        <img src="{{ asset('images/icon/biografi.png') }}" alt="" class="w-full h-full" id="preview">
+                                    @else
+                                        <img src="{{ route('content.uprofile', ['id'=>$user->id]) }}" alt="user_photo"  class="w-full h-full" id="preview">
+                                    @endif
                                 </div>
                                 <label for="user_photo" class="flex align-center items-center justify-center w-fit mx-auto mt-3 py-2 custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 icon icon-tabler icon-tabler-file-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -47,7 +52,7 @@
                                      </svg>
                                      Change Photo
                                 </label>
-                                <input type="file" name="user_photo" id="user_photo" placeholder="Bonnie" required>
+                                <input type="file" name="user_photo" id="user_photo" placeholder="Bonnie">
                             </span>
                     </form>
                 </div>
@@ -58,4 +63,21 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        document.querySelector('#user_photo').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                // Do something with the dataURI
+                var dataURI = reader.result;
+                // display the image preview
+                document.querySelector('#preview').src = dataURI;
+            };
+
+            reader.readAsDataURL(file);
+        });
+    })
+</script>
 @endsection
