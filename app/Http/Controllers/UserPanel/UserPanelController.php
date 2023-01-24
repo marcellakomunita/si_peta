@@ -9,6 +9,7 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class UserPanelController extends Controller
 {
@@ -74,9 +75,12 @@ class UserPanelController extends Controller
         }
 
         
-        $reviews = Review::where('book_id', $request->id);
+        $reviews = DB::table('reviews')
+                    ->select('reviews.*', 'users.name', 'users.created_at as joined_at')
+                    ->where('reviews.book_id', '=', $request->id)
+                    ->join('users', 'reviews.user_id', '=', 'users.id');
         $book_rate = $reviews->avg('star');
-        $reviews = $reviews->get();
+        $reviews = $reviews->take(5)->get();
         if(count($reviews) == 0) {
             $book_rate = 0;
         }
@@ -165,5 +169,7 @@ class UserPanelController extends Controller
                     ->get();
         return view('user.books.publisher', compact('books', 'publisher'));
     }
+
+    
     
 }

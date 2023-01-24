@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPanel\ReviewController;
 use App\Http\Controllers\UserPanel\UDashboardController;
 use App\Http\Controllers\UserPanel\UserFavoritesController;
 use App\Http\Controllers\UserPanel\UserPanelController;
@@ -35,6 +36,11 @@ Route::get('/content/cover/{id}', [FileController::class, 'cimageShow'])->middle
 Route::get('/content/uprofile/{id}', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
 Route::get('/not-found', [FileController::class, 'notfound']);
 
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
@@ -54,6 +60,11 @@ Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
         // Route::get('categories', 'categories')->name('categories');
         Route::get('book', 'show')->name('book');
         Route::get('search', 'search')->name('search');
+
+        Route::prefix('/reviews')->name('reviews.')->controller(ReviewController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+        });
 
         Route::get('authors', 'authors')->name('authors');
         Route::get('author/{id}', 'author')->name('author');
