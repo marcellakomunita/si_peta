@@ -4,7 +4,6 @@ namespace App\Http\Controllers\UserPanel;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
-use App\Models\BookReadHistory;
 use App\Models\Category;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -13,40 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class UserPanelController extends Controller
 {
-    // public function index(Request $request) {
-    //      // Validate the parameters
-    //     $validatedData = $request->validate([
-    //         'q' => 'nullable|string',
-    //         'based_on' => 'nullable|in:latest,most-favorite',
-    //     ]);
-
-    //     $query = DB::table('books')
-    //             ->select('books.id', 'books.judul', 'books.penulis', DB::raw('COUNT(book_read_history.id) as number_of_reads'))
-    //             ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
-    //             ->groupBy('books.id');
-
-
-    //     // Sort the books based on the 'based_on' parameter
-    //     switch ($request->based_on) {
-    //         case 'latest':
-    //             $query->orderBy('books.created_at', 'desc');
-    //             break;
-    //         case 'most-favorite':
-    //             $query->orderBy('number_of_reads', 'desc');
-    //             break;
-    //     }
-        
-    //     $books = $query->paginate(16);
-
-    //     return view('user.books.search', compact('books'));
-    // }
-
-    // public function insearch()
-    // {
-        
-    //     $categories = Category::get();
-    //     return view('user.books.search', compact('categories'));
-    // }
 
     public function search(Request $request)
     {
@@ -89,11 +54,6 @@ class UserPanelController extends Controller
         // return response()->json($books);
     }
 
-    // public function categories()
-    // {   
-    //     return view('user.books.categories');
-    // }
-
     public function show(Request $request, Book $book)
     {
         $book = Book::findOrFail($request->id);
@@ -124,11 +84,86 @@ class UserPanelController extends Controller
         $related_books = Book::where('category_id', $book->category_id)->inRandomOrder()->take(5)->get();
 
         return view('user.books.book', compact('book', 'is_favorite', 'reviews', 'book_rate', 'number_of_reads', 'related_books'));
-        // return view('user.books.book');
     }
 
-    // public function favorites()
-    // {
-    //     return view('user.books.favorites');
-    // }
+    public function authors()
+    {
+        $authors = DB::table('books')
+                    ->select('authors.name','authors.id')
+                    ->join('authors', 'authors.name', '=', 'books.penulis')
+                    ->distinct()
+                    ->get();
+
+        $authorsByLetter = [];
+        foreach ($authors as $author) {
+            // dd($author);
+            $firstLetter = strtoupper(substr($author->name, 0, 1));
+            if (!isset($authorsByLetter[$firstLetter])) {
+                $authorsByLetter[$firstLetter] = [];
+            }
+            $authorsByLetter[$firstLetter][] = [
+                'name' => $author->name,
+                'id' => $author->id
+            ];
+        }
+        
+        return view('user.books.authors', [
+            'authors' => $authorsByLetter,
+        ]);
+    }
+
+    public function author(Request $request)
+    {
+        $books = DB::table('authors')
+                    ->select('books.*', 'authors.id as aid')
+                    ->join('books', 'books.penulis', '=', 'authors.name')
+                    ->where('authors.id', '=', $request->id)
+                    ->get();
+        $author = DB::table('authors')
+                    ->select('authors.name')
+                    ->where('id', '=', $request->id)
+                    ->get();
+        return view('user.books.author', compact('books', 'author'));
+    }
+
+    public function publishers()
+    {
+        $publishers = DB::table('books')
+                    ->select('publishers.name','publishers.id')
+                    ->join('publishers', 'publishers.name', '=', 'books.penerbit')
+                    ->distinct()
+                    ->get();
+
+        $publishersByLetter = [];
+        foreach ($publishers as $publisher) {
+            $firstLetter = strtoupper(substr($publisher->name, 0, 1));
+            if (!isset($publishersByLetter[$firstLetter])) {
+                $publishersByLetter[$firstLetter] = [];
+            }
+            $publishersByLetter[$firstLetter][] = [
+                'name' => $publisher->name,
+                'id' => $publisher->id
+            ];
+        }
+        
+        return view('user.books.publishers', [
+            'publishers' => $publishersByLetter,
+        ]);
+    }
+
+    public function publisher(Request $request)
+    {
+        $books = DB::table('publishers')
+                    ->select('books.*', 'publishers.id as aid')
+                    ->join('books', 'books.penerbit', '=', 'publishers.name')
+                    ->where('publishers.id', '=', $request->id)
+                    ->get();
+                    
+        $publisher = DB::table('publishers')
+                    ->select('publishers.name')
+                    ->where('id', '=', $request->id)
+                    ->get();
+        return view('user.books.publisher', compact('books', 'publisher'));
+    }
+    
 }

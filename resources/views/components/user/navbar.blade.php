@@ -7,11 +7,11 @@
           </button>
 
           <div class="flex-0 flex items-center md:shrink md:justify-center">
-            <img src="https://flowbite.com/docs/images/logo.svg" alt="">
+            <img src="{{ asset('images/sipeta.png') }}" alt="logo" class="h-12 w-12">
             {{-- SI-PETA --}}
           </div>
 
-          <form action="{{ route('user.books.search') }}" method="GET" class="w-full shrink hidden md:block md:px-12">
+          <form action="{{ route('user.books.search') }}" method="GET" class="w-full shrink hidden md:block md:px-8">
             <label for="topbar-search" class="sr-only">Search</label>
             <div class="mt-1 relative lg:w-64">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

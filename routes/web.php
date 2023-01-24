@@ -55,6 +55,12 @@ Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
         Route::get('book', 'show')->name('book');
         Route::get('search', 'search')->name('search');
 
+        Route::get('authors', 'authors')->name('authors');
+        Route::get('author/{id}', 'author')->name('author');
+        
+        Route::get('publishers', 'publishers')->name('publishers');
+        Route::get('publisher/{id}', 'publisher')->name('publisher');
+
         Route::prefix('/my-favorites')->name('favorites.')->controller(UserFavoritesController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/destroy', 'destroy')->name('destroy');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -50,13 +51,24 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'file_ebook' => 'required|mimes:pdf|max:2048',
-        //     'image_cover' => 'required|mimes:png,jpg,jpeg|max:2048',
-        // ]);
 
         try {
             if ($request->file_ebook && $request->img_cover) {
+
+                $request->validate([
+                    'file_ebook' => 'required|mimes:pdf|max:2048',
+                    'image_cover' => 'required|mimes:png,jpg,jpeg|max:2048',
+                ]);
+
+                DB::beginTransaction();
+
+                $author = DB::table('author')->where('name', $request->penulis)->first();
+                if (!$author) {
+                    $author = new Author();
+                    $author->name = $request->penulis;
+                    $author->save();
+                }
+                
                 $book = new Book();
                 $id = Str::random(16);
                 // $filePath = $request->file('file_ebook')->storeAs('uploads', $fileName, 'public');

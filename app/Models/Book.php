@@ -63,4 +63,14 @@ class Book extends Model
     {
         return $this->hasOne(Category::class);
     }
+
+    public function publishers()
+    {
+        return $this->hasOne(Publisher::class);
+    }
+
+    public function authors()
+    {
+        return $this->hasOne(Author::class);
+    }
 }
