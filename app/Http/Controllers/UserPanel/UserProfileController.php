@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserProfileController extends Controller
 {
@@ -28,13 +30,29 @@ class UserProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'regex:/^[0-9]{11,14}$/', Rule::unique('users')->ignore(Auth::user()->id)],
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+    }
+    
     public function update(Request $request)
     {
         try {
-            $request->validate([
-                'user_photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-            ]);
 
+            $validator = $this->validator($request->all());
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            
             $user = User::where('id', Auth::id())->first();
             $user->name = $request->name;
             $user->email = $request->email;
