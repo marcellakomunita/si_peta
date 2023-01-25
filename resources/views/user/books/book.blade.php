@@ -14,7 +14,7 @@ use Carbon\Carbon;
                     <img alt="ecommerce" class="lg:w-1/3 p-4 w-full object-cover object-center rounded border border-gray-200" src="https://upload.wikimedia.org/wikipedia/id/1/18/Spring_in_London_%28sampul%29.jpg">
                     <div class="lg:w-1/2 w-full lg:pl-16 lg:py-6 mt-6 lg:mt-0">
                         <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ $book->penulis }}</h2>
-                        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $book->judul }}</h1>
+                        <h1 class="text-gray-900 text-3xl title-font font-medium my-1">{{ $book->judul }}</h1>
                         <div class="flex mb-4">
                             <span class="flex items-center">
                                 @for($i=1; $i<=floor($book_rate); $i++)
@@ -33,7 +33,7 @@ use Carbon\Carbon;
                         </div>
                         <p class="leading-relaxed mb-4">{{ $book->sinopsis }}</p>
                         <div class="details">
-                            <p class="font-bold mb-3">Detail Ebook</p>
+                            <p class="mb-3 text-lg font-silk">Detail Ebook</p>
                             <div class="grid grid-cols-2 gap-3">
                                 <p><span class="font-bold text-gray-400">ISBN</span><br>{{ $book->isbn }}</p>
                                 <p><span class="font-bold text-gray-400">Penerbit</span><br>{{ $book->penerbit }}</p>
@@ -57,11 +57,12 @@ use Carbon\Carbon;
 
         <!-- review column -->
         {{-- <h2 class="text-lg font-bold mb-6 pb-6 border-bottom border-gray-200">Review Buku</h2> --}}
-        <div class="px-2 pt-8 mt-16 border-top border-gray-200">
+        <div class="px-2 mt-16 border-top border-gray-200">
             @csrf
             <form action="{{ route('user.books.reviews.store') }}" method="POST" class="my-8">
-                <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-4">Rate this book</h2>
-                <div class="star-rating flex">
+                <h2 class="text-2xl tracking-tight text-gray-900 font-silk">Beri Penilaian</h2>
+                <p class="text-red-600 my-1 text-xs">{{ $errors->first('multipleReview') }}</p>
+                <div class="star-rating flex mt-4">
                     @for($i=1; $i<=5; $i++)
                         <svg data-value="{{ $i }}" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="star w-8 h-8 mr-3 text-gray-500" viewBox="0 0 24 24">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -82,10 +83,10 @@ use Carbon\Carbon;
               </form>
               
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-4">Ulasan</h2>
+                <h2 class="text-2xl tracking-tight text-gray-900 mb-4 font-silk">Ulasan Ebook</h2>
                 @if(count($reviews) > 0)
                 <a href="{{ route('user.books.reviews.index', ['id' => $book->id]) }}">
-                    <p class="text-xs text-gray-800 hover:underline">Lihat semua</p>
+                    <p class="text-xs text-gray-800 hover:text-red-500">Lihat semua</p>
                 </a>
                 @endif
             </div>
@@ -101,7 +102,7 @@ use Carbon\Carbon;
                     </div>
                     <div class="flex items-center mb-1">
                         @for($i=1; $i<=($review->star); $i++)
-                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                         @endfor
 
                         
@@ -123,7 +124,7 @@ use Carbon\Carbon;
 
         <!-- also purchased -->
         <div class="mx-auto pt-8 pb-16 border-top border-gray-200">
-            <h2 class="text-2xl font-bold tracking-tight text-gray-900">Rekomendasi Untukmu</h2>
+            <h2 class="text-2xl tracking-tight text-gray-900 mb-4 font-silk">Rekomendasi Untukmu</h2>
             <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
                 @foreach($related_books as $book)
                 <div class="group relative rounded-t-xl">

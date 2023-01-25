@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->char('id', 16)->primary();
             $table->unsignedBigInteger('category_id')->nullable();
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('isbn')->unique();
             $table->string('judul');
             $table->string('penulis');

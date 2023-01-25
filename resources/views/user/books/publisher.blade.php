@@ -3,7 +3,7 @@
 @section('sub-content')
 <div class="pt-40" style="background-color: #f8f8f8">
     <div class="w-full">
-        <h2 class="text-2xl font-bold tracking-tight text-gray-900">Penerbit: {{ $publisher[0]->name }}</h2>
+        <h2 class="text-2xl font-silk text-gray-900">Penerbit: {{ $publisher[0]->name }}</h2>
 
         @if(count($books) > 0)
         <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">

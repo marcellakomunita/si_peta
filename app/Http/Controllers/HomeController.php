@@ -23,16 +23,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.home');
+        if (auth()->user()->type == 1) {
+            return redirect()->route('admin.dashboard');
+        }else if (auth()->user()->type == 0) {
+            return redirect()->route('user.home');
+        }else {
+            return redirect()->route('login');
+        }
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function adminHome()
-    {
-        return view('admin.dashboard');
-    }
+    // public function unauthorized()
+    // {
+    //     return view('vendor.unauthorized');
+    // }
 }

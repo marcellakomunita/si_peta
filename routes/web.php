@@ -26,109 +26,108 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
+// Route::get('/unauthorized', [HomeController::class, 'unauthorized']);
 
-Route::get('/content/cover/{id}', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
-Route::get('/content/uprofile/{id}', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
-Route::get('/not-found', [FileController::class, 'notfound']);
+Route::middleware(['CheckIPAccess'])->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
 
-Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
-Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
-Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+    Auth::routes();
 
-/*------------------------------------------
---------------------------------------------
-All Normal Users Routes List
---------------------------------------------
---------------------------------------------*/
-Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
-    Route::get('/home', [UDashboardController::class, 'index'])->name('home');
-    Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('about-us');
+    Route::get('/content/cover/{id}', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
+    Route::get('/content/uprofile/{id}', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
+    Route::get('/not-found', [FileController::class, 'notfound']);
 
-    Route::prefix('/profile')->name('profile.')->controller(UserProfileController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::put('/update', 'update')->name('update');
+    Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+    Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+    Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+    Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-    });
+    /*------------------------------------------
+    --------------------------------------------
+    All Normal Users Routes List
+    --------------------------------------------
+    --------------------------------------------*/
+    Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
+        Route::get('/home', [UDashboardController::class, 'index'])->name('home');
+        Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('about-us');
 
-    Route::prefix('/')->name('books.')->controller(UserPanelController::class)->group(function () {
-        // Route::get('categories', 'categories')->name('categories');
-        Route::get('book', 'show')->name('book');
-        Route::get('search', 'search')->name('search');
-
-        Route::prefix('/reviews')->name('reviews.')->controller(ReviewController::class)->group(function () {
+        Route::prefix('/profile')->name('profile.')->controller(UserProfileController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::post('/store', 'store')->name('store');
+            Route::put('/update', 'update')->name('update');
+
         });
 
-        Route::get('authors', 'authors')->name('authors');
-        Route::get('author/{id}', 'author')->name('author');
-        
-        Route::get('publishers', 'publishers')->name('publishers');
-        Route::get('publisher/{id}', 'publisher')->name('publisher');
+        Route::prefix('/')->name('books.')->controller(UserPanelController::class)->group(function () {
+            // Route::get('categories', 'categories')->name('categories');
+            Route::get('book', 'show')->name('book');
+            Route::get('search', 'search')->name('search');
 
-        Route::prefix('/my-favorites')->name('favorites.')->controller(UserFavoritesController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('/destroy', 'destroy')->name('destroy');
-            Route::post('/store', 'store')->name('store');
-            Route::post('/toggle', 'toggle')->name('toggle');
-            Route::get('/is-favorite/{id}', 'isFavorite')->name('isFavorite');
+            Route::prefix('/reviews')->name('reviews.')->controller(ReviewController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/store', 'store')->name('store');
+            });
+
+            Route::get('authors', 'authors')->name('authors');
+            Route::get('author/{id}', 'author')->name('author');
+            
+            Route::get('publishers', 'publishers')->name('publishers');
+            Route::get('publisher/{id}', 'publisher')->name('publisher');
+
+            Route::prefix('/my-favorites')->name('favorites.')->controller(UserFavoritesController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/destroy', 'destroy')->name('destroy');
+                Route::post('/store', 'store')->name('store');
+                Route::post('/toggle', 'toggle')->name('toggle');
+                Route::get('/is-favorite/{id}', 'isFavorite')->name('isFavorite');
+            });
+            
         });
-        
-    });
 
-});
-  
-/*------------------------------------------
---------------------------------------------
-All Admin Routes List
---------------------------------------------
---------------------------------------------*/
-Route::middleware(['auth', 'user-access:1'])->prefix('/admin')->name('admin.')->group(function () {
-  
-    Route::get('/dashboard', [ADashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/visitor-data', [ADashboardController::class, 'visitorData']);
-    Route::prefix('/users')->name('users.')->controller(UserController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update', 'update')->name('update');
-        Route::get('/destroy', 'destroy')->name('destroy');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
-    });
-    Route::prefix('/administrators')->name('administrators.')->controller(UserController::class)->group(function () {
-        Route::get('/', 'indexAdmin')->name('index');
-        Route::get('/edit/{id}', 'editAdmin')->name('edit');
-        Route::put('/update', 'updateAdmin')->name('update');
-        Route::get('/destroy', 'destroyAdmin')->name('destroy');
-        Route::get('/create', 'createAdmin')->name('create');
-        Route::post('/store', 'storeAdmin')->name('store');
-    });
-    Route::prefix('/books')->name('books.')->controller(BookController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        // Route::get('/show/{id}', 'show')->name('show');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update', 'update')->name('update');
-        Route::get('/destroy', 'destroy')->name('destroy');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
-    });
-    Route::prefix('/categories')->name('categories.')->controller(CategoryController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update', 'update')->name('update');
-        Route::get('/destroy', 'destroy')->name('destroy');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
     });
     
-});
-
-Route::get('/test', function () {
-    return view('admin.users.index');
+    /*------------------------------------------
+    --------------------------------------------
+    All Admin Routes List
+    --------------------------------------------
+    --------------------------------------------*/
+    Route::middleware(['auth', 'user-access:1'])->prefix('/admin')->name('admin.')->group(function () {
+    
+        Route::get('/dashboard', [ADashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/visitor-data', [ADashboardController::class, 'visitorData']);
+        Route::prefix('/users')->name('users.')->controller(UserController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
+            Route::get('/destroy', 'destroy')->name('destroy');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+        });
+        Route::prefix('/administrators')->name('administrators.')->controller(UserController::class)->group(function () {
+            Route::get('/', 'indexAdmin')->name('index');
+            Route::get('/edit/{id}', 'editAdmin')->name('edit');
+            Route::put('/update', 'updateAdmin')->name('update');
+            Route::get('/destroy', 'destroyAdmin')->name('destroy');
+            Route::get('/create', 'createAdmin')->name('create');
+            Route::post('/store', 'storeAdmin')->name('store');
+        });
+        Route::prefix('/books')->name('books.')->controller(BookController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            // Route::get('/show/{id}', 'show')->name('show');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
+            Route::get('/destroy', 'destroy')->name('destroy');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+        });
+        Route::prefix('/categories')->name('categories.')->controller(CategoryController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
+            Route::get('/destroy', 'destroy')->name('destroy');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+        });
+        
+    });
 });

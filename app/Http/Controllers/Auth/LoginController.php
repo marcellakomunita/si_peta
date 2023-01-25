@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 // use vendor\laravel\ui\auth-backend\AuthenticatesUsers.php
 class LoginController extends Controller
 {
@@ -38,15 +40,27 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    }
+
 
     public function login(Request $request)
     {   
         $input = $request->all();
       
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $validator = $this->validator($input);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
       
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
@@ -57,7 +71,7 @@ class LoginController extends Controller
             }
         }else{
             return redirect()->route('login')
-                ->with('email','Email-Address And Password Are Wrong.');
+                ->withErrors(['failed' => 'Email-Address and Password are Wrong']);
         }
            
     }

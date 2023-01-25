@@ -12,7 +12,7 @@
             @if(count($authors) > 0)
             @foreach ($authors as $letter => $author)
                 <div id="{{ 'index-' . $letter }}" class="flex items-center py-8 border-b border-gray-500">
-                    <div class="bg-black text-white p-4 mr-8 rounded-full w-12 h-12 flex items-center justify-center">
+                    <div class="bg-red-500 text-white p-4 mr-8 rounded-full w-12 h-12 flex items-center justify-center font-silk text-xl">
                         {{ $letter }}
                     </div>
                     

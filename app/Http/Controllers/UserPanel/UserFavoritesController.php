@@ -35,6 +35,10 @@ class UserFavoritesController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $singleFave = DB::table('favorites')->select('id')->where('book_id', '=', $request->book_id)->where('user_id', '=', Auth::id())->get();
+        if(count($singleFave) > 0) {
+            return redirect()->back()->withErrors(['sameBook' => 'Buku ini sudah ditambahkan ke daftar favorit Anda.']);
+        }
         $favorite = Favorites::where('book_id', $id)->where('user_id', Auth::id())->first();
         if($favorite) {
             return back()->with('error', 'This book is already in your favorites');

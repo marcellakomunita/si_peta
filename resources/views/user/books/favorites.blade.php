@@ -17,7 +17,7 @@
         @else
         <div class="mx-auto">
             
-            <h2 class="text-2xl font-bold tracking-tight text-gray-900">Favorite Books</h2>
+            <h2 class="text-2xl font-silk text-gray-900">Favorite Books</h2>
             <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
                 
                 @foreach($favorites as $favorite)

@@ -17,19 +17,19 @@ class CreateReviewsSeeder extends Seeder
     {
         $reviews = [
             [
-                'book_id' => '6fTkLoaa2cXNds27',
+                'book_id' => 'MbCjVDJshaxZAYfg',
                 'user_id' => '2',
                 'star' => '4',
                 'review' => 'iniew 1 reveiwwwnaofnaw afss'
             ],
             [
-                'book_id' => 'dSRmbZTqzGfgVjfo',
+                'book_id' => 'sQV3EL0YH0h1Vu6K',
                 'user_id' => '2',
                 'star' => '5',
                 'review' => 'iniew 2 reveiwwwnaofnaw afss'
             ],
             [
-                'book_id' => '6fTkLoaa2cXNds27',
+                'book_id' => 'MbCjVDJshaxZAYfg',
                 'user_id' => '2',
                 'star' => '3',
                 'review' => 'iniew 3 reveiwwwnaofnaw afss'

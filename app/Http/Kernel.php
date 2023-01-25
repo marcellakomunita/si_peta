@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'user-access' => \App\Http\Middleware\UserAccess::class,
         'CheckImageCAccess' => \App\Http\Middleware\CheckImageCAccess::class,
+        'CheckIPAccess'=> \App\Http\Middleware\CheckIPAccess::class,
     ];
 }

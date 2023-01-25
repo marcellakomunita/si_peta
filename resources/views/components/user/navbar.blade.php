@@ -53,8 +53,9 @@
                   aria-expanded="false"
                 >
                   <img
-                    src="{{ route('content.uprofile', ['id'=> Auth::user()->id]) }}"
-                    class="rounded-full h-8 w-8"
+                    src="{{ Auth::user()->photo ? route("content.uprofile", ["id"=>Auth::user()->id]) : asset("images/icon/biografi.png") }}"
+                    {{-- src="{{ route('content.uprofile', ['id'=> Auth::user()->id]) }}" --}}
+                    class="rounded-full h-8 w-8 border"
                     alt=""
                     loading="lazy"
                   />
@@ -65,21 +66,21 @@
                 >
                   <li>
                     <a
-                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
                       href="{{ route('user.books.favorites.index') }}"
                       >Favorit Saya</a
                     >
                   </li>
                   {{-- <li>
                     <a
-                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
                       href="#"
                       >Notifications</a
                     >
                   </li> --}}
                   <li>
                     <a
-                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
                       href="{{ route('user.profile.index') }}"
                       >Profile</a
                     >
@@ -111,13 +112,13 @@
       <div class="hidden w-full md:block md:w-auto" id="navbar-default">
         <ul class="flex flex-col md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
           <li>
-            <a href="{{ route('user.home') }}" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" aria-current="page">Home</a>
+            <a href="{{ route('user.home') }}" class="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0" aria-current="page">Home</a>
           </li>
           <li>
-            <a href="#footer" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Kontak</a>
+            <a href="#footer" class="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">Kontak</a>
           </li>
           <li>
-            <a href="{{ route('user.about-us') }}" class="block py-2 pl-3 pr-4 text-black font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Tentang Kami</a>
+            <a href="{{ route('user.about-us') }}" class="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0">Tentang Kami</a>
           </li>
         </ul>
       </div>

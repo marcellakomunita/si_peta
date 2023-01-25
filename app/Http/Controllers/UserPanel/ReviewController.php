@@ -24,6 +24,10 @@ class ReviewController extends Controller
 
     public function store(Request $request)
     {
+        $singleReview = DB::table('reviews')->select('id')->where('book_id', '=', $request->book_id)->where('user_id', '=', Auth::id())->get();
+        if(count($singleReview) > 0) {
+            return redirect()->back()->withErrors(['multipleReview' => 'Penilaian gagal. Anda sudah memberikan ulasan untuk buku ini.']);
+        }
         $review = new Review();
         $review->user_id = Auth::id();
         $review->book_id = $request->book_id;

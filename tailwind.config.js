@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'silk': ['DM Serif Display', 'Nunito'],
+    },
   },
   plugins: [
     require('flowbite/plugin'),

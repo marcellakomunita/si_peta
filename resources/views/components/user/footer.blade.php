@@ -1,10 +1,10 @@
 
-<footer class="px-12 lg:px-24 py-16" id="footer">
-    <div class="grid grid-cols-3 gap-8 py-8 md:grid-cols-5">
+<footer class="  " id="footer">
+    <div class="px-12 lg:px-24 pt-16 mt-16 pb-4 border-y grid grid-cols-3 gap-8 md:grid-cols-5">
         <div class="col-span-3 md:col-span-2">
             
             <img src="{{ asset('images/sipeta.png') }}" alt="logo" class="h-24 w-24 mb-8">
-            <p>Sistem Informasi Perpustakaan Internet <br> Dinas Arsip dan Perpustakaan Kota Semarang.</p>
+            <p>Sistem Informasi Perpustakaan Intranet <br> Dinas Arsip dan Perpustakaan Kota Semarang.</p>
             <div class="flex mt-4 space-x-4 md:mt-0">
                 <a href="https://www.facebook.com/sibooky" class="text-gray-800 hover:text-gray-900">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
@@ -22,16 +22,13 @@
 
         </div>
         <div>
-            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Informasi</h2>
+            <h2 class="mb-6 text-sm font-semibold text-red-500 uppercase">Informasi</h2>
             <ul class="text-gray-800 hover:text-gray-900">
                 <li class="mb-3">
-                    <a href="#" class=" ">Tentang Sipeta</a>
+                    <a href="{{ route('user.about-us') }}" class=" ">Tentang Sipeta</a>
                 </li>
                 <li class="mb-3">
-                    <a href="#" class="">Perpustakaan</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="">Tentang Sibooky</a>
+                    <a href="https://arpusda.semarangkota.go.id" class="">Perpustakaan</a>
                 </li>
                 <li class="mb-3">
                     <a href="#" class="">Ketentuan Kebijakan</a>
@@ -39,10 +36,10 @@
             </ul>
         </div>
         <div>
-            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Layanan</h2>
+            <h2 class="mb-6 text-sm font-semibold text-red-500 uppercase">Layanan</h2>
             <ul class="text-gray-800">
                 <li class="mb-3">
-                    <a href="#" class="">eBook</a>
+                    <a href="{{ route('user.books.search') }}" class="">Ebook</a>
                 </li>
                 <li class="mb-3">
                     <a href="{{ route('user.books.publishers') }}" class="">Penerbit</a>
@@ -53,7 +50,7 @@
             </ul>
         </div>
         <div>
-            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Legal</h2>
+            <h2 class="mb-6 text-sm font-semibold text-red-500 uppercase">Legal</h2>
             <ul class="text-gray-800">
                 <li class="mb-3">
                     <a href="#" class="">Privacy Policy</a>
@@ -84,8 +81,8 @@
             </ul>
         </div> --}}
     </div>
-    <div class="border-top py-6 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500  sm:text-center">© 2023 PKL IF-20. All Rights Reserved.
+    <div class="px-12 lg:px-24 py-4 md:flex md:items-center md:justify-between">
+        <span class="text-sm text-gray-500  sm:text-center">© 2023 <span class="text-red-500">PKL IF-20</span>. All Rights Reserved.
         </span>
     </div>
 </footer>
