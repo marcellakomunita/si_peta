@@ -67,7 +67,6 @@ class LoginController extends Controller
             if (auth()->user()->type == 1) {
                 return redirect()->route('admin.dashboard');
             }else if (auth()->user()->type == 0) {
-                // dd($request);
                 return redirect()->route('user.dashboard');
             }
         }else{

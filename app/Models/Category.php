@@ -18,4 +18,9 @@ class Category extends Model
         'name',
         'img_icon'
     ];
+
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }

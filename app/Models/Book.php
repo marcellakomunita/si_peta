@@ -59,9 +59,9 @@ class Book extends Model
         return $this->hasMany(BookReadHistory::class);
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function publishers()

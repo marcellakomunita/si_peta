@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ADashboardController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
@@ -29,29 +30,22 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 
-// Route::get('/unauthorized', [HomeController::class, 'unauthorized']);
 
 Route::middleware(['CheckIPAccess'])->group(function () {
-    Route::get('/', [HomeController::class, 'index']);
+    // Route::get('/', [HomeController::class, 'index']);
 
     Auth::routes();
 
     Route::get('/content/cover', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
     Route::get('/content/uprofile', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
     Route::get('/not-found', [FileController::class, 'notfound']);
-
-    Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-    Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
-    Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
-    Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-
     /*------------------------------------------
     --------------------------------------------
     All Normal Users Routes List
     --------------------------------------------
     --------------------------------------------*/
     Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
-        Route::get('/home', [UDashboardController::class, 'index'])->name('home');
+        Route::get('/', [UDashboardController::class, 'index'])->name('dashboard');
         Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('about-us');
 
         Route::prefix('/profile')->name('profile.')->controller(UserProfileController::class)->group(function () {
