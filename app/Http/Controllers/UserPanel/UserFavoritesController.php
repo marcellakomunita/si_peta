@@ -60,7 +60,7 @@ class UserFavoritesController extends Controller
      */
     public function destroy(Request $request, Favorites $favorite)
     {
-        $favorite = Favorites::find($request->id);
+        $favorite = Favorites::findOrFail($request->id);
         if ($favorite->user_id != Auth::id()) {
             return back()->with('error', 'You can only remove your own favorites');
         }

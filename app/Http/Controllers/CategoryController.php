@@ -183,7 +183,7 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request, Category $category)
     {
-        $category = Category::find($request->id);
+        $category = Category::findOrFail($request->id);
         if (file_exists($category->img_icon)) {
             unlink($category->img_icon);
         }

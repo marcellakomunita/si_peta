@@ -301,7 +301,7 @@ class BookController extends Controller
      */
     public function destroy(Request $request, Book $book)
     {
-        $book = Book::find($request->id);
+        $book = Book::findOrFail($request->id);
         // dd($book->file_ebook);
         if (file_exists($book->file_ebook)) {
             unlink($book->file_ebook);

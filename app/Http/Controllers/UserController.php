@@ -230,14 +230,14 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        $user = User::find($request->id);
+        $user = User::findOrFail($request->id);
         $user->delete();
         return redirect('/admin/users');
     }
 
     public function destroyAdmin(Request $request, User $administrator)
     {
-        $administrator = User::find($request->id);
+        $administrator = User::findOrFail($request->id);
         $administrator->delete();
         return redirect('/admin/administrators');
     }
