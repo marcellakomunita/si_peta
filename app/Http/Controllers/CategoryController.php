@@ -16,6 +16,10 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        $request->validate([
+            'key' => ['string', 'max:255']
+        ]);
+        
         $categories = Category::where([
             [function ($query) use ($request) {
                 if (($key = $request->key)) {
@@ -65,10 +69,6 @@ class CategoryController extends Controller
                 ]);
 
                 return redirect('admin/categories/');
-            }
-            
-            else {
-                return back()->withInput()->withErrors(['error'=>'Field belum semua terisi.']);
             }
             
         } catch (QueryException $ex) {

@@ -56,10 +56,10 @@
         </div>
         <!-- Categories -->
 
-        <!-- e-Book Favorit -->
+        <!-- Ebook Favorit -->
         <div class="mx-auto py-8">
             <div class="flex justify-between items-center">
-                <h2 class="my-2 text-3xl text-gray-900 font-silk tracking-wide">e-Book Favorit</h2>
+                <h2 class="my-2 text-3xl text-gray-900 font-silk tracking-wide">Ebook Favorit</h2>
                 <a href="{{ route('user.books.search', ['based_on'=>'most-favorite']) }}">
                     <p class="text-xs text-gray-800 hover:text-red-500">Lihat semua</p>
                 </a>
@@ -69,7 +69,7 @@
                 <div class="group relative rounded-t-xl">
                     <div class="">
                         <div class="bg-white min-h-60 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-t-md group-hover:opacity-75 lg:aspect-none lg:h-60">
-                            <img src="{{ route('content.cover', ['id'=>'pMdzCGbsxhphw80B'])}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
+                            <img src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
                         </div>
                     </div>
                     <div class="rounded-b-lg px-4 py-3 flex justify-between bg-white">
@@ -89,12 +89,12 @@
             
             </div>
         </div>
-        <!-- e-Book Favorit -->
+        <!-- Ebook Favorit -->
 
-        <!-- e-Book Latest -->
+        <!-- Ebook Latest -->
         <div class="mx-auto py-8">
             <div class="flex justify-between items-center">
-                <h2 class="my-2 text-3xl text-gray-900 font-silk tracking-wide">e-Book Terbaru</h2>
+                <h2 class="my-2 text-3xl text-gray-900 font-silk tracking-wide">Ebook Terbaru</h2>
                 <a href="{{ route('user.books.search', ['based_on'=>'latest']) }}">
                     <p class="text-xs text-gray-800 hover:text-red-500">Lihat semua</p>
                 </a>
@@ -105,7 +105,7 @@
                 <div class="group relative rounded-t-xl">
                     <div class="">
                         <div class="bg-white min-h-60 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-t-md group-hover:opacity-75 lg:aspect-none lg:h-60">
-                            <img src="{{ route('content.cover', ['id'=>'pMdzCGbsxhphw80B'])}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
+                            <img src="{{ route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)])}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
                         </div>
                     </div>
                     <div class="rounded-b-lg px-4 py-3 flex justify-between bg-white">
@@ -125,7 +125,7 @@
             
             </div>
         </div>
-        <!-- e-Book Latest -->
+        <!-- Ebook Latest -->
     </div>
 </div>
 @endsection

@@ -10,7 +10,7 @@
     <div class="group relative rounded-t-xl">
         <div class="">
             <div class="bg-white min-h-60 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:aspect-none lg:h-60">
-                <img src="{{ route('content.cover', ['id'=>'pMdzCGbsxhphw80B'])}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
+                <img src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
             </div>
         </div>
         <div class="rounded-b-lg px-4 py-3 flex justify-between bg-white">

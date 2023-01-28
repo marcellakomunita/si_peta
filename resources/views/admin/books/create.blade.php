@@ -2,10 +2,10 @@
 
 @section('sub-content') 
 
-<div class="p-4 bg-white block items-center justify-between border-b border-gray-200 lg:mt-1.5">
+<div class="p-4 bg-white block items-center justify-between border-b border-gray-200  ">
     <div class="mb-1 w-full">
         <div class="mb-4">
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Create e-Book</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Create Ebook</h1>
         </div>
     </div>
     <!-- Modal body -->
@@ -19,58 +19,67 @@
         <form role="form" action="{{ route('admin.books.store') }}" method="POST" enctype="multipart/form-data">
             <div class="grid grid-cols-2 gap-6">
                 @csrf
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-6 md:col-span-3">
+                <div class="grid grid-cols-2 gap-6 col-span-3">
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="isbn" class="text-sm font-medium text-gray-900 block mb-2">ISBN</label>
-                        <input type="text" name="isbn" id="isbn" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
+                        <label for="isbn" class="{{ $errors->first('isbn') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">ISBN</label>
+                        <input type="text" name="isbn" id="isbn" value="{{ old('isbn') }}" class="{{ !$errors->first('isbn') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. 9789792220186" required>
+                        <p class="text-sm text-red-600">{{ $errors->first('isbn') }}</p>
                     </div>
                     <div class="col-span-2 sm:col-span-1">
                         <label for="tgl_terbit" class="text-sm font-medium text-gray-900 block mb-2">Tanggal Terbit</label>
-                        <input type="date" name="tgl_terbit" id="tgl_terbit" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
+                        <input value="{{ old('tgl_terbit') }}" type="date" name="tgl_terbit" id="tgl_terbit" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
                     </div>
                 </div>
-                <div class="col-span-6 sm:col-span-3">
-                    <label for="judul" class="text-sm font-medium text-gray-900 block mb-2">Judul Buku</label>
-                    <input type="text" name="judul" id="judul" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
-                </div>
-                <div class="col-span-6 sm:col-span-3">
-                    <label for="penulis" class="text-sm font-medium text-gray-900 block mb-2">Penulis</label>
-                    <input type="text" name="penulis" id="penulis" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
-                </div>
-                <div class="col-span-6 sm:col-span-3">
-                    <label for="penerbit" class="text-sm font-medium text-gray-900 block mb-2">Penerbit</label>
-                    <input type="text" name="penerbit" id="penerbit" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
-                </div>
-                {{-- <div class="grid grid-cols-2 gap-6 col-span-3"> --}}
-                    {{-- <div class="col-span-6 sm:col-span-3">
-                        <label for="tgl_terbit" class="text-sm font-medium text-gray-900 block mb-2">Tanggal Terbit</label>
-                        <input type="date" name="tgl_terbit" id="tgl_terbit" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
-                    </div> --}}
-                    {{-- <div class="col-span-6 sm:col-span-3">
-                        <label for="tipe_file" class="text-sm font-medium text-gray-900 block mb-2">File Extension</label>
-                        <select name="tipe_file" id="tipe_file" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
-                            <option>--Choose file extension--</option>
-                            <option>PDF</option>
+                <div class="grid grid-cols-2 gap-6 col-span-3">
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="judul" class="{{ $errors->first('judul') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Judul</label>
+                        <input type="text" name="judul" id="judul" value="{{ old('judul') }}" class="{{ !$errors->first('judul') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Rahasia Bintang" required>
+                        <p class="text-sm text-red-600">{{ $errors->first('judul') }}</p>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="kategori" class="text-sm font-medium text-gray-900 block mb-2">Kategori Buku</label>
+                        <select name="kategori" id="kategori" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                </div> --}}
-                <div class="col-span-6 sm:col-span-3">
-                    <label for="sinopsis" class="text-sm font-medium text-gray-900 block mb-2">Sinopsis</label>
-                    <textarea style="white-space: pre-line" rows='12' type="text" name="sinopsis" id="sinopsis" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required></textarea>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-6 md:col-span-3">
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="penulis" class="{{ $errors->first('penulis') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Penulis</label>
+                    <input type="text" name="penulis" id="penulis" value="{{ old('penulis') }}" class="{{ !$errors->first('penulis') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Dyan Nuranindya" required>
+                    <p class="text-sm text-red-600">{{ $errors->first('penulis') }}</p>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="penerbit" class="{{ $errors->first('penerbit') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Penerbit</label>
+                    <input type="text" name="penerbit" id="penerbit" value="{{ old('penerbit') }}" class="{{ !$errors->first('penerbit') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Gramedia Pustaka Utama" required>
+                    <p class="text-sm text-red-600">{{ $errors->first('penerbit') }}</p>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="sinopsis" class="{{ $errors->first('sinopsis') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Sinopsis</label>
+                    <textarea style="white-space: pre-line" rows='12' type="text" name="sinopsis" id="sinopsis" class="{{ !$errors->first('sinopsis') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Sinopsis Buku" required>{{ old('sinopsis') }}</textarea>
+                    <p class="text-sm text-red-600">{{ $errors->first('sinopsis') }}</p>
+                </div>
+                <div class="grid grid-cols-2 gap-6 col-span-3">
                     <div class="col-span-3 sm:col-span-1">
-                        <label for="img_cover" class="flex align-center items-center h-16 custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 w-full p-2.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 icon icon-tabler icon-tabler-file-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                                <path d="M12 11v6"></path>
-                                <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
-                             </svg>
-                             File Cover
+                        <label for="img_cover" id="cover-label" class="h-16 flex items-center custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 w-full p-2.5">
+                            <div class="flex align-center items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 icon icon-tabler icon-tabler-file-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                    <path d="M12 11v6"></path>
+                                    <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
+                                </svg>
+                                File Cover
+                            </div>
+                             
+                            <div class="rounded-md border-gray-500 shadow-sm w-48 h-64 mx-auto my-4 collapse" id="preview-container">
+                                <img src="#" alt="" class="w-full h-full" id="preview">
+                            </div>
                         </label>
-                        <input type="file" name="img_cover" id="img_cover" placeholder="Bonnie" required>
+                        <input type="file" name="img_cover" id="img_cover" placeholder="Bonnie">
+                        <p class="text-sm text-red-600">{{ $errors->first('img_cover') }}</p>
                     </div>
                     <div class="col-span-3 sm:col-span-1">
                         <label for="file_ebook" class="flex align-center items-center h-16 custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 w-full p-2.5">
@@ -81,9 +90,10 @@
                                 <path d="M12 11v6"></path>
                                 <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
                              </svg>
-                             File e-Book
+                             File Ebook
                         </label>
-                        <input type="file" name="file_ebook" id="file_ebook" placeholder="Bonnie" required>
+                        <input type="file" name="file_ebook" id="file_ebook" placeholder="Bonnie">
+                        <p class="text-sm text-red-600">{{ $errors->first('file_ebook') }}</p>
                     </div>
                 </div>
             </div> 
@@ -97,4 +107,23 @@
         @endif
     </div>
 
+<script>
+    $(document).ready(function() {
+        document.querySelector('#img_cover').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                // Do something with the dataURI
+                var dataURI = reader.result;
+                // display the image preview
+                document.querySelector('#cover-label').classList.remove('h-16', 'flex', 'items-center');
+                document.querySelector('#preview-container').classList.remove('collapse');
+                document.querySelector('#preview').src = dataURI;
+            };
+
+            reader.readAsDataURL(file);
+        });
+    })
+</script>
 @endsection

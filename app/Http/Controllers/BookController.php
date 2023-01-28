@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Publisher;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use PDOException;
 
 class BookController extends Controller
 {
@@ -19,6 +24,10 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
+        $request->validate([
+            'key' => ['string', 'max:255']
+        ]);
+
         $books = Book::where([
             [function ($query) use ($request) {
                 if (($key = $request->key)) {
@@ -40,7 +49,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('admin.books.create');
+        $categories = Category::get();
+        return view('admin.books.create', compact('categories'));
     }
 
     /**
@@ -49,62 +59,116 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    protected function imgvalidator(array $data)
+    {
+        return Validator::make($data, [
+            'user_photo' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+    }
+
+    protected function pdfvalidator(array $data)
+    {
+        return Validator::make($data, [
+            'file_ebook' => 'mimes:pdf|max:2048'
+        ]);
+    }
     public function store(Request $request)
     {
-
         try {
-            if ($request->file_ebook && $request->img_cover) {
+            if ($request->file('file_ebook') && $request->file('img_cover')) {
 
                 $request->validate([
-                    'file_ebook' => 'required|mimes:pdf|max:2048',
-                    'image_cover' => 'required|mimes:png,jpg,jpeg|max:2048',
+                    'isbn' => ['required', 'string', 'min:17', 'max:18', Rule::unique('books')],
+                    'judul' => ['required', 'string', 'max:255'],
+                    'kategori' => ['required', 'string', 'min:3', 'max:4'],
+                    'penulis' => ['required', 'string', 'max:255'],
+                    'penerbit' => ['required', 'string', 'max:255'],
+                    'sinopsis' => ['required', 'string', 'max:800'],
+                    'tgl_terbit' => ['required']
                 ]);
 
-                DB::beginTransaction();
+                $pdfvalidator = $this->pdfvalidator([$request->file('file_ebook')]);
+                if ($pdfvalidator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($pdfvalidator)
+                        ->withInput();
+                }
 
-                $author = DB::table('author')->where('name', $request->penulis)->first();
-                if (!$author) {
-                    $author = new Author();
-                    $author->name = $request->penulis;
-                    $author->save();
+                $imgvalidator = $this->imgvalidator([$request->file('img_cover')]);
+                if ($imgvalidator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($imgvalidator)
+                        ->withInput();
                 }
                 
-                $book = new Book();
-                $id = Str::random(16);
-                // $filePath = $request->file('file_ebook')->storeAs('uploads', $fileName, 'public');
+                try {
+                    DB::beginTransaction();
 
-                $book->id = $id;
-                // $book->category_id = $request->category_id;
-                $book->isbn = $request->isbn;
-                $book->judul = $request->judul;
-                $book->penulis = $request->penulis;
-                $book->penerbit = $request->penerbit;
-                $book->sinopsis = $request->sinopsis;
-                $book->tgl_terbit = $request->tgl_terbit;
-                $book->file_ebook = 'x';
-                $book->img_cover = 'x';
-                $book->save();
+                    $author = DB::table('authors')->where('name', $request->penulis)->first();
+                    if (!$author) {
+                        $author = new Author();
+                        $author->name = $request->penulis;
+                        $author->save();
+                    }
+                    
+                    $publisher = DB::table('publishers')->where('name', $request->penerbit)->first();
+                    if (!$publisher) {
+                        $publisher = new Publisher();
+                        $publisher->name = $request->penerbit;
+                        $publisher->save();
+                    }
 
+                    $book = new Book();
+                    $id = Str::random(16);
+                    // $filePath = $request->file('file_ebook')->storeAs('uploads', $fileName, 'public');
+    
+                    $book->id = $id;
+                    $book->category_id = $request->kategori;
+                    $book->isbn = $request->isbn;
+                    $book->judul = $request->judul;
+                    $book->penulis = $request->penulis;
+                    $book->penerbit = $request->penerbit;
+                    $book->sinopsis = $request->sinopsis;
+                    $book->tgl_terbit = $request->tgl_terbit;
+                    $book->file_ebook = 'x';
+                    $book->img_cover = 'x';
+                    $book->save();
+    
+    
+                    $file = $request->file('file_ebook');
+                    $pathB = 'E:/hbooks-wrty/' .$book->id . '.' . $file->extension();
+                    move_uploaded_file($file->getRealPath(), $pathB);
+                    
+                    
+                    $file = $request->file('img_cover');
+                    $pathC = 'E:/hpics-cjpeb/' .$book->id . '.' . $file->extension();
+                    move_uploaded_file($file->getRealPath(), $pathC);
+    
+                    DB::table('books')->where('id', $book->id)->update([
+                        'file_ebook' => $pathB,
+                        'img_cover' => $pathC
+                    ]);
 
-                $file = $request->file('file_ebook');
-                $pathB = 'E:/hbooks-wrty/' .$book->id . '.' . $file->extension();
-                move_uploaded_file($file->getRealPath(), $pathB);
-                
-                
-                $file = $request->file('img_cover');
-                $pathC = 'E:/hpics-cjpeb/' .$book->id . '.' . $file->extension();
-                move_uploaded_file($file->getRealPath(), $pathC);
-
-                DB::table('books')->where('id', $book->id)->update([
-                    'file_ebook' => $pathB,
-                    'img_cover' => $pathC
-                ]);
-
-                return redirect('admin/books/');
+                    DB::commit();
+    
+                    return redirect('admin/books/');
+                } catch (PDOException $e) {
+                    // Woopsy
+                    DB::rollBack();
+                }               
+               
             }
             
+            elseif($request->file('file_ebook')) {
+                return back()->withInput()->withErrors(['file_ebook'=>'Field belum semua terisi.']);
+            }
+
+            elseif($request->file('img_cover')) {
+                return back()->withInput()->withErrors(['img_cover'=>'Field belum semua terisi.']);
+            }
+
             else {
-                return back()->withInput()->withErrors(['error'=>'Field belum semua terisi.']);
+                return back()->withInput()->withErrors(['img_cover'=>'Field belum semua terisi.', 'file_ebook'=>'Field belum semua terisi.']);
             }
             
         } catch (QueryException $ex) {
@@ -140,9 +204,8 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
-        return view('admin.books.edit', [
-            'book' => $book,
-        ]);
+        $categories = Category::get();
+        return view('admin.books.edit', compact('book', 'categories'));
     }
 
     /**
@@ -152,10 +215,22 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request)
     {
         try {
             $book = Book::find($request->id);
+
+            $request->validate([
+                'isbn' => ['required', 'string', 'min:17', 'max:18', Rule::unique('books')->ignore($request->isbn, 'isbn')],
+                'judul' => ['required', 'string', 'max:255'],
+                'kategori' => ['required', 'string', 'min:3', 'max:4'],
+                'penulis' => ['required', 'string', 'max:255'],
+                'penerbit' => ['required', 'string', 'max:255'],
+                'sinopsis' => ['required', 'string', 'max:800'],
+                'tgl_terbit' => ['required']
+            ]);
+            
+            $book->category_id = $request->kategori;
             $book->isbn = $request->isbn;
             $book->judul = $request->judul;
             $book->penulis = $request->penulis;
@@ -163,19 +238,54 @@ class BookController extends Controller
             $book->sinopsis = $request->sinopsis;
             $book->tgl_terbit = $request->tgl_terbit;
 
-            if ($request->file_ebook && $request->img_cover) {
-                unlink($book->file_ebook);
+            
+            if ($request->file('file_ebook')) {
+                $pdfvalidator = $this->pdfvalidator([$request->file('file_ebook')]);
+                if ($pdfvalidator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($pdfvalidator)
+                        ->withInput();
+                }
+
+                if(!is_null($book->file_ebook) && file_exists($book->img_cover)) {
+                    unlink($book->file_ebook);
+                }
+
                 $file = $request->file('file_ebook');
                 $pathB = 'E:/hbooks-wrty/' .$book->id . '.' . $file->extension();
                 move_uploaded_file($file->getRealPath(), $pathB);
 
-                unlink($book->img_cover);
+                $book->file_ebook = $pathB;
+            } 
+            // else {
+            //     return back()->withInput()->withErrors(['file_ebook'=>'Field belum semua terisi.']);
+            // }
+
+            if ($request->file('img_cover')) {
+                $imgvalidator = $this->imgvalidator([$request->file('img_cover')]);
+                if ($imgvalidator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($imgvalidator)
+                        ->withInput();
+                }
+
+                if(!is_null($book->img_cover) && file_exists($book->img_cover)) {
+                    unlink($book->img_cover);
+                }
+
                 $file = $request->file('img_cover');
                 $pathC = 'E:/hpics-cjpeb/' .$book->id . '.' . $file->extension();
                 move_uploaded_file($file->getRealPath(), $pathC);
+
+                $book->img_cover = $pathC;
             }
+            // else {
+            //     return back()->withInput()->withErrors(['img_cover'=>'Field belum semua terisi.']);
+            // }
 
             $book->save();
+            
+            // dd($book);
         } catch (QueryException $ex) { 
             dd($ex->errorInfo[1]);
         }  

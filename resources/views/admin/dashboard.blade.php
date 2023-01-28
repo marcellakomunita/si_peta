@@ -33,7 +33,7 @@
             <div class="flex justify-betweeen items-center">
                 <div class="flex-shrink-0">
                     <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">{{ $numBooks }}</span>
-                    <h3 class="text-base font-normal text-gray-500">Jumlah e-Book</h3>
+                    <h3 class="text-base font-normal text-gray-500">Jumlah Ebook</h3>
                 </div>
                 {{-- <div class="ml-5 w-0 flex items-center justify-end flex-1 text-red-500 text-base font-bold">
                     -2.7%

@@ -15,8 +15,8 @@
             </svg>
           </button>
           <a href="#" class="text-xl font-bold flex items-center lg:ml-2.5">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-2" alt="Windster Logo">
-            <span class="self-center whitespace-nowrap">Windster</span> 
+            <img src="{{ asset('images/sipeta.png') }}" alt="logo" class="h-8 mr-2">
+            SIPETA
           </a>
           {{-- <form action="#" method="GET" class="hidden lg:block lg:pl-32">
             <label for="topbar-search" class="sr-only">Search</label>
@@ -39,9 +39,8 @@
               aria-expanded="false"
             >
               <img
-                src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                class="rounded-full"
-                style="height: 25px; width: 25px"
+                src="{{ Auth::user()->photo ? route("content.uprofile", ['id'=>Auth::user()->id, 'ext'=>substr( strrchr(Auth::user()->photo, '.'), 1)]) : asset("images/icon/biografi.png") }}"
+                class="rounded-full h-8 w-8 border"
                 alt=""
                 loading="lazy"
               />

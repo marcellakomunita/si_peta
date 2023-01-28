@@ -14,7 +14,7 @@ class ReviewController extends Controller
     public function index(Request $request)
     {
         $reviews = DB::table('reviews')
-                    ->select('reviews.*', 'users.name', 'users.created_at as joined_at')
+                    ->select('reviews.*', 'users.name', 'users.photo', 'users.created_at as joined_at')
                     ->where('reviews.book_id', '=', $request->id)
                     ->join('users', 'reviews.user_id', '=', 'users.id')
                     ->get();

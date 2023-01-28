@@ -1,7 +1,11 @@
+@php
+use Carbon\Carbon;
+@endphp
+
 @extends('layouts.aapp')
 
 @section('sub-content') 
-<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200  ">
     <div class="mb-1 w-full">
         <div class="mb-4">
             <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Data Pengguna</h1>
@@ -66,13 +70,10 @@
                                 Name
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Position
+                                Email
                             </th>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Country
-                            </th>
-                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
-                                Status
+                                Phone
                             </th>
                             <th scope="col" class="p-4">
                             </th>
@@ -90,20 +91,14 @@
                                         </div>
                                     </td>
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <img class="h-10 w-10 rounded-full" src="https://demo.themesberg.com/windster/images/logo.svg" alt="name avatar">
+                                        <img class="h-10 w-10 rounded-full border" src="{{ $user->photo ? route("content.uprofile", ['id'=>$user->id, 'ext'=>substr( strrchr($user->photo, '.'), 1)]) : asset("images/icon/biografi.png") }}" alt="name avatar">
                                         <div class="text-sm font-normal text-gray-500">
                                             <div class="text-base font-semibold text-gray-900">{{ $user->name }}</div>
-                                            <div class="text-sm font-normal text-gray-500">email</div>
+                                            <div class="text-xs font-normal text-gray-500">Bergabung {{ Carbon::parse($user->created_at)->locale('id')->isoFormat('MMM YYYY') }}</div>
                                         </div>
                                     </td>
-                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">position</td>
-                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">country</td>
-                                    <td class="p-4 whitespace-nowrap text-base font-normal text-gray-900">
-                                        <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
-                                            Active
-                                        </div>
-                                    </td>
+                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $user->email }}</td>
+                                    <td class="p-4 whitespace-nowrap text-base font-medium text-gray-900">{{ $user->phone }}</td>
                                     <td class="p-4 whitespace-nowrap space-x-2">
                                         <a href="{{ route('admin.users.edit', $user->id) }}">
                                             <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">

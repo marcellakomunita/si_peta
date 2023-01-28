@@ -34,8 +34,8 @@ Route::middleware(['CheckIPAccess'])->group(function () {
 
     Auth::routes();
 
-    Route::get('/content/cover/{id}', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
-    Route::get('/content/uprofile/{id}', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
+    Route::get('/content/cover', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
+    Route::get('/content/uprofile', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
     Route::get('/not-found', [FileController::class, 'notfound']);
 
     Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');

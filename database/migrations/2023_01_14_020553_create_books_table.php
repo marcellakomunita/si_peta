@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('penerbit');
             $table->string('tgl_terbit');
             $table->text('sinopsis');
-            $table->string('img_cover');
-            $table->string('file_ebook'); // can be imgs or pdf
+            $table->string('img_cover')->nullable();
+            $table->string('file_ebook')->nullable(); // can be imgs or pdf
             // $table->unsignedBigInteger('number_of_reads');
             $table->timestamps();
         });

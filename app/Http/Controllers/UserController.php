@@ -6,6 +6,9 @@ use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -16,12 +19,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // $users = User::where('type', '==', 0)->paginate(10);
-        // // $users = User::get()->toQuery()->paginate(1);
-        // return view('admin.users.index', [
-        //     'users' => $users
-        // ]);
+        $request->validate([
+            'key' => ['string', 'max:255']
+        ]);
 
+    
         $users = User::where([
             ['type', '=', 0],
             [function ($query) use ($request) {
@@ -39,6 +41,10 @@ class UserController extends Controller
 
     public function indexAdmin(Request $request)
     {
+        $request->validate([
+            'key' => ['string', 'max:10']
+        ]);
+
         $administrators = User::where(
             function ($query) use ($request) {
                 if ($key = $request->key) {
@@ -76,8 +82,26 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
+            'phone' => ['required', 'string', 'regex:/^(?:0)(?:\d{9,15})$/', Rule::unique('users')],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+    }
+
     public function store(Request $request)
     {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -91,6 +115,14 @@ class UserController extends Controller
 
     public function storeAdmin(Request $request)
     {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $administrator = new User();
         $administrator->name = $request->name;
         $administrator->email = $request->email;
@@ -144,10 +176,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, User $user)
     {
         try {
             $user = User::find($request->id);
+
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->email, 'email')],
+                'phone' => ['required', 'string', 'regex:/^(?:0|62)[0-9]{9,15}$/', Rule::unique('users')->ignore($request->phone, 'phone')],
+            ]);
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
@@ -163,21 +203,19 @@ class UserController extends Controller
     {
         try {
             $administrator = User::find($request->id);
+
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->email, 'email')],
+                'phone' => ['required', 'string', 'regex:/^(?:0|62)[0-9]{9,15}$/', Rule::unique('users')->ignore($request->phone, 'phone')],
+            ]);
+
             $administrator->name = $request->name;
             $administrator->email = $request->email;
             $administrator->phone = $request->phone;
             $administrator->save();
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-            var_dump('Exception Message: '. $message);
-  
-            $code = $e->getCode();       
-            var_dump('Exception Code: '. $code);
-  
-            $string = $e->__toString();       
-            var_dump('Exception String: '. $string);
-
-            exit;
+        } catch (QueryException $ex) { 
+            dd($ex->errorInfo[1]);
         }  
 
         return redirect('/admin/administrators/');

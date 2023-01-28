@@ -26,8 +26,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -38,8 +36,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -50,8 +46,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -62,8 +56,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -74,8 +66,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -86,8 +76,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(), 
@@ -98,8 +86,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -110,8 +96,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(), 
@@ -122,8 +106,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -134,8 +116,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -146,8 +126,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
@@ -158,8 +136,6 @@ class CreateBooksSeeder extends Seeder
                 'penerbit'=>'Gramedia Pustaka Utama',
                 'tgl_terbit'=>Carbon::create('2006', '03', '31')->toDateString(),
                 'sinopsis'=>"Sejak ditinggal sahabatnya waktu kecil, Keysha nggak percaya lagi yang namanya sahabat. Baginya lebih baik mencari banyak teman daripada satu orang sahabat. Tapi semua berubah ketika dia mengenal Aji—cowok berandal, brengsek, tukang bikin onar, dan terkenal playboy di sekolah. Sejak mengenal Aji, setiap hari Keysha selalu jantungan menghadapi semua perilakunya yang gampang emosian. Apalagi ditambah musuh-musuh Aji yang jumlahnya bejibun. Keysha jadi merasa tidak aman dan terancam. Tapi bagaimana jadinya kalau ternyata cowok brengsek macam Aji justru menaruh kepercayaan besar pada Keysha sehingga ia berani menceritakan rahasianya yang paling dalam? Dan apa jadinya kalau orang seperti Aji akhirnya jatuh cinta pada Keysha?",
-                'img_cover'=>'E:/hpics_cjpeb/pMdzCGbsxhphw80B.png',
-                'file_ebook'=>'E:/hbooks_wrty/pMdzCGbsxhphw80B.pdf',
             ],
         ];
     

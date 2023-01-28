@@ -1,10 +1,10 @@
 @extends('layouts.aapp')
 
 @section('sub-content') 
-<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200  ">
     <div class="mb-1 w-full">
         <div class="mb-4">
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Data Pengguna</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Data Ebook</h1>
         </div>
 
         <div class="sm-flex">
@@ -13,7 +13,7 @@
                     <form action="{{ route('admin.books.index') }}" class="lg:pr-3" method="GET">
                         <label for="users-search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
-                            <input type="text" name="key" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for users">
+                            <input type="text" name="key" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for books">
                         </div>
                     </form>
                 </div>
@@ -75,16 +75,16 @@
                                             <label for="checkbox-id" class="sr-only">checkbox</label>
                                         </div>
                                     </td>
-                                    <td class="p-4 flex items-center space-x-6 mr-12 lg:mr-0">
-                                        <img class="h-20 w-16" src="{{ url('/content/cover', ['image' => $book->id]) }}" loading="eager" alt="name avatar">
+                                    <td class="whitespace-nowrap p-4 flex items-center space-x-6 mr-12">
+                                        <img class="h-28 w-20 !important" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" loading="eager" alt="name avatar">
                                         <div class="text-sm font-normal text-gray-500">
                                             <div class="text-base font-semibold text-gray-900">{{ $book->judul }}</div>
                                             <div class="text-sm font-normal text-gray-500">{{ $book->isbn }}</div>
                                         </div>
                                     </td>
-                                    <td class="p-4 text-base font-medium text-gray-900">{{ $book->penulis }}</td>
-                                    <td class="p-4 text-base font-medium text-gray-900">{{ $book->penerbit }}</td>
-                                    <td class="p-4 text-base font-normal text-gray-900">
+                                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900">{{ $book->penulis }}</td>
+                                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900">{{ $book->penerbit }}</td>
+                                    <td class="whitespace-nowrap p-4 text-base font-normal text-gray-900">
                                         {{ $book->tgl_terbit->format('Y'); }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap space-x-2">
@@ -119,7 +119,7 @@
 
 <!-- Delete User Modal -->
 <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="delete-user-modal">
-    <div class="relative w-full max-w-md px-4 h-full md:h-auto">
+    <div class="relative w-full max-w-lg px-4 h-full md:h-auto">
         <!-- Modal content -->
         <div class="bg-white rounded-lg shadow relative">
             <!-- Modal header -->
@@ -131,7 +131,7 @@
             <!-- Modal body -->
             <div class="p-6 pt-0 text-center">
                 <svg class="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to delete this user?</h3>
+                <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to delete this book?</h3>
                 <button id="confirm-destroy-btn" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
                     <a href="#" id="confirm-destroy-link">
                         Yes, I'm sure

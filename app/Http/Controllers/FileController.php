@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class FileController extends Controller
 {
-    public function cimageShow($image)
+    public function cimageShow(Request $request)
     {
-        $path = 'E:/hpics-cjpeb/' . $image . '.jpg';
+        $path = 'E:/hpics-cjpeb/' . $request->id. '.' . $request->ext;
         if (!file_exists($path)) {
             return response()->json(['error' => 'File not found'], 404);
         }
         return response()->file($path);
     }
 
-    public function uimageShow($image)
+    public function uimageShow(Request $request)
     {
-        $path = 'E:/hpics-upimg/' . $image . '.jpg';
+        $path = 'E:/hpics-upimg/' . $request->id . '.' . $request->ext;
         if (!file_exists($path)) {
             return response()->json(['error' => 'File not found'], 404);
         }

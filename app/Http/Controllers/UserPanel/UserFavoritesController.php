@@ -18,7 +18,7 @@ class UserFavoritesController extends Controller
     public function index()
     {
         $favorites = DB::table('favorites')
-        ->select('favorites.id as fid', 'books.id', 'books.judul', 'books.penulis')
+        ->select('favorites.id as fid', 'books.id', 'books.judul', 'books.penulis', 'books.img_cover')
         ->leftJoin('books', 'favorites.book_id', '=', 'books.id')
         ->where('favorites.user_id', '=', Auth::id())
         ->get();

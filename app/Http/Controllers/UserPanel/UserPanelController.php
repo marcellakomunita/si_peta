@@ -24,7 +24,7 @@ class UserPanelController extends Controller
 
 
         $query = DB::table('books')
-                ->select('books.id', 'books.judul', 'books.penulis', DB::raw('COUNT(book_read_history.id) as number_of_reads'))
+                ->select('books.id', 'books.judul', 'books.penulis', 'books.img_cover', DB::raw('COUNT(book_read_history.id) as number_of_reads'))
                 ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
                 ->groupBy('books.id');
 

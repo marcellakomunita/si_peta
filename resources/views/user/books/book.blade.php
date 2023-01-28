@@ -11,7 +11,7 @@ use Carbon\Carbon;
         <section class="text-gray-700 body-font overflow-hidden">
             <div class="">
                 <div class="mx-auto flex flex-wrap">
-                    <img alt="ecommerce" class="lg:w-1/3 p-4 w-full object-cover object-center rounded border border-gray-200" src="https://upload.wikimedia.org/wikipedia/id/1/18/Spring_in_London_%28sampul%29.jpg">
+                    <img alt="ecommerce" class="lg:w-1/3 p-4 w-full object-cover object-center rounded border border-gray-200" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" >
                     <div class="lg:w-1/2 w-full lg:pl-16 lg:py-6 mt-6 lg:mt-0">
                         <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ $book->penulis }}</h2>
                         <h1 class="text-gray-900 text-3xl title-font font-medium my-1">{{ $book->judul }}</h1>
@@ -130,7 +130,7 @@ use Carbon\Carbon;
                 <div class="group relative rounded-t-xl">
                     <div class="">
                         <div class="bg-white min-h-60 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:aspect-none lg:h-60">
-                            <img src="{{ route('content.cover', ['id'=>'pMdzCGbsxhphw80B'])}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
+                            <img src="{{ route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)])}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
                         </div>
                     </div>
                     <div class="rounded-b-lg px-4 py-3 flex justify-between bg-white">

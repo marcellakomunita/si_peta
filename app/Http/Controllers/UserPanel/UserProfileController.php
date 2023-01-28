@@ -35,9 +35,14 @@ class UserProfileController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'string', 'regex:/^[0-9]{11,14}$/', Rule::unique('users')->ignore(Auth::user()->id)],
-            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'phone' => ['required', 'string', 'regex:/^(?:0)(?:\d{9,15})$/', Rule::unique('users')->ignore(Auth::user()->id)],
+        ]);
+    }
+
+    protected function imgvalidator(array $data)
+    {
+        return Validator::make($data, [
+            'user_photo' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
     }
     
@@ -58,8 +63,17 @@ class UserProfileController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
 
+            // dd($request->file('user_photo'));
             if($request->file('user_photo')) {
-                if(!is_null($user->photo)) {
+                
+                $imgvalidator = $this->imgvalidator([$request->file('user_photo')]);
+                if ($imgvalidator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($imgvalidator)
+                        ->withInput();
+                }
+
+                if(!is_null($user->photo) && file_exists($user->photo)) {
                     unlink($user->photo);
                 }
                 $file = $request->file('user_photo');
