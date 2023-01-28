@@ -7,6 +7,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserPanel\UDashboardController;
 use App\Http\Controllers\UserPanel\UReviewController;
 use App\Http\Controllers\UserPanel\UserFavoritesController;
@@ -96,6 +97,10 @@ Route::middleware(['CheckIPAccess'])->group(function () {
     
         Route::get('/dashboard', [ADashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard/visitor-data', [ADashboardController::class, 'visitorData']);
+        Route::prefix('/profile')->name('profile.')->controller(ProfileController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::put('/update', 'update')->name('update');
+        });
         Route::prefix('/users')->name('users.')->controller(UserController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/edit/{id}', 'edit')->name('edit');
