@@ -36,7 +36,7 @@ class BookController extends Controller
                         ->get();
                 }
             }]
-        ])->paginate(10);
+        ])->orderBy('updated_at', 'desc')->paginate(10);
         return view('admin.books.index', [
             'books' => $books,
         ]);

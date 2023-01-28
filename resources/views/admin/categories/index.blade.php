@@ -65,6 +65,9 @@
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                 Name
                             </th>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase text-center">
+                                Total Books
+                            </th>
                             <th scope="col" class="p-4">
                             </th>
                         </tr>
@@ -81,12 +84,13 @@
                                         </div>
                                     </td>
                                     <td colspan="3" class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <img class="h-10 w-10 rounded-full" src="{{ asset('images') . '/' . $category->id . '.jpg' }}" alt="name avatar">
+                                        <img class="h-10 w-10 rounded-full" src="{{ asset('images/icon') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . substr( strrchr($category->img_icon, '.'), 1) }}" alt="name avatar">
                                         <div class="text-sm font-normal text-gray-500">
                                             <div class="text-base font-semibold text-gray-900">{{ $category->name }}</div>
                                             <div class="text-sm font-normal text-gray-500">#{{ $category->id }}</div>
                                         </div>
                                     </td>
+                                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 text-center">{{ $category->book_count }}</td>
                                     <td colspan="2" class="p-4 whitespace-nowrap space-x-2">
                                         <a href="{{ route('admin.categories.edit', $category->id) }}">
                                             <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">

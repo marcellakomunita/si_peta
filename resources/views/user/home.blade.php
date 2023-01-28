@@ -41,7 +41,7 @@
                 <div class="group relative">
                     <div class="max-w-sm px-6 py-4 rounded-lg" style="background-color: {{ $bgcolor[$key] }}">
                         {{-- <svg class="w-10 h-10 mb-2 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clip-rule="evenodd"></path><path d="M9 11H3v5a2 2 0 002 2h4v-7zM11 18h4a2 2 0 002-2v-5h-6v7z"></path></svg> --}}
-                        <img src="{{ asset('images/icon') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.png' }}" alt="icon" class="w-10 h-10">
+                        <img src="{{ asset('images/icon') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . substr( strrchr($category->img_icon, '.'), 1) }}" alt="icon" class="w-10 h-10">
                         <h5 class="mt-3 font-semibold text-base text-gray-800">{{ $category->name }}</h5>
                         {{-- <p class="mb-3 font-normal text-gray-500">Go to this step by step guideline process on how to certify for your weekly benefits:</p> --}}
                         <a href="{{ route('user.books.search', ['category' => $category->id]) }}" class="text-xs inline-flex items-center text-red-600 hover:underline">

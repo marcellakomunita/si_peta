@@ -114,6 +114,8 @@
                 // Do something with the dataURI
                 var dataURI = reader.result;
                 // display the image preview
+                document.querySelector('#cover-label').classList.remove('h-16', 'flex', 'items-center');
+                document.querySelector('#preview-container').classList.remove('collapse');
                 document.querySelector('#preview').src = dataURI;
             };
 

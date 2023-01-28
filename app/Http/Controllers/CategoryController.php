@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -20,14 +22,17 @@ class CategoryController extends Controller
             'key' => ['string', 'max:255']
         ]);
         
-        $categories = Category::where([
-            [function ($query) use ($request) {
-                if (($key = $request->key)) {
-                    $query->orWhere('name', 'LIKE', '%' . $key . '%')
-                        ->get();
-                }
-            }]
-        ])->paginate(10);
+        $categories = Category::leftJoin('books', 'categories.id', '=', 'books.category_id')
+                    ->select('categories.*', DB::raw('count(books.category_id) as book_count'))
+                    ->where(function ($query) use ($request) {
+                        if (($key = $request->key)) {
+                            $query->orWhere('categories.name', 'LIKE', '%' . $key . '%');
+                        }
+                    })
+                    ->groupBy('categories.id')
+                    ->orderBy('categories.updated_at', 'desc')
+                    ->paginate(20);
+
         return view('admin.categories.index', [
             'categories' => $categories,
         ]);
@@ -49,10 +54,28 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    protected function imgvalidator(array $data)
+    {
+        return Validator::make($data, [
+            'img_icon' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+    }
     public function store(Request $request)
     {
         try {
-            if ($request->img_icon) {
+            if ($request->file('img_icon')) {
+
+                $request->validate([
+                    'name' => ['required', 'string', 'max:255', Rule::unique('categories')],
+                ]);
+
+                $imgvalidator = $this->imgvalidator([$request->file('img_icon')]);
+                if ($imgvalidator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($imgvalidator)
+                        ->withInput();
+                }
+
                 $category = new Category();
 
                 $category->name = $request->name;
@@ -61,11 +84,12 @@ class CategoryController extends Controller
                 
                 
                 $file = $request->file('img_icon');
-                $path = public_path() . '\images\icon\\' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . $file->extension();
-                move_uploaded_file($file->getRealPath(), $path);
+                $fileName = strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . $file->extension();
+                $path = public_path() . '/' . 'images/icon/' . $fileName;
+                move_uploaded_file($file->getRealPath(), str_replace('\\', '/', $path));
 
                 DB::table('categories')->where('id', $category->id)->update([
-                    'img_icon' => $path
+                    'img_icon' => $fileName
                 ]);
 
                 return redirect('admin/categories/');
@@ -117,13 +141,30 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::find($request->id);
+
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', Rule::unique('categories')->ignore($request->name, 'name')]],
+            );
+
             $category->name = $request->name;
 
-            if ($request->img_icon) {
-                unlink($category->img_icon);
+            if ($request->file('img_icon')) { 
+                $imgvalidator = $this->imgvalidator([$request->file('img_icon')]);
+                if ($imgvalidator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($imgvalidator)
+                        ->withInput();
+                }
+    
+                if(!is_null($category->img_icon) && file_exists(str_replace('\\', '/', public_path()) . '/' . 'images/icon/' . $category->img_icon)) {
+                    unlink(str_replace('\\', '/', public_path()) . '/' . 'images/icon/' . $category->img_icon);
+                }
+
                 $file = $request->file('img_icon');
-                $path = public_path() . '/' . 'images/' . $category->id . '.' . $file->extension();
-                move_uploaded_file($file->getRealPath(), $path);
+                $fileName = strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . $file->extension();
+                $path = public_path() . '/' . 'images/icon/' . $fileName;
+                move_uploaded_file($file->getRealPath(), str_replace('\\', '/', $path));
+                $category->img_icon = $fileName;
             }
 
             $category->save();

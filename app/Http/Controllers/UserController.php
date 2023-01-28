@@ -33,7 +33,7 @@ class UserController extends Controller
                         ->get();
                 }
             }]
-        ])->paginate(10);
+        ])->orderBy('updated_at', 'desc')->paginate(10);
         return view('admin.users.index', [
             'users' => $users,
         ]);
@@ -45,17 +45,16 @@ class UserController extends Controller
             'key' => ['string', 'max:10']
         ]);
 
-        $administrators = User::where(
-            function ($query) use ($request) {
-                if ($key = $request->key) {
+        $administrators = User::where([
+            ['type', '=', 1],
+            [function ($query) use ($request) {
+                if (($key = $request->key)) {
                     $query->orWhere('name', 'LIKE', '%' . $key . '%')
                         ->orWhere('email', 'LIKE', '%' . $key . '%')
                         ->get();
                 }
-            }
-        )
-        ->where('type', '=', 1)
-        ->get();
+            }]
+        ])->orderBy('updated_at', 'desc')->paginate(10);
         return view('admin.administrators.index', [
             'administrators' => $administrators,
         ]);
