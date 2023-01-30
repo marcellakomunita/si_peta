@@ -42,7 +42,7 @@
                                     @if($user->photo == '' || is_null(($user->photo)))
                                         <img src="{{ asset('images/icon/biografi.png') }}" alt="" class="w-full h-full" id="preview">
                                     @else
-                                        <img src="{{ route('content.uprofile', ['id'=>$user->id, 'ext'=>substr( strrchr($user->photo, '.'), 1)]) }}" alt="user_photo"  class="w-full h-full" id="preview">
+                                        <img src="{{ route('content.uprofile', ['id'=>$user->photo ]) }}" alt="user_photo"  class="w-full h-full" id="preview">
                                     @endif
                                 </div>
                                 <label for="user_photo" class="flex align-center items-center justify-center w-fit mx-auto mt-3 py-2 custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600">

@@ -9,7 +9,7 @@
             </div>
             <h1 class="mb-4 text-4xl tracking-tight font-extrabold text-red-500">404</h1>
             {{-- <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl">Situs tidak dapat diakses.</p> --}}
-            <p class="mb-4 text-lg font-light text-gray-500">Item tidak dapat ditemukan.</p>
+            <p class="mb-4 text-lg font-light text-gray-500">Halaman tidak dapat ditemukan.</p>
         </div>   
     </div>
 </section>

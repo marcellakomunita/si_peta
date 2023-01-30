@@ -73,7 +73,7 @@
                                 @if($book->img_cover == '' || is_null(($book->img_cover)))
                                     <img src="{{ asset('images/nocover.png') }}" alt="" class="w-full h-full" id="preview">
                                 @else
-                                    <img src="{{ route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) }}" alt="book_photo"  class="w-full h-full" id="preview">
+                                    <img src="{{ route('content.cover', ['id'=>$book->img_cover]) }}" alt="book_photo"  class="w-full h-full" id="preview">
                                 @endif
                             </div>
                         </label>

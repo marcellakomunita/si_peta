@@ -91,7 +91,7 @@ use Carbon\Carbon;
                                         </div>
                                     </td>
                                     <td class="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                        <img class="h-10 w-10 rounded-full border" src="{{ $user->photo ? route("content.uprofile", ['id'=>$user->id, 'ext'=>substr( strrchr($user->photo, '.'), 1)]) : asset("images/icon/biografi.png") }}" alt="name avatar">
+                                        <img class="h-10 w-10 rounded-full border" src="{{ $user->photo ? route("content.uprofile", ['id'=>$user->id ]) : asset("images/icon/biografi.png") }}" alt="name avatar">
                                         <div class="text-sm font-normal text-gray-500">
                                             <div class="text-base font-semibold text-gray-900">{{ $user->name }}</div>
                                             <div class="text-xs font-normal text-gray-500">Bergabung {{ Carbon::parse($user->created_at)->locale('id')->isoFormat('MMM YYYY') }}</div>

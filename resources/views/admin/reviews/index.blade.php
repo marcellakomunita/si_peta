@@ -77,7 +77,7 @@
                                         </div>
                                     </td>
                                     <td class="whitespace-nowrap p-4 flex items-center space-x-6 mr-12">
-                                        <img class="h-28 w-20 !important" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" loading="eager" alt="name avatar">
+                                        <img class="h-28 w-20 !important" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->img_cover]) : asset('images/nocover.png')}}" loading="eager" alt="name avatar">
                                         <div class="text-sm font-normal text-gray-500">
                                             <a href="{{ route('admin.reviews.show', ['id'=>$book->id]) }}">
                                                 <div class="text-base font-semibold text-gray-900">{{ $book->judul }}</div>

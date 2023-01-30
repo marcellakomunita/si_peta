@@ -29,7 +29,7 @@ use Carbon\Carbon;
             <article class="mb-8 pb-8 border-b border-gray-500">
                 <div class=" flex justify-between items-center">
                     <div class="flex mb-4">
-                        <img class="mr-3 w-10 h-10 rounded-full" src="{{ $review->photo ? route("content.uprofile", ['id'=>$user->id, 'ext'=>substr( strrchr($user->photo, '.'), 1)]) : asset("images/icon/biografi.png") }}" alt="">
+                        <img class="mr-3 w-10 h-10 rounded-full" src="{{ $review->photo ? route("content.uprofile", ['id'=>$user->id ]) : asset("images/icon/biografi.png") }}" alt="">
                         <div class="space-y-1 font-medium">
                             <p>{{ $review->name }} <span class="block text-xs text-gray-500">Bergabung {{ Carbon::parse($review->joined_at)->locale('id')->isoFormat('MMM YYYY') }}</span></p>
                         </div>

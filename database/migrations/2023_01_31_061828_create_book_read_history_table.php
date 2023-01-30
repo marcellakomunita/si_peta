@@ -20,7 +20,6 @@ return new class extends Migration
             $table->timestamp('read_at');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

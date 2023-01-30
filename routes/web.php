@@ -41,6 +41,7 @@ Route::middleware(['CheckIPAccess'])->group(function () {
     Route::get('/content/cover', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
     Route::get('/content/uprofile', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
     Route::get('/content/file', [FileController::class, 'fileShow'])->middleware('CheckImageCAccess')->name('content.file');
+    Route::get('/content/files', [FileController::class, 'filesShow'])->middleware('CheckImageCAccess')->name('content.files');
     Route::get('/not-found', [FileController::class, 'notfound']);
     
     /*------------------------------------------
@@ -53,8 +54,8 @@ Route::middleware(['CheckIPAccess'])->group(function () {
         Route::get('/', [UDashboardController::class, 'index'])->name('dashboard');
         Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('about-us');
 
-
-        Route::get('/bookr', [BookRController::class, 'user']);
+        Route::get('/bookr', [BookRController::class, 'index'])->name('bookr');
+        Route::post('/bookr/store', [BookRController::class, 'store'])->name('bookr.store');
 
         Route::prefix('/profile')->name('profile.')->controller(UserProfileController::class)->group(function () {
             Route::get('/', 'index')->name('index');

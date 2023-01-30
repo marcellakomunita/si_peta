@@ -12,7 +12,7 @@ class FileController extends Controller
 {
     public function cimageShow(Request $request)
     {
-        $path = 'E:/hpics-cjpeb/' . $request->id. '.' . $request->ext;
+        $path = env('COVER_DIR') . $request->id;
         if (!file_exists($path)) {
             // return response()->json(['error' => 'File not found'], 404);
             return abort(404);
@@ -24,7 +24,7 @@ class FileController extends Controller
 
     public function uimageShow(Request $request)
     {
-        $path = 'E:/hpics-upimg/' . $request->id . '.' . $request->ext;
+        $path = env('PROFILE_DIR') . $request->id;
         if (!file_exists($path)) {
             return abort(404);
         }
@@ -36,7 +36,17 @@ class FileController extends Controller
 
     public function fileShow(Request $request)
     {
-        $path = 'E:/hbooks-wrty/' . $request->id . '.' . $request->ext;
+        $path = env('EBOOKS_DIR') . $request->id;
+        if (!file_exists($path)) {
+            return abort(404);
+        }
+        // return response()->file($path);
+        return response()->file($path);
+    }
+
+    public function filesShow(Request $request)
+    {
+        $path = env('EBOOKS_DIR') . $request->file;
         if (!file_exists($path)) {
             return abort(404);
         }

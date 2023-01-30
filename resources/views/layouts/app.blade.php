@@ -20,7 +20,13 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/pdf-viewer.js') }}"></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/build/pdf.min.js
+    "></script>
+    <link href="
+    https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/web/pdf_viewer.min.css
+    " rel="stylesheet"></link>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>

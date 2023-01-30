@@ -39,7 +39,7 @@
               aria-expanded="false"
             >
               <img
-                src="{{ Auth::user()->photo ? route("content.uprofile", ['id'=>Auth::user()->id, 'ext'=>substr( strrchr(Auth::user()->photo, '.'), 1)]) : asset("images/icon/biografi.png") }}"
+                src="{{ Auth::user()->photo ? route("content.uprofile", ['id'=>Auth::user()->photo]) : asset("images/icon/biografi.png") }}"
                 class="rounded-full h-8 w-8 border"
                 alt=""
                 loading="lazy"

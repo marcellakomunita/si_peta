@@ -303,7 +303,8 @@ class BookController extends Controller
                 if($book->file_ebook != 'x') {
                     $file_path = env('EBOOKS_DIR') . $book->file_ebook;
                     if (file_exists($file_path)) {
-                        unlink($file_path);
+                        $files = glob($file_path . "/*"); 
+                        array_map('unlink', $files);
                     }
                 } else {
                     $files = BookImage::where('book_id', '=', $book->id)->get();

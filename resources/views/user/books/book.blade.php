@@ -11,7 +11,7 @@ use Carbon\Carbon;
         <section class="text-gray-700 body-font overflow-hidden">
             <div class="">
                 <div class="mx-auto flex flex-wrap">
-                    <img alt="ecommerce" class="lg:w-1/3 p-4 w-full object-cover object-center rounded border border-gray-200" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" >
+                    <img alt="ecommerce" class="lg:w-1/3 p-4 w-full object-cover object-center rounded border border-gray-200" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->img_cover]) : asset('images/nocover.png')}}" >
                     <div class="lg:w-1/2 w-full lg:pl-16 lg:py-6 mt-6 lg:mt-0">
                         <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ $book->penulis }}</h2>
                         <h1 class="text-gray-900 text-3xl title-font font-medium my-1">{{ $book->judul }}</h1>
@@ -42,7 +42,15 @@ use Carbon\Carbon;
                             </div>
                         </div>
                         <div class="flex justify-between pt-4 mt-4 border-t-2 border-gray-200">
-                            <button class="flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Baca</button>
+                            <form action="{{ route('user.bookr.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="bid" value="{{ $book->id }}">
+                                <input type="hidden" name="uid" value="{{ Auth::user()->id }}">
+                                <button type="submit" class="flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                                    {{-- <a href="{{ url('/bookr?id=') . $book->id }}">Baca</a> --}}
+                                    Baca
+                                </button>
+                            </form>
                             @csrf
                             <button id="favorite-btn" data-item={{ $book->id }} class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center {{ $is_favorite ? "text-red-600" : "text-gray-500" }} ml-4">
                                 <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
@@ -96,7 +104,7 @@ use Carbon\Carbon;
             <article class="mb-16">
                 <div class=" flex justify-between items-center">
                     <div class="flex mb-4">
-                        <img class="mr-3 w-10 h-10 rounded-full" src="{{ $review->photo ? route("content.uprofile", ['id'=>$review->uid, 'ext'=>substr( strrchr($review->photo, '.'), 1)]) : asset("images/icon/biografi.png") }}" alt="">
+                        <img class="mr-3 w-10 h-10 rounded-full" src="{{ $review->photo ? route("content.uprofile", ['id'=>$review->photo ]) : asset("images/icon/biografi.png") }}" alt="">
                         <div class="space-y-1 font-medium">
                             <p>{{ $review->name }} <span class="block text-xs text-gray-500">Bergabung {{ Carbon::parse($review->joined_at)->locale('id')->isoFormat('MMM YYYY') }}</span></p>
                         </div>
@@ -131,7 +139,7 @@ use Carbon\Carbon;
                 <div class="group relative rounded-t-xl">
                     <div class="">
                         <div class="bg-white min-h-60 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:aspect-none lg:h-60">
-                            <img src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
+                            <img src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->img_cover]) : asset('images/nocover.png')}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
                         </div>
                     </div>
                     <div class="rounded-b-lg px-4 py-3 flex justify-between bg-white">
