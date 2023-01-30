@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookImage;
 use App\Models\Category;
 use App\Models\Publisher;
-use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -87,13 +87,6 @@ class BookController extends Controller
                     'tgl_terbit' => ['required']
                 ]);
 
-                $pdfvalidator = $this->pdfvalidator([$request->file('file_ebook')]);
-                if ($pdfvalidator->fails()) {
-                    return redirect()->back()
-                        ->withErrors($pdfvalidator)
-                        ->withInput();
-                }
-
                 $imgvalidator = $this->imgvalidator([$request->file('img_cover')]);
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
@@ -101,8 +94,8 @@ class BookController extends Controller
                         ->withInput();
                 }
                 
+                DB::beginTransaction();
                 try {
-                    DB::beginTransaction();
 
                     $author = DB::table('authors')->where('name', $request->penulis)->first();
                     if (!$author) {
@@ -120,8 +113,6 @@ class BookController extends Controller
 
                     $book = new Book();
                     $id = Str::random(16);
-                    // $filePath = $request->file('file_ebook')->storeAs('uploads', $fileName, 'public');
-    
                     $book->id = $id;
                     $book->category_id = $request->kategori;
                     $book->isbn = $request->isbn;
@@ -133,28 +124,74 @@ class BookController extends Controller
                     $book->file_ebook = 'x';
                     $book->img_cover = 'x';
                     $book->save();
-    
-    
-                    $file = $request->file('file_ebook');
-                    $pathB = 'E:/hbooks-wrty/' .$book->id . '.' . $file->extension();
-                    move_uploaded_file($file->getRealPath(), $pathB);
-                    
-                    
+
+                    $book2 = Book::find($book->id);
+
                     $file = $request->file('img_cover');
-                    $pathC = 'E:/hpics-cjpeb/' .$book->id . '.' . $file->extension();
-                    move_uploaded_file($file->getRealPath(), $pathC);
-    
-                    DB::table('books')->where('id', $book->id)->update([
-                        'file_ebook' => $pathB,
-                        'img_cover' => $pathC
-                    ]);
+                    $imgvalidator = $this->imgvalidator([$file]);
+                    if ($imgvalidator->fails()) {
+                        return redirect()->back()
+                            ->withErrors($imgvalidator)
+                            ->withInput();
+                    }
+                    $pathC = $file->storeAs(
+                        '',
+                        $book->id . '.' . $file->extension(),
+                        'cover'
+                    );
+                    $book2->img_cover = $pathC;
+
+                    if (count($request->file('file_ebook')) == 1 && $request->file('file_ebook')[0]->getClientOriginalExtension() == 'pdf') {
+                        $file = $request->file('file_ebook');
+
+                        $pdfvalidator = $this->pdfvalidator([$file]);
+                        if ($pdfvalidator->fails()) {
+                            return redirect()->back()
+                                ->withErrors($pdfvalidator)
+                                ->withInput();
+                        }
+
+                        $pathB = $file[0]->storeAs(
+                            '',
+                            $book->id . '.' . $file[0]->extension(),
+                            'books'
+                        );
+                        
+                        $book2->file_ebook = $pathB;
+                    }
+
+                    else {
+                        $files = $request->file('file_ebook');
+                        
+                        foreach ($files as $index => $file) {
+                            $mimeType = $file->getMimeType();
+                            if (!in_array($mimeType, ['image/jpeg', 'image/png', 'image/jpg'])) {
+                                // Return an error response
+                                return response()->json(['file_ebook' => 'Invalid file type']);
+                            }
+
+                            $pathB = $file->storeAs(
+                                $book2->id,
+                                $book2->id . '_' . $index . '.' . $file->extension(),
+                                'books'
+                            );
+                            
+                            $bookImage = new BookImage();
+                            $bookImage->book_id = $book2->id;
+                            $bookImage->image_path = $pathB;
+                            $bookImage->save();
+
+                        }
+                    }
+
+                    $book2->save();
 
                     DB::commit();
     
                     return redirect('admin/books/');
                 } catch (PDOException $e) {
-                    // Woopsy
                     DB::rollBack();
+                    dd($e);
                 }               
                
             }
@@ -217,6 +254,7 @@ class BookController extends Controller
      */
     public function update(Request $request)
     {
+        DB::beginTransaction();
         try {
             $book = Book::find($request->id);
 
@@ -238,55 +276,94 @@ class BookController extends Controller
             $book->sinopsis = $request->sinopsis;
             $book->tgl_terbit = $request->tgl_terbit;
 
-            
-            if ($request->file('file_ebook')) {
-                $pdfvalidator = $this->pdfvalidator([$request->file('file_ebook')]);
-                if ($pdfvalidator->fails()) {
-                    return redirect()->back()
-                        ->withErrors($pdfvalidator)
-                        ->withInput();
-                }
-
-                if(!is_null($book->file_ebook) && file_exists($book->img_cover)) {
-                    unlink($book->file_ebook);
-                }
-
-                $file = $request->file('file_ebook');
-                $pathB = 'E:/hbooks-wrty/' .$book->id . '.' . $file->extension();
-                move_uploaded_file($file->getRealPath(), $pathB);
-
-                $book->file_ebook = $pathB;
-            } 
-            // else {
-            //     return back()->withInput()->withErrors(['file_ebook'=>'Field belum semua terisi.']);
-            // }
-
             if ($request->file('img_cover')) {
-                $imgvalidator = $this->imgvalidator([$request->file('img_cover')]);
+                $file = $request->file('img_cover');
+                $imgvalidator = $this->imgvalidator([$file]);
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
                         ->withErrors($imgvalidator)
                         ->withInput();
                 }
 
-                if(!is_null($book->img_cover) && file_exists($book->img_cover)) {
-                    unlink($book->img_cover);
+                $file_path = env('COVER_DIR') . $book->img_cover;
+                if (file_exists($file_path)) {
+                    unlink($file_path);
                 }
 
-                $file = $request->file('img_cover');
-                $pathC = 'E:/hpics-cjpeb/' .$book->id . '.' . $file->extension();
-                move_uploaded_file($file->getRealPath(), $pathC);
-
+                $pathC = $file->storeAs(
+                    '',
+                    $book->id . '.' . $file->extension(),
+                    'cover'
+                );
                 $book->img_cover = $pathC;
             }
-            // else {
-            //     return back()->withInput()->withErrors(['img_cover'=>'Field belum semua terisi.']);
-            // }
+            
+            if ($request->file('file_ebook')) {
+                // DELETING PREVIOUS
+                if($book->file_ebook != 'x') {
+                    $file_path = env('EBOOKS_DIR') . $book->file_ebook;
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+                } else {
+                    $files = BookImage::where('book_id', '=', $book->id)->get();
+                    foreach ($files as $file) {
+                        $file_path = env('EBOOKS_DIR') . $file->image_path;
+                        if (file_exists($file_path)) {
+                            unlink($file_path);
+                        }
+                    }
+                    BookImage::where('book_id', '=', $book->id)->delete();
+                }
+
+                // INSERTING NEW ONES
+                if (count($request->file('file_ebook')) == 1 && $request->file('file_ebook')[0]->getClientOriginalExtension() == 'pdf') {
+                    $file = $request->file('file_ebook');
+
+                    $pdfvalidator = $this->pdfvalidator([$file]);
+                    if ($pdfvalidator->fails()) {
+                        return redirect()->back()
+                            ->withErrors($pdfvalidator)
+                            ->withInput();
+                    }
+
+                    $pathB = $file[0]->storeAs(
+                        '',
+                        $book->id . '.' . $file[0]->extension(),
+                        'books'
+                    );
+                    
+                    $book->file_ebook = $pathB;
+                } 
+                else {
+
+                    $files = $request->file('file_ebook');
+                    foreach ($files as $index => $file) {
+                        $mimeType = $file->getMimeType();
+                        if (!in_array($mimeType, ['image/jpeg', 'image/png', 'image/jpg'])) {
+                            return response()->json(['file_ebook' => 'Invalid file type']);
+                        }
+
+                        $pathB = $file->storeAs(
+                            $book->id,
+                            $book->id . '_' . $index . '.' . $file->extension(),
+                            'books'
+                        );
+                        
+                        $bookImage = new BookImage();
+                        $bookImage->book_id = $book->id;
+                        $bookImage->image_path = $pathB;
+                        $bookImage->save();
+                    }
+                    $book->file_ebook = 'x';
+                } 
+            }
 
             $book->save();
-            
-            // dd($book);
+
+            DB::commit();
         } catch (QueryException $ex) { 
+            DB::rollBack();
             dd($ex->errorInfo[1]);
         }  
 
@@ -301,15 +378,42 @@ class BookController extends Controller
      */
     public function destroy(Request $request, Book $book)
     {
-        $book = Book::findOrFail($request->id);
-        // dd($book->file_ebook);
-        if (file_exists($book->file_ebook)) {
-            unlink($book->file_ebook);
-        }
-        if (file_exists($book->img_cover)) {
-            unlink($book->img_cover);
-        }
-        $book->delete();
+        DB::beginTransaction();
+        try {
+            $book = Book::findOrFail($request->id);
+
+            if($book->file_ebook == 'x') {
+                $files = BookImage::where('book_id', '=', $book->id)->get();
+                foreach ($files as $file) {
+                    $file_path = env('EBOOKS_DIR') . $file->image_path;
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    $folder_path = env('EBOOKS_DIR') . substr(strrchr($file->image_path, '/'), 0);
+                    // rmdir($folder_path);
+                    $file->delete();
+                }
+            } else {
+                $file_path = env('EBOOKS_DIR') . $book->file_ebook;
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                }
+            }
+
+            $file_path = env('COVER_DIR') . $book->img_cover;
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
+
+            $book->delete();
+
+            DB::commit();
+        } catch (PDOException $e) {
+            DB::rollBack();
+            dd($e);
+        }  
+
         return redirect('/admin/books');
     }
 }

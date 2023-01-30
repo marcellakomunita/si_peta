@@ -63,23 +63,29 @@ class UserProfileController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
 
-            // dd($request->file('user_photo'));
             if($request->file('user_photo')) {
+                $file = $request->file('user_photo');
                 
-                $imgvalidator = $this->imgvalidator([$request->file('user_photo')]);
+                $imgvalidator = $this->imgvalidator([$file]);
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
                         ->withErrors($imgvalidator)
                         ->withInput();
                 }
 
-                if(!is_null($user->photo) && file_exists($user->photo)) {
-                    unlink($user->photo);
+                if ($user->photo) {
+                    $file_path = env('PROFILE_DIR') . $user->photo;
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
                 }
-                $file = $request->file('user_photo');
-                $path = 'E:/hpics-upimg/' . $user->id . '.' . $file->extension();
-                move_uploaded_file($file->getRealPath(), $path);
 
+                $path = $file->storeAs(
+                    '',
+                    $user->id . '.' . $file->extension(),
+                    'avatar'
+                );
+                
                 $user->photo = $path;
             }
             $user->save();

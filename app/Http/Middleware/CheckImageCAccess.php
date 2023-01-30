@@ -18,7 +18,7 @@ class CheckImageCAccess
     public function handle(Request $request, Closure $next)
     {
         if(!Auth::check()) {
-            return redirect('/unauthorized');
+            return abort(403);
         }
         
         return $next($request);

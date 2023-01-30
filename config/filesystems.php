@@ -56,6 +56,21 @@ return [
             'throw' => false,
         ],
 
+        'avatar' => [
+            'driver' => 'local',
+            'root' => 'E:/hpics-upimg/',
+        ],
+
+        'books' => [
+            'driver' => 'local',
+            'root' => 'E:/hbooks-wrty/',
+        ],
+
+        'cover' => [
+            'driver' => 'local',
+            'root' => 'E:/hpics-cjpeb/',
+        ],
+
     ],
 
     /*

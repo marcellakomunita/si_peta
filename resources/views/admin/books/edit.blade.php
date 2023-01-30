@@ -80,19 +80,21 @@
                         <input type="file" name="img_cover" id="img_cover" placeholder="Bonnie">
                         <p class="text-sm text-red-600">{{ $errors->first('img_cover') }}</p>
                     </div>
-                    <div class="col-span-3 sm:col-span-1">
-                        <label for="file_ebook" class="flex align-center items-center h-16 custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 w-full p-2.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 icon icon-tabler icon-tabler-file-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                                <path d="M12 11v6"></path>
-                                <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
-                             </svg>
-                             File Ebook
-                        </label>
-                        <input type="file" name="file_ebook" id="file_ebook" placeholder="Bonnie">
-                        <p class="text-sm text-red-600">{{ $errors->first('file_ebook') }}</p>
+                    <div class="col-span-3 sm:col-span-1 dropzone border-none p-0" id="myDropzone">
+                        <div class="fallback">
+                            <label for="file_ebook" class="flex align-center items-center h-16 custom-file shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 w-full p-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 icon icon-tabler icon-tabler-file-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                    <path d="M12 11v6"></path>
+                                    <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
+                                 </svg>
+                                 File Ebook
+                            </label>
+                            <input type="file" name="file_ebook[]" id="file_ebook" placeholder="Bonnie" multiple>
+                            <p class="text-sm text-red-600">{{ $errors->first('file_ebook') }}</p>
+                        </div>
                     </div>
                 </div>
             </div> 

@@ -76,7 +76,7 @@ class UserPanelController extends Controller
 
         
         $reviews = DB::table('reviews')
-                    ->select('reviews.*', 'users.name', 'users.created_at as joined_at')
+                    ->select('reviews.*', 'users.id as uid', 'users.name', 'users.photo', 'users.created_at as joined_at')
                     ->where('reviews.book_id', '=', $request->id)
                     ->join('users', 'reviews.user_id', '=', 'users.id');
         $book_rate = $reviews->avg('star');
@@ -85,7 +85,11 @@ class UserPanelController extends Controller
             $book_rate = 0;
         }
 
-        $related_books = Book::where('category_id', $book->category_id)->inRandomOrder()->take(5)->get();
+        $related_books = Book::where('category_id', $book->category_id)
+                            ->where('id', '!=', $request->id)
+                            ->inRandomOrder()
+                            ->take(5)
+                            ->get();
 
         return view('user.books.book', compact('book', 'is_favorite', 'reviews', 'book_rate', 'number_of_reads', 'related_books'));
     }

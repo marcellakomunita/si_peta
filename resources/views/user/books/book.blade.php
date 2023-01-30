@@ -68,18 +68,19 @@ use Carbon\Carbon;
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" fill="currentColor"></path>
                         </svg>
-                    @endfor
-                    
+                    @endfor        
                 </div>
-                <div class="mt-1 relative">
-                  <input type="text" name="review" placeholder="Tulis sebuah ulasan.." class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full my-4 py-8">
+                <p class="text-sm text-red-600 mt-1">{{ $errors->first('rating') }}</p>   
+                <div class="mt-4 relative">
+                  <input type="text" name="review" value="{{ old('review') }}"" placeholder="Tulis sebuah ulasan.." class="{{ $errors->first('review') ? 'text-red-700' : 'text-gray-900' }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full py-8">
+                  <p class="text-sm text-red-600">{{ $errors->first('review') }}</p>
                 </div>
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="rating" id="rating-value" value="0">
                 <input type="hidden" name="book_id" value="{{ $book->id }}">
                 
-                <button class="flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Kirim</button>
+                <button class="mt-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Kirim</button>
               </form>
               
             <div class="flex justify-between items-center">
@@ -95,7 +96,7 @@ use Carbon\Carbon;
             <article class="mb-16">
                 <div class=" flex justify-between items-center">
                     <div class="flex mb-4">
-                        <img class="mr-3 w-10 h-10 rounded-full" src="https://mdbootstrap.com/img/new/avatars/2.jpg" alt="">
+                        <img class="mr-3 w-10 h-10 rounded-full" src="{{ $review->photo ? route("content.uprofile", ['id'=>$review->uid, 'ext'=>substr( strrchr($review->photo, '.'), 1)]) : asset("images/icon/biografi.png") }}" alt="">
                         <div class="space-y-1 font-medium">
                             <p>{{ $review->name }} <span class="block text-xs text-gray-500">Bergabung {{ Carbon::parse($review->joined_at)->locale('id')->isoFormat('MMM YYYY') }}</span></p>
                         </div>
@@ -130,7 +131,7 @@ use Carbon\Carbon;
                 <div class="group relative rounded-t-xl">
                     <div class="">
                         <div class="bg-white min-h-60 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:aspect-none lg:h-60">
-                            <img src="{{ route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)])}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
+                            <img src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->id, 'ext'=>substr( strrchr($book->img_cover, '.'), 1)]) : asset('images/nocover.png')}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
                         </div>
                     </div>
                     <div class="rounded-b-lg px-4 py-3 flex justify-between bg-white">

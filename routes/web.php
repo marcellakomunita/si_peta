@@ -3,6 +3,7 @@
 use App\Http\Controllers\ADashboardController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookRController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
@@ -36,17 +37,24 @@ Route::middleware(['CheckIPAccess'])->group(function () {
 
     Auth::routes();
 
+    
     Route::get('/content/cover', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
     Route::get('/content/uprofile', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
+    Route::get('/content/file', [FileController::class, 'fileShow'])->middleware('CheckImageCAccess')->name('content.file');
     Route::get('/not-found', [FileController::class, 'notfound']);
+    
     /*------------------------------------------
     --------------------------------------------
     All Normal Users Routes List
     --------------------------------------------
     --------------------------------------------*/
     Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
+
         Route::get('/', [UDashboardController::class, 'index'])->name('dashboard');
         Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('about-us');
+
+
+        Route::get('/bookr', [BookRController::class, 'user']);
 
         Route::prefix('/profile')->name('profile.')->controller(UserProfileController::class)->group(function () {
             Route::get('/', 'index')->name('index');
