@@ -20,12 +20,8 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!-- Scripts -->
-    <script src="
-    https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/build/pdf.min.js
-    "></script>
-    <link href="
-    https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/web/pdf_viewer.min.css
-    " rel="stylesheet"></link>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/build/pdf.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/web/pdf_viewer.min.css" rel="stylesheet"></link>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
@@ -98,6 +94,5 @@
     @yield('content')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.1/flowbite.min.js"></script>
-    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
 </body>
 </html>
