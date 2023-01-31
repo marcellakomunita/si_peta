@@ -42,7 +42,7 @@
                                         @endforeach
                                     @else
                                         {{-- <iframe src="{{ route('content.file', ['id' => $book->file_ebook]) }}" width="100%" height="600" frameborder="0" toolbar="0" menu="0"></iframe> --}}
-                                        <canvas id="pdfContainer" width="685px" height="1135px"></canvas>
+                                        <canvas id="pdfContainer" data-item="{{ $book->file_ebook }}" width="685px" height="1135px"></canvas>
                                     @endif
                                     
                                     
@@ -57,25 +57,29 @@
 
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/build/pdf.min.js"></script>
 <script>
-    var pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/build/pdf.worker.min.js';
+    document.addEventListener("DOMContentLoaded", function() {
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.3.122/build/pdf.worker.min.js';
 
-    // The URL of the PDF file
-    var url = '{{ route('content.file', ['id'=>'N0D31DaCUKUEZsYu.pdf']) }}';
-    var pdfCanvas = document.getElementById('pdfContainer');
+        // The URL of the PDF file
+        const pdfCanvas = document.getElementById('pdfContainer');
+        var url = "/content/file?id=" + pdfCanvas.getAttribute('data-item');
+        console.log(url);
 
-    // Asynchronously fetch the PDF file
-    pdfjsLib.getDocument(url).promise.then(function(pdf) {
-        pdf.getPage(1).then(function(page) {
-            // Set the scale of the viewport to fit the canvas size
-            var viewport = page.getViewport({scale: pdfCanvas.width / page.getViewport({scale: 1.0}).width});
-            
-            // Render the page on the canvas
-            var renderContext = {
-                canvasContext: pdfCanvas.getContext('2d'),
-                viewport: viewport
-            };
-            page.render(renderContext);
+
+        // Asynchronously fetch the PDF file
+        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            pdf.getPage(1).then(function(page) {
+                // Set the scale of the viewport to fit the canvas size
+                var viewport = page.getViewport({scale: pdfCanvas.width / page.getViewport({scale: 1.0}).width});
+                
+                // Render the page on the canvas
+                var renderContext = {
+                    canvasContext: pdfCanvas.getContext('2d'),
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            });
         });
     });
 
