@@ -32,7 +32,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 
-Route::middleware(['CheckIPAccess'])->group(function () {
+// Route::middleware(['CheckIPAccess'])->group(function () {
     // Route::get('/', [HomeController::class, 'index']);
 
     Auth::routes();
@@ -144,4 +144,4 @@ Route::middleware(['CheckIPAccess'])->group(function () {
         });
         
     });
-});
+// });
