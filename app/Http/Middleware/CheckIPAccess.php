@@ -18,7 +18,7 @@ class CheckIPAccess
     {
         $libraryIpRange = env('ALL_IP'); // Example IP range
         if (!in_array($_SERVER['REMOTE_ADDR'], explode('/', $libraryIpRange)) && $request->path() !== 'unauthorized') {
-            // dd($_SERVER['REMOTE_ADDR']);
+            dd($_SERVER['REMOTE_ADDR']);
             return abort(401);
         }
 
