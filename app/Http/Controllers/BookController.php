@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use PDOException;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class BookController extends Controller
 {
@@ -416,5 +417,12 @@ class BookController extends Controller
         }  
 
         return redirect('/admin/books');
+    }
+
+    public function print() 
+    {
+        $books = Book::get();
+        $pdf = PDF::loadview('admin.books.print', compact('books'));
+    	return $pdf->download('ebooks_' . date('Y-m-d') . '.pdf');
     }
 }

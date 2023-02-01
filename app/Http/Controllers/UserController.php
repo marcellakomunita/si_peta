@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class UserController extends Controller
 {
@@ -241,5 +240,19 @@ class UserController extends Controller
         $administrator = User::findOrFail($request->id);
         $administrator->delete();
         return redirect('/admin/administrators');
+    }
+
+    public function printUser() 
+    {
+        $users = User::where('type', 0)->get();
+        $pdf = PDF::loadview('admin.users.print', compact('users'));
+    	return $pdf->download('users_' . date('Y-m-d') . '.pdf');
+    }
+
+    public function printAdmin() 
+    {
+        $users = User::where('type', 1)->get();
+        $pdf = PDF::loadview('admin.users.print', compact('users'));
+    	return $pdf->download('administrators_' . date('Y-m-d') . '.pdf');
     }
 }

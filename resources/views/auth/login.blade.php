@@ -26,15 +26,7 @@
                         <input type="password" name="password" id="password" required placeholder="••••••••" class="bg-gray-50 border {{ !$errors->first('password') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" required="">
                         <p class="mt-2 text-sm text-red-600">{{ $errors->first('password') }}</p>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-start">
-                            <div class="flex items-center h-5">
-                              <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300">
-                            </div>
-                            <div class="ml-3 text-sm">
-                              <label for="remember" class="text-gray-500" {{ old('remember') ? 'checked' : '' }}>Remember me</label>
-                            </div>
-                        </div>
+                    <div class="flex items-center justify-end">
                         <a href="{{ route('password.request') }}" class="text-sm text-red-500 hover:underline font-semibold">Forgot password?</a>
                     </div>
                     <button type="submit" class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
