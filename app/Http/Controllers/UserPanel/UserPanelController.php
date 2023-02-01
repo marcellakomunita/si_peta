@@ -22,10 +22,10 @@ class UserPanelController extends Controller
            'based_on' => 'nullable|in:latest,most-favorite',
        ]);
 
-
         $query = DB::table('books')
-                ->select('books.id', 'books.judul', 'books.penulis', 'books.img_cover', DB::raw('COUNT(book_read_history.id) as number_of_reads'))
+                ->select('books.id', 'books.judul', 'books.penulis', 'books.img_cover', DB::raw('COUNT(book_read_history.id) as number_of_reads'), DB::raw('COUNT(reviews.id) as number_of_reviews'))
                 ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
+                ->leftJoin('reviews', 'books.id', '=', 'reviews.book_id')
                 ->groupBy('books.id');
 
         // Search for books by judul

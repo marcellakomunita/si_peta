@@ -22,7 +22,9 @@ class ADashboardController extends Controller
         $numAdmins = User::where('type', 1)->count();
         $numBooks = Book::count();
         $numCategories = Category::count();
-        $numVisitors = LoginHistories::count();
+        $numVisitors = LoginHistories::whereHas('user', function ($query) {
+                            $query->where('type', 0);
+                        })->count();
 
         $now = Carbon::now();
         $favoriteBooks = Book::query()

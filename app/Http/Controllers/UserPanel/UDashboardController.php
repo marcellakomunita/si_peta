@@ -22,9 +22,10 @@ class UDashboardController extends Controller
         $latest_books = $books->orderBy('created_at', 'desc')->take(5)->get();
         $favorite_books = $books->select('books.*', DB::raw('COUNT(book_read_history.id) as number_of_reads'))
                                 ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
-                                ->groupBy('books.id')
+                                ->groupBy('books.id');
+        $favorite_books->getQuery()->orders = null;
+        $favorite_books = $favorite_books
                                 ->orderBy('number_of_reads', 'desc')
-                                ->take(5)
                                 ->get();
         
         return view('user.home', compact('categories', 'latest_books', 'favorite_books'));
