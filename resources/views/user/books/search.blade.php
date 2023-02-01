@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="flex" style="background-color: #f8f8f8">  
+<div class="flex" >  
     <x-user.asidecategories :categories="$categories"/>
 
     <div id="products" class="pt-[9.5rem] pb-16 w-full px-4">

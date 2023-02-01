@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-40" style="background-color: #f8f8f8">
+<div class="pt-40">
     <div class="w-full">
         <div class="mb-8 bg-white rounded-md shadow-sm p-4">  
                 <div class="space-y-6">
