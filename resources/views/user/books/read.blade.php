@@ -42,7 +42,7 @@
                                         @endforeach
                                     @else
                                         {{-- <iframe src="{{ route('content.file', ['id' => $book->file_ebook]) }}" width="100%" height="600" frameborder="0" toolbar="0" menu="0"></iframe> --}}
-                                        <canvas id="pdfContainer" data-item="{{ $book->file_ebook }}" width="685px" height="1135px"></canvas>
+                                        <canvas style="user-select: none; pointer-events:none;" id="pdfContainer" data-item="{{ $book->file_ebook }}" width="685px" height="1135px"></canvas>
                                     @endif
                                     
                                     

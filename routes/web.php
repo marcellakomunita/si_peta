@@ -111,6 +111,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             Route::get('/destroy', 'destroy')->name('destroy');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
+            Route::get('/print', 'printUser')->name('print');
         });
         Route::prefix('/administrators')->name('administrators.')->controller(UserController::class)->group(function () {
             Route::get('/', 'indexAdmin')->name('index');
@@ -119,6 +120,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             Route::get('/destroy', 'destroyAdmin')->name('destroy');
             Route::get('/create', 'createAdmin')->name('create');
             Route::post('/store', 'storeAdmin')->name('store');
+            Route::get('/print', 'printAdmin')->name('print');
         });
         Route::prefix('/books')->name('books.')->controller(BookController::class)->group(function () {
             Route::get('/', 'index')->name('index');
@@ -128,6 +130,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             Route::get('/destroy', 'destroy')->name('destroy');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
+            Route::get('/print', 'print')->name('print');
         });
         Route::prefix('/categories')->name('categories.')->controller(CategoryController::class)->group(function () {
             Route::get('/', 'index')->name('index');
