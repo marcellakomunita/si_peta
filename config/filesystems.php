@@ -58,17 +58,17 @@ return [
 
         'avatar' => [
             'driver' => 'local',
-            'root' => 'E:/hpics-upimg/',
+            'root' => storage_path('app/hpics-upimg'),
         ],
 
         'books' => [
             'driver' => 'local',
-            'root' => 'E:/hbooks-wrty/',
+            'root' => storage_path('app/hbooks-wrty'),
         ],
 
         'cover' => [
             'driver' => 'local',
-            'root' => 'E:/hpics-cjpeb/',
+            'root' => storage_path('app/hpics-cjpeb'),
         ],
 
     ],
@@ -86,6 +86,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('cover') => storage_path('app/cover'),
     ],
 
 ];
