@@ -66,7 +66,7 @@ class ProfileController extends Controller
             if($request->file('user_photo')) {
                 $file = $request->file('user_photo');
 
-                $file_path = env('PROFILE_DIR') . $user->photo;
+                $file_path = storage_path(env('PROFILE_DIR')) . $user->photo;
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }

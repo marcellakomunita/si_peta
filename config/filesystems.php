@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Storage;
-
 return [
 
     /*
@@ -60,17 +58,17 @@ return [
 
         'avatar' => [
             'driver' => 'local',
-            'root' => Storage::url('public/hpics-uimg/')
+            'root' => storage_path('app/hpics-upimg'),
         ],
 
         'books' => [
             'driver' => 'local',
-            'root' => Storage::url('public/hbooks-wrty/')
+            'root' => storage_path('app/hbooks-wrty'),
         ],
 
         'cover' => [
             'driver' => 'local',
-            'root' => Storage::url('public/hpics-cjpeb/')
+            'root' => storage_path('app/hpics-cjpeb'),
         ],
 
     ],
@@ -88,6 +86,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('cover') => storage_path('app/cover'),
     ],
 
 ];

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use PDOException;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class BookController extends Controller
 {
@@ -285,7 +286,7 @@ class BookController extends Controller
                         ->withInput();
                 }
 
-                $file_path = env('COVER_DIR') . $book->img_cover;
+                $file_path = storage_path(env('COVER_DIR')) . $book->img_cover;
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }
@@ -301,7 +302,7 @@ class BookController extends Controller
             if ($request->file('file_ebook')) {
                 // DELETING PREVIOUS
                 if($book->file_ebook != 'x') {
-                    $file_path = env('EBOOKS_DIR') . $book->file_ebook;
+                    $file_path = storage_path(env('EBOOKS_DIR')) . $book->file_ebook;
                     if (file_exists($file_path)) {
                         $files = glob($file_path . "/*"); 
                         array_map('unlink', $files);
@@ -309,7 +310,7 @@ class BookController extends Controller
                 } else {
                     $files = BookImage::where('book_id', '=', $book->id)->get();
                     foreach ($files as $file) {
-                        $file_path = env('EBOOKS_DIR') . $file->image_path;
+                        $file_path = storage_path(env('EBOOKS_DIR')) . $file->image_path;
                         if (file_exists($file_path)) {
                             unlink($file_path);
                         }
@@ -386,23 +387,23 @@ class BookController extends Controller
             if($book->file_ebook == 'x') {
                 $files = BookImage::where('book_id', '=', $book->id)->get();
                 foreach ($files as $file) {
-                    $file_path = env('EBOOKS_DIR') . $file->image_path;
+                    $file_path = storage_path(env('EBOOKS_DIR')) . $file->image_path;
                     if (file_exists($file_path)) {
                         unlink($file_path);
                     }
 
-                    $folder_path = env('EBOOKS_DIR') . substr(strrchr($file->image_path, '/'), 0);
+                    $folder_path = storage_path(env('EBOOKS_DIR')) . substr(strrchr($file->image_path, '/'), 0);
                     // rmdir($folder_path);
                     $file->delete();
                 }
             } else {
-                $file_path = env('EBOOKS_DIR') . $book->file_ebook;
+                $file_path = storage_path(env('EBOOKS_DIR')) . $book->file_ebook;
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }
             }
 
-            $file_path = env('COVER_DIR') . $book->img_cover;
+            $file_path = storage_path(env('COVER_DIR')) . $book->img_cover;
             if (file_exists($file_path)) {
                 unlink($file_path);
             }
@@ -416,5 +417,12 @@ class BookController extends Controller
         }  
 
         return redirect('/admin/books');
+    }
+
+    public function print() 
+    {
+        $books = Book::get();
+        $pdf = PDF::loadview('admin.books.print', compact('books'));
+    	return $pdf->download('ebooks_' . date('Y-m-d') . '.pdf');
     }
 }
