@@ -40,7 +40,7 @@
                             @endif
                         </div>
                     </label>
-                    <input type="file" name="img_icon" id="img_icon" placeholder="Bonnie">
+                    <input type="file" style="display: none;" name="img_icon" id="img_icon" placeholder="Bonnie">
                     <p class="text-sm text-red-600">{{ $errors->first('img_icon') }}</p>
                 </div>
             </div>

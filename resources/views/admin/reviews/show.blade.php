@@ -112,7 +112,7 @@ use Carbon\Carbon;
 
 <!-- Delete User Modal -->
 <div class="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="delete-user-modal">
-    <div class="relative w-full max-w-lg px-4 h-full md:h-auto">
+    <div class="relative w-full max-w-lg px-4 h-full md:h-auto grid place-items-center">
         <!-- Modal content -->
         <div class="bg-white rounded-lg shadow relative">
             <!-- Modal header -->

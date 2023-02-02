@@ -77,7 +77,7 @@
                                 @endif
                             </div>
                         </label>
-                        <input type="file" name="img_cover" id="img_cover" placeholder="Bonnie">
+                        <input type="file" style="display: none;" name="img_cover" id="img_cover" placeholder="Bonnie">
                         <p class="text-sm text-red-600">{{ $errors->first('img_cover') }}</p>
                     </div>
                     <div class="col-span-3 sm:col-span-1 dropzone border-none p-0" id="myDropzone">
@@ -92,7 +92,7 @@
                                  </svg>
                                  File Ebook
                             </label>
-                            <input type="file" name="file_ebook[]" id="file_ebook" placeholder="Bonnie" multiple>
+                            <input type="file" style="display: none;" name="file_ebook[]" id="file_ebook" placeholder="Bonnie" multiple>
                             <p class="text-sm text-red-600">{{ $errors->first('file_ebook') }}</p>
                         </div>
                     </div>

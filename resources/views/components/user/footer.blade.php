@@ -1,6 +1,6 @@
 
 <footer class="  " id="footer">
-    <div class="px-12 lg:px-24 pt-16 mt-16 pb-4 border-y grid grid-cols-3 gap-8 md:grid-cols-5">
+    <div class="px-6 lg:px-20 pt-16 mt-16 pb-4 border-y grid grid-cols-3 gap-8 md:grid-cols-5">
         <div class="col-span-3 md:col-span-2">
             
             <img src="{{ asset('images/sipeta.png') }}" alt="logo" class="h-24 w-24 mb-8">
@@ -81,7 +81,7 @@
             </ul>
         </div> --}}
     </div>
-    <div class="px-12 lg:px-24 py-4 md:flex md:items-center md:justify-between">
+    <div class="px-6 lg:px-20 py-4 md:flex md:items-center md:justify-between">
         <span class="text-sm text-gray-500  sm:text-center">© 2023 <span class="text-red-500">PKL IF-20</span>. All Rights Reserved.
         </span>
     </div>

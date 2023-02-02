@@ -1,9 +1,9 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-40">
+<div class="pt-48 md:pt-40">
     <div class="w-full">
-        <div class="p-16 mb-8 bg-white rounded-md shadow-sm">
+        <div class="py-16 px-8 md:px-16 mb-8 bg-white rounded-md shadow-sm">
             <h2 class="text-2xl font-bold tracking-tight text-gray-900">Tentang Sipeta</h2>
             <div class="">
                 <br><br>

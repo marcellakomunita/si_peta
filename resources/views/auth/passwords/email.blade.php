@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="" style="background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url('{{ asset('images/background.png') }}')">
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<div class="h-full flex items-center" style="background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url('{{ asset('images/background.png') }}')">
+    <div class="w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
             <img class="w-8 h-8 mr-2" src="{{ asset('images/sipeta.png') }}" alt="logo">
             <span class="text-white">Sipeta</span>    

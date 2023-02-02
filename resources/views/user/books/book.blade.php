@@ -5,7 +5,7 @@ use Carbon\Carbon;
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-40">
+<div class="pt-48 md:pt-40">
     <div class="w-full">
         <!-- component -->
         <section class="text-gray-700 body-font overflow-hidden">

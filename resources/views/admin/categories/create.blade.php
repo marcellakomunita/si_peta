@@ -41,7 +41,7 @@
                             <img src="{{ asset('images/nocover.png') }}" alt="" class="w-full h-full" id="preview">
                         </div>
                     </label>
-                    <input type="file" name="img_icon" id="img_icon" placeholder="Bonnie" required>
+                    <input type="file" style="display: none;" name="img_icon" id="img_icon" placeholder="Bonnie" required>
                     <p class="text-sm text-red-600">{{ $errors->first('img_icon') }}</p>
                 </div>
             </div> 
