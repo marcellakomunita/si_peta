@@ -4,7 +4,7 @@
 <div class="flex" >  
     <x-user.asidecategories :categories="$categories"/>
 
-    <div id="products" class="pt-[10.5rem] md:pt-[9.5rem] pb-16 w-full md:px-4">
+    <div id="products" class="pt-[12.5rem] md:pt-[11.5rem] pb-16 w-full md:px-4">
         
         <div class="flex flex-col md:flex-row justify-between">
             {{ $books->appends(request()->input())->links('vendor.pagination') }}

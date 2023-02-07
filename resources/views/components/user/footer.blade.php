@@ -32,9 +32,6 @@
                 <li class="mb-3">
                     <a href="https://arpusda.semarangkota.go.id" class="">Perpustakaan</a>
                 </li>
-                <li class="mb-3">
-                    <a href="#" class="">Ketentuan Kebijakan</a>
-                </li>
             </ul>
         </div>
         <div>
@@ -51,37 +48,6 @@
                 </li>
             </ul>
         </div>
-        <div>
-            <h2 class="mb-6 text-sm font-semibold text-red-500 uppercase">Legal</h2>
-            <ul class="text-gray-800">
-                <li class="mb-3">
-                    <a href="#" class="">Privacy Policy</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="">Licensing</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="">Terms &amp; Conditions</a>
-                </li>
-            </ul>
-        </div>
-        {{-- <div>
-            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Download</h2>
-            <ul class="text-gray-500">
-                <li class="mb-3">
-                    <a href="#" class="">iOS</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="">Android</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="">Windows</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="">MacOS</a>
-                </li>
-            </ul>
-        </div> --}}
     </div>
     <div class="px-6 md:px-12 lg:px-20 py-4 md:flex md:items-center md:justify-between">
         <span class="text-sm text-gray-500  sm:text-center">© 2023 <span class="text-red-500">PKL IF-20</span>. All Rights Reserved.
