@@ -5,7 +5,7 @@ use Carbon\Carbon;
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-48 md:pt-40">
+<div class="pt-56 md:pt-52">
     <div class="w-full">
         <!-- component -->
         <section class="text-gray-700 body-font overflow-hidden">
@@ -45,18 +45,29 @@ use Carbon\Carbon;
                             <form action="{{ route('user.bookr.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="bid" value="{{ $book->id }}">
-                                <input type="hidden" name="uid" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="uid" value="{{ Auth::user() ? Auth::user()->id : Request()->session()->getId() }}">
                                 <button type="submit" class="flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                                     {{-- <a href="{{ url('/bookr?id=') . $book->id }}">Baca</a> --}}
                                     Baca
                                 </button>
                             </form>
-                            @csrf
-                            <button id="favorite-btn" data-item={{ $book->id }} class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center {{ $is_favorite ? "text-red-600" : "text-gray-500" }} ml-4">
-                                <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                                </svg>
-                            </button>
+
+                            @if(Auth::user())
+                                @csrf
+                                <button id="favorite-btn" data-item={{ $book->id }} class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center {{ $is_favorite ? "text-red-600" : "text-gray-500" }} ml-4">
+                                    <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                                    </svg>
+                                </button>
+                            @else
+                                <a href="{{ route('login') }}">
+                                    <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center {{ $is_favorite ? "text-red-600" : "text-gray-500" }} ml-4">
+                                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                                            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -66,8 +77,8 @@ use Carbon\Carbon;
         <!-- review column -->
         {{-- <h2 class="text-lg font-bold mb-6 pb-6 border-bottom border-gray-200">Review Buku</h2> --}}
         <div class="px-2 mt-16 border-top border-gray-200">
-            @csrf
             <form action="{{ route('user.books.reviews.store') }}" method="POST" class="my-8">
+                @csrf
                 <h2 class="text-2xl tracking-tight text-gray-900 font-silk">Beri Penilaian</h2>
                 <p class="text-red-600 my-1 text-xs">{{ $errors->first('multipleReview') }}</p>
                 <div class="star-rating flex mt-4">
@@ -84,14 +95,21 @@ use Carbon\Carbon;
                   <p class="text-sm text-red-600">{{ $errors->first('review') }}</p>
                 </div>
 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="rating" id="rating-value" value="0">
-                <input type="hidden" name="book_id" value="{{ $book->id }}">
-                
-                <button class="mt-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Kirim</button>
-              </form>
+                @if(Auth::user())
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="rating" id="rating-value" value="0">
+                        <input type="hidden" name="book_id" value="{{ $book->id }}">
+                        
+                        <button class="mt-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Kirim</button>
+                    </form>
+                @else
+                    </form>
+                    <a href="{{ route('login') }}">
+                        <button class="mt-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Kirim</button>
+                    </a>
+                @endif
               
-            <div class="flex justify-between items-center">
+            <div class="mt-4 flex justify-between items-center">
                 <h2 class="text-2xl tracking-tight text-gray-900 mb-4 font-silk">Ulasan Ebook</h2>
                 @if(count($reviews) > 0)
                 <a href="{{ route('user.books.reviews.index', ['id' => $book->id]) }}">

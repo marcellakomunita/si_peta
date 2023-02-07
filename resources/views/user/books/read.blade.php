@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-48 md:pt-40">
+<div class="pt-56 md:pt-52">
         {{-- <div style="position: absolute; width: 687px; height: {{ $files != 'x' ? count($files)*1138+5 : 1138 }}px; left: 331px;"> --}}
             {{-- <iframe src="{{ route('content.file', ['id' => 'qbFRaFRTIKZzQdUM' ]) }}" width="100%" height="600"></iframe> --}}
         {{-- </div> --}}

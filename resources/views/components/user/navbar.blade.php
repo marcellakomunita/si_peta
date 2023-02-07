@@ -1,4 +1,23 @@
-<nav class="px-6 lg:px-20 bg-white border-b border-gray-200 fixed z-30 w-full">
+<nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
+  <div class="px-6 md:px-12 lg:px-20 py-3 flex justify-between" style="background: rgba(0, 0, 0, 0.15)">
+    <div class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone mr-2" width="22" height="20" viewBox="0 4 24 20" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
+      </svg>
+      <p>+62-8782-5329390</p>
+    </div>
+
+    <div class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail mr-2" width="22" height="20" viewBox="0 4 24 20" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+        <path d="M3 7l9 6l9 -6"></path>
+     </svg>
+      <p>admin@mail.com</p>
+    </div>
+  </div>
+
+  <div class="px-6 md:px-12 lg:px-20 "> 
     <div class="py-3">
       <div class="flex items-center justify-between">
           <button data-collapse-toggle="navbar-default" type="button" class="flex-0 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -7,8 +26,9 @@
           </button>
 
           <div class="flex-0 flex items-center md:shrink md:justify-center">
-            <img src="{{ asset('images/sipeta.png') }}" alt="logo" class="h-12 w-12">
-            {{-- SI-PETA --}}
+            <img src="{{ asset('images/semarangkota.png') }}" alt="logo" class="hidden md:block h-12 w-12 mr-3">
+            <img src="{{ asset('images/sipeta.png') }}" alt="logo" class="h-12 w-12 mr-3">
+            <div class="text-[10px]">Si Peta<br>Perpustakaan Intranet Kota Semarang</div>
           </div>
 
           <form action="{{ route('user.books.search') }}" method="GET" class="w-full shrink hidden md:block md:px-8">
@@ -23,92 +43,71 @@
           </form>
 
           <div class="flex">
-            {{-- FAVORITES --}}
-            {{-- <button type="button" class="rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-              <span class="sr-only">View notifications</span>
-              <!-- Heroicon name: outline/bell -->
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </button> --}}
-
-            {{-- NOTIFICATION --}}
-            {{-- <button type="button" class="rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-              <span class="sr-only">View notifications</span>
-              <!-- Heroicon name: outline/bell -->
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-              </svg>
-            </button> --}}
-
-            {{-- DROPDOWN PROFILE --}}
-            <div class="flex-0 flex items-center">
-              <div class="dropdown relative">
-                <a
-                  class="dropdown-toggle flex items-center hidden-arrow"
-                  href="#"
-                  id="dropdownMenuButton2"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    src="{{ Auth::user()->photo ? route("content.uprofile", ['id'=>Auth::user()->photo ]) : asset("images/icon/biografi.png") }}"
-                    {{-- src="{{ route('content.uprofile', ['id'=> Auth::user()->id]) }}" --}}
-                    class="rounded-full h-8 w-8 border"
-                    alt=""
-                    loading="lazy"
-                  />
-                </a>
-                <ul
-                  class="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
-                  aria-labelledby="dropdownMenuButton2"
-                >
-                  <li>
-                    <a
-                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
-                      href="{{ route('user.books.favorites.index') }}"
-                      >Favorit Saya</a
-                    >
-                  </li>
-                  {{-- <li>
-                    <a
-                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
-                      href="#"
-                      >Notifications</a
-                    >
-                  </li> --}}
-                  <li>
-                    <a
-                      class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
-                      href="{{ route('user.profile.index') }}"
-                      >Profile</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-                      href="{{ route('logout') }}"
-                      onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();"
-                    >
-                      {{ __('Logout') }}
-                    </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                          @csrf
-                      </form>
-                  </li>
-                </ul>
+            @if(!Auth::user())
+              <a href="{{ route('login') }}"> 
+                <button class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center">Login</button>
+              </a>
+            @else
+              {{-- DROPDOWN PROFILE --}}
+              <div class="flex-0 flex items-center">
+                <div class="dropdown relative">
+                  <a
+                    class="dropdown-toggle flex items-center hidden-arrow"
+                    href="#"
+                    id="dropdownMenuButton2"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="{{ Auth::user()->photo ? route("content.uprofile", ['id'=>Auth::user()->photo ]) : asset("images/icon/biografi.png") }}"
+                      {{-- src="{{ route('content.uprofile', ['id'=> Auth::user()->id]) }}" --}}
+                      class="rounded-full h-8 w-8 border"
+                      alt=""
+                      loading="lazy"
+                    />
+                  </a>
+                  <ul
+                    class="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <a
+                        class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
+                        href="{{ route('user.books.favorites.index') }}"
+                        >Favorit Saya</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="w-32 min-w-full dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:text-red-500"
+                        href="{{ route('user.profile.index') }}"
+                        >Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                        href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();"
+                      >
+                        {{ __('Logout') }}
+                      </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
+            @endif
 
           </div>
-          
-      </div>
       </div>
     </div>
 
-    <div class="md:pb-1 md:pt">
+    <div class="md:pb-1 md:pt md:flex md:justify-between">
       <div class="hidden w-full md:block md:w-auto" id="navbar-default">
         <ul class="flex flex-col md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
           <li>
@@ -122,6 +121,7 @@
           </li>
         </ul>
       </div>
+      {{-- <p class="hidden md:block">Kontak Admin: <u>+62-8782-5329390</u></p> --}}
     </div>
 
     <div class="md:pb-0 pb-6">
@@ -138,4 +138,5 @@
           </form>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

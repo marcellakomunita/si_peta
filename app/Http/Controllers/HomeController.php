@@ -25,10 +25,12 @@ class HomeController extends Controller
     {
         if (auth()->user()->type == 1) {
             return redirect()->route('admin.dashboard');
-        }else if (auth()->user()->type == 0) {
+        }
+        // else if (auth()->user()->type == 0) {
+        //     return redirect()->route('user.dashboard');
+        // }
+        else {
             return redirect()->route('user.dashboard');
-        }else {
-            return redirect()->route('login');
         }
     }
 

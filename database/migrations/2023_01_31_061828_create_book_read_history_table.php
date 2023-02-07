@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('book_read_history', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->char('user_id', 50);
             $table->char('book_id', 16);
             $table->timestamp('read_at');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
         });
     }

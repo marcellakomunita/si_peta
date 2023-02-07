@@ -70,7 +70,7 @@ class BookController extends Controller
     protected function pdfvalidator(array $data)
     {
         return Validator::make($data, [
-            'file_ebook' => 'mimes:pdf|max:2048'
+            'file_ebook' => 'mimes:pdf'
         ]);
     }
     public function store(Request $request)

@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\LoginHistories;
 use App\Models\User;
+use App\Models\VisitHistory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -22,9 +23,10 @@ class ADashboardController extends Controller
         $numAdmins = User::where('type', 1)->count();
         $numBooks = Book::count();
         $numCategories = Category::count();
-        $numVisitors = LoginHistories::whereHas('user', function ($query) {
-                            $query->where('type', 0);
-                        })->count();
+        // $numVisitors = LoginHistories::whereHas('user', function ($query) {
+        //                     $query->where('type', 0);
+        //                 })->count();
+        $numVisitors = VisitHistory::count();
 
         $now = Carbon::now();
         $favoriteBooks = Book::query()
@@ -67,9 +69,14 @@ class ADashboardController extends Controller
 
     public function visitorData()
     {
-        $visitorData = LoginHistories::select(DB::raw('DATE_FORMAT(login_at, "%Y-%m") as month'), DB::raw('COUNT(*) as count'))
-                        ->groupBy(DB::raw('DATE_FORMAT(login_at, "%Y-%m")'))
+        // $visitorData = LoginHistories::select(DB::raw('DATE_FORMAT(login_at, "%Y-%m") as month'), DB::raw('COUNT(*) as count'))
+        //                 ->groupBy(DB::raw('DATE_FORMAT(login_at, "%Y-%m")'))
+        //                 ->get();
+
+        $visitorData = VisitHistory::select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), DB::raw('COUNT(*) as count'))
+                        ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
                         ->get();
+
         return $visitorData;
     }
 }

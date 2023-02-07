@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-48 md:pt-40">
+<div class="pt-56 md:pt-52">
     <div class="w-full">
 
         @if(count($favorites) < 1)

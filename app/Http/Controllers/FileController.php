@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Dompdf\Dompdf;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
 class FileController extends Controller
 {
@@ -15,7 +11,8 @@ class FileController extends Controller
         $path = storage_path(env('COVER_DIR')) . $request->id;
         if (!file_exists($path)) {
             // return response()->json(['error' => 'File not found'], 404);
-            return abort(404);
+            // return abort(404);
+            $path = public_path('images/nocover.png');
         }
         
         header('Content-Type: ' . mime_content_type($path));

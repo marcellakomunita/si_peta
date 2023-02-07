@@ -5,7 +5,7 @@ use Carbon\Carbon;
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-48 md:pt-40">
+<div class="pt-56 md:pt-52">
     <div class="w-full">
         
         <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-4">Ulasan "{{ $book->judul }}"</h2>

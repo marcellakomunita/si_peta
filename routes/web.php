@@ -7,6 +7,7 @@ use App\Http\Controllers\BookRController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JumbotronController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\UserPanel\UserPanelController;
 use App\Http\Controllers\UserPanel\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,27 +35,46 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 // Route::middleware(['CheckIPAccess'])->group(function () {
     // Route::get('/', [HomeController::class, 'index']);
 
+Route::middleware(['TrackVisitor'])->group(function () {    
+    // Route::get('/content/cover', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
+    Route::get('/content/cover', [FileController::class, 'cimageShow'])->name('content.cover');
+    Route::get('/content/uprofile', [FileController::class, 'uimageShow'])->name('content.uprofile');
+    Route::get('/content/file', [FileController::class, 'fileShow'])->name('content.file');
+    Route::get('/content/files', [FileController::class, 'filesShow'])->name('content.files');
+    Route::get('/not-found', [FileController::class, 'notfound']);
+
+    Route::get('/', [UDashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('user.about-us');
+
+    Route::get('/bookr', [BookRController::class, 'index'])->name('user.bookr');
+    Route::post('/bookr/store', [BookRController::class, 'store'])->name('user.bookr.store');
+
+    Route::prefix('/')->name('user.books.')->controller(UserPanelController::class)->group(function () {
+        // Route::get('categories', 'categories')->name('categories');
+        Route::get('book', 'show')->name('book');
+        Route::get('search', 'search')->name('search');
+
+        Route::prefix('/reviews')->name('reviews.')->controller(UReviewController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+        });
+
+        Route::get('authors', 'authors')->name('authors');
+        Route::get('author/{id}', 'author')->name('author');
+        
+        Route::get('publishers', 'publishers')->name('publishers');
+        Route::get('publisher/{id}', 'publisher')->name('publisher');
+        
+    });
+    
     Auth::routes();
 
-    
-    Route::get('/content/cover', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
-    Route::get('/content/uprofile', [FileController::class, 'uimageShow'])->middleware('CheckImageCAccess')->name('content.uprofile');
-    Route::get('/content/file', [FileController::class, 'fileShow'])->middleware('CheckImageCAccess')->name('content.file');
-    Route::get('/content/files', [FileController::class, 'filesShow'])->middleware('CheckImageCAccess')->name('content.files');
-    Route::get('/not-found', [FileController::class, 'notfound']);
-    
     /*------------------------------------------
     --------------------------------------------
     All Normal Users Routes List
     --------------------------------------------
     --------------------------------------------*/
     Route::middleware(['auth', 'user-access:0'])->name('user.')->group(function () {
-
-        Route::get('/', [UDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/about-us', [UDashboardController::class, 'aboutus'])->name('about-us');
-
-        Route::get('/bookr', [BookRController::class, 'index'])->name('bookr');
-        Route::post('/bookr/store', [BookRController::class, 'store'])->name('bookr.store');
+       
 
         Route::prefix('/profile')->name('profile.')->controller(UserProfileController::class)->group(function () {
             Route::get('/', 'index')->name('index');
@@ -64,20 +83,19 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
         });
 
         Route::prefix('/')->name('books.')->controller(UserPanelController::class)->group(function () {
-            // Route::get('categories', 'categories')->name('categories');
-            Route::get('book', 'show')->name('book');
-            Route::get('search', 'search')->name('search');
+            // Route::get('book', 'show')->name('book');
+            // Route::get('search', 'search')->name('search');
 
             Route::prefix('/reviews')->name('reviews.')->controller(UReviewController::class)->group(function () {
-                Route::get('/', 'index')->name('index');
+                // Route::get('/', 'index')->name('index');
                 Route::post('/store', 'store')->name('store');
             });
 
-            Route::get('authors', 'authors')->name('authors');
-            Route::get('author/{id}', 'author')->name('author');
+            // Route::get('authors', 'authors')->name('authors');
+            // Route::get('author/{id}', 'author')->name('author');
             
-            Route::get('publishers', 'publishers')->name('publishers');
-            Route::get('publisher/{id}', 'publisher')->name('publisher');
+            // Route::get('publishers', 'publishers')->name('publishers');
+            // Route::get('publisher/{id}', 'publisher')->name('publisher');
 
             Route::prefix('/my-favorites')->name('favorites.')->controller(UserFavoritesController::class)->group(function () {
                 Route::get('/', 'index')->name('index');
@@ -145,6 +163,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             Route::get('review', 'show')->name('show');
             Route::get('/destroy', 'destroy')->name('destroy');
         });
+        Route::prefix('/jumbotrons')->name('jumbotrons.')->controller(JumbotronController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
+        });
         
     });
-// });
+});

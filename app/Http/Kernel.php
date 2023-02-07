@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'user-access' => \App\Http\Middleware\UserAccess::class,
         'CheckImageCAccess' => \App\Http\Middleware\CheckImageCAccess::class,
         'CheckIPAccess'=> \App\Http\Middleware\CheckIPAccess::class,
+        'TrackVisitor' => \App\Http\Middleware\TrackVisitor::class,
     ];
 }
