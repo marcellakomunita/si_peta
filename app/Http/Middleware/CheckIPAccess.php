@@ -16,7 +16,7 @@ class CheckIPAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = $_SERVER['HTTP_FORWARDED'];
         // dd(ip2long($ip));
         $libraryIpRangeStart = '172.24.151.11';
         $libraryIpRangeEnd = '172.24.151.250';
@@ -27,12 +27,9 @@ class CheckIPAccess
         }
         
         if (in_array($ip, $testIp)) {
-            dd('x', $ip, $testIp);
+            // dd('x', $ip, $testIp);
             $ip_in_range = true;
         }
-
-        
-        dd('y', $ip, $testIp);
 
         if (!$ip_in_range) {
             return abort('401');
