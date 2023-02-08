@@ -27,8 +27,12 @@ class CheckIPAccess
         }
         
         if (in_array($ip, $testIp)) {
+            dd('x', $ip, $testIp);
             $ip_in_range = true;
         }
+
+        
+        dd('y', $ip, $testIp);
 
         if (!$ip_in_range) {
             return abort('401');
