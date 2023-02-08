@@ -24,6 +24,7 @@ class CheckIPAccess
         ];
         foreach ($allowed_ranges as $range) {
             if (ip2long($ip) >= ip2long($range[0]) && ip2long($ip) <= ip2long($range[1])) {
+                dd('x', $ip, $range);
                 return $next($request);
             }
         }
@@ -33,9 +34,11 @@ class CheckIPAccess
         ];
         foreach ($allowed_ips as $allowed) {
             if (ip2long($ip) == ip2long($allowed)) {
+                dd('y', $ip, $allowed);
                 return $next($request);
             }
         }
+        dd('z', $ip);
 
         return abort('401');
     }

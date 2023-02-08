@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="flex pt-56 md:pt-52" >  
+<div class="flex pt-64 md:pt-52" >  
     <x-user.asidecategories :categories="$categories"/>
 
     <div id="products" class=" pb-16 w-full md:px-4">

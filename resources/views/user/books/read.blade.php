@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-56 md:pt-52">
+<div class="pt-64 md:pt-52">
         {{-- <div style="position: absolute; width: 687px; height: {{ $files != 'x' ? count($files)*1138+5 : 1138 }}px; left: 331px;"> --}}
             {{-- <iframe src="{{ route('content.file', ['id' => 'qbFRaFRTIKZzQdUM' ]) }}" width="100%" height="600"></iframe> --}}
         {{-- </div> --}}
@@ -12,7 +12,7 @@
         <div id="volume-center">
             <div id="scroll_atb" role="main">
                 <div class="gback">
-                    <div id="viewport" class="viewport" tabindex="0" style="overflow: hidden; position: relative; padding: 0px;">
+                    <div id="viewport" class="viewport" tabindex="0" style="position: relative; padding: 0px;">
                         <div class="m-auto overflow-scrolling" dir="ltr" style="box-sizing: content-box; width: 710px; height: 800px; position: relative; overflow: auto scroll;">
                             <div class="scroll-background" style="height: {{ $files != 'x' ? count($files)*1138+5 : 1138 }}px;">
                                 <div style="position: absolute; width: 687px; height: {{ $files != 'x' ? count($files)*1138+5 : 1138 }}px; left: 0px;">
@@ -21,7 +21,7 @@
                                         @foreach($files as $index=>$file)
                                             <div style="position: absolute; left: 0px; top: {{ 1138*$index }}px;">
                                                 <div style="background-color: rgb(204, 204, 204); position: absolute; left: 0px; top: 0px; width: 687px; height: 1135px;">
-                                                    <div class="pageImageDisplay" style="overflow: hidden; background-color: rgb(252, 252, 252); position: absolute; left: 1px; top: 1px; width: 685px; height: 1133px; user-select: none; pointer-events:none;">
+                                                    <div class="pageImageDisplay" style="background-color: rgb(252, 252, 252); position: absolute; left: 1px; top: 1px; width: 685px; height: 1133px; user-select: none; pointer-events:none;">
                                                         <div style="position: absolute; left: 0px; top: 0px; background-color: rgb(255, 255,255); width: 685px; height: 1133px; user-select: none; pointer-events:none;"></div>
                                                         
                                                         <div style="position: absolute; left: 0px; top: 0px; user-select: none; pointer-events:none;">

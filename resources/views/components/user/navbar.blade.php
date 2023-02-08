@@ -1,6 +1,6 @@
 <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
-  <div class="bg-red-500 text-white px-6 md:px-12 lg:px-20 py-3 flex justify-between">
-    <div class="flex items-center">
+  <div class="bg-red-500 text-white px-6 md:px-12 lg:px-20 py-3 flex flex-col md:flex-row justify-between">
+    <div class="flex items-center pb-2 md:pb-0">
       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone mr-2" width="22" height="20" viewBox="0 4 24 20" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
           <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>

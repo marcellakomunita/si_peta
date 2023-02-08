@@ -6,7 +6,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-56 md:pt-52">
+<div class="pt-64 md:pt-52">
     <div class="w-full">
 
         <div class="flex">
@@ -83,9 +83,9 @@
                         <div class="group relative">
                             <div class="flex flex-col justify-between h-full max-w-sm py-4 rounded-lg text-gray-800">
                                 <a href="{{ route('user.books.search', ['category' => $category->id]) }}">
-                                    <div class="">
-                                        <img src="{{ asset('images/icon') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . substr( strrchr($category->img_icon, '.'), 1) }}" alt="icon" class="w-16 h-16">
-                                        <h5 class="mt-3 font-semibold text-base text-gray-800">{{ $category->name }}</h5>
+                                    <div class="grid place-items-center">
+                                        <img src="{{ asset('images/icon') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . substr( strrchr($category->img_icon, '.'), 1) }}" alt="icon" class="w-16 h-16 mx-auto">
+                                        <h5 class="mt-3 font-semibold text-sm md:text-base text-gray-800">{{ $category->name }}</h5>
                                     </div>
                                 </a>
                                 <div>

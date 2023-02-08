@@ -1,7 +1,7 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="pt-56 md:pt-52">
+<div class="pt-64 md:pt-52">
     <div class="w-full">
         <div id="navigation" class="py-4 px-2 border-y border-gray-500 flex justify-between">
             @foreach (range('A','Z') as $index)
