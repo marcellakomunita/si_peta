@@ -1,11 +1,11 @@
 <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
-  <div class="bg-red-700 text-white px-6 md:px-12 lg:px-20 py-3 flex justify-between">
+  <div class="bg-red-500 text-white px-6 md:px-12 lg:px-20 py-3 flex justify-between">
     <div class="flex items-center">
       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone mr-2" width="22" height="20" viewBox="0 4 24 20" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
           <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
       </svg>
-      <a href="https://wa.me/628725329390">+62-8782-5329390</a>
+      <a href="https://wa.me/62895422559255">+62 8954-2255-9255</a>
     </div>
 
     <div class="flex items-center">
@@ -45,7 +45,7 @@
           <div class="flex">
             @if(!Auth::user())
               <a href="{{ route('login') }}"> 
-                <button class="w-full text-white bg-red-700 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center">Login</button>
+                <button class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center">Login</button>
               </a>
             @else
               {{-- DROPDOWN PROFILE --}}
@@ -121,7 +121,7 @@
           </li>
         </ul>
       </div>
-      {{-- <p class="hidden md:block">Kontak Admin: <u>+62-8782-5329390</u></p> --}}
+      {{-- <p class="hidden md:block">Kontak Admin: <u>+62 8954-2255-9255</u></p> --}}
     </div>
 
     <div class="md:pb-0 pb-6">

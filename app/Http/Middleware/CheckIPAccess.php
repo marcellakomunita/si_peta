@@ -16,10 +16,22 @@ class CheckIPAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        $libraryIpRange = env('ALL_IP'); // Example IP range
-        if (!in_array($_SERVER['REMOTE_ADDR'], explode('/', $libraryIpRange)) && $request->path() !== 'unauthorized') {
-            // dd($_SERVER['REMOTE_ADDR']);
-            return abort(401);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        // dd(ip2long($ip));
+        $libraryIpRangeStart = '172.24.151.11';
+        $libraryIpRangeEnd = '172.24.151.250';
+        $testIp = ['103.101.52.185', '182.2.68.230'];
+        $ip_in_range = false;
+        if (ip2long($ip) >= ip2long($libraryIpRangeStart) && ip2long($ip) <= ip2long($libraryIpRangeEnd)) {
+            $ip_in_range = true;
+        }
+        
+        if (in_array($ip, $testIp)) {
+            $ip_in_range = true;
+        }
+
+        if (!$ip_in_range && $request->path() !== 'unauthorized') {
+            return abort('401');
         }
 
         return $next($request);
