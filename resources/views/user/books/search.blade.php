@@ -1,10 +1,10 @@
 @extends('layouts.uapp')
  
 @section('sub-content')
-<div class="flex" >  
+<div class="flex pt-56 md:pt-52" >  
     <x-user.asidecategories :categories="$categories"/>
 
-    <div id="products" class="pt-[12.5rem] md:pt-[11.5rem] pb-16 w-full md:px-4">
+    <div id="products" class=" pb-16 w-full md:px-4">
         
         <div class="flex flex-col md:flex-row justify-between">
             {{ $books->appends(request()->input())->links('vendor.pagination') }}

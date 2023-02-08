@@ -12,18 +12,18 @@
     </div>
 </div>
 <div class="bottom-[40px] right-[40px] fixed z-30">
-    <button data-popover-target="popover-default" type="button" class="text-white bg-red-500 hover:bg-blredue-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-3 text-center">
+    <a href="https://wa.me/628725329390" data-popover-target="popover-default" type="button" class="text-white bg-red-700 hover:bg-blredue-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-3 text-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone" width="36" height="36" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
          </svg>
-    </button>
+    </a>
     <div data-popover id="popover-default" role="tooltip" class="absolute z-10 invisible inline-block w-48 text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0">
         <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg">
             <h3 class="font-semibold text-gray-900 ">Hubungi Admin Si Peta</h3>
         </div>
         <div class="px-3 py-2">
-            <p>+62-8782-5329390</p>
+            <a href="https://wa.me/628725329390">+62-8782-5329390</a>
         </div>
         <div data-popper-arrow></div>
     </div>
