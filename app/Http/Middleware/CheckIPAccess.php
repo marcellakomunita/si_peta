@@ -30,7 +30,7 @@ class CheckIPAccess
             $ip_in_range = true;
         }
 
-        if (!$ip_in_range && $request->path() !== 'unauthorized') {
+        if (!$ip_in_range) {
             return abort('401');
         }
 
