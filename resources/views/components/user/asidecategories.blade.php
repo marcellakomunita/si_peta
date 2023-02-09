@@ -8,7 +8,7 @@
             <div class="flex-1 divide-y space-y-1">
             <ul class="space-y-2 pb-2">
                 @foreach($categories as $category)
-                    <li class="pl-6 flex-1 hover:bg-white hover:text-red-700 ">
+                    <li class="pl-6 flex-1 hover:bg-white hover:text-red-700 {{ request()->query('category') == $category->id ? 'bg-white text-red-700' : '' }}">
                         <a href="{{ route('user.books.search', ['category' => $category->id, 'based_on' => request()->query('based_on')]) }}" class="text-base font-normal flex items-center py-2 group hover:text-red-700">
                         <img src="{{ asset('images/icon') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $category->name))) . '.' . substr( strrchr($category->img_icon, '.'), 1) }}" alt="icon" class="w-6 h-6">
                             <span class="ml-3">{{ $category->name }}</span>
