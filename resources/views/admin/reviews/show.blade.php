@@ -8,7 +8,7 @@ use Carbon\Carbon;
 <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200  ">
     <div class="mb-1 w-full">
         <div class="mb-4">
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Data Ulasan Buku</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Data Ulasan Buku - #{{ request()->query('id') ? request()->query('id') : '' }}</h1>
         </div>
 
         <div class="sm-flex">
@@ -17,7 +17,7 @@ use Carbon\Carbon;
                     <form action="{{ route('admin.reviews.show') }}" class="lg:pr-3" method="GET">
                         <label for="users-search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64 xl:w-96">
-                            <input type="text" name="key" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for books">
+                            <input type="text" name="key" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for reviews">
                             @if(request()->query('id'))
                             <input type="hidden" name="id" value="{{ request()->query('id') }}">
                             @endif

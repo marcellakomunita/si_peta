@@ -38,9 +38,9 @@ class JumbotronController extends Controller
     {
         try {
             $jumbotron = Jumbotron::find($request->id);
-
+			
             if ($request->file('img_slide')) { 
-                $imgvalidator = $this->imgvalidator([$request->file('img_slide')]);
+                $imgvalidator = $this->imgvalidator($request->file());
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
                         ->withErrors($imgvalidator)

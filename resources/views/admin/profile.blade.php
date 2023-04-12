@@ -55,7 +55,7 @@
                                      </svg>
                                      Change Photo
                                 </label>
-                                <input type="file" style="display: none;" name="user_photo" id="user_photo" placeholder="Bonnie">
+                                <input type="file" style="display: none;" name="user_photo" id="user_photo" placeholder="Bonnie" accept=".jpeg, .png, .gif">
                                 <p class="text-sm text-red-600">{{ $errors->first('user_photo') }}</p>
                             </span>
                     </form>

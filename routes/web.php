@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware(['CheckIPAccess'])->group(function () {
     // Route::get('/', [HomeController::class, 'index']);
 
-Route::middleware(['TrackVisitor', 'CheckIPAccess'])->group(function () {    
+// Route::middleware(['TrackVisitor', 'CheckIPAccess'])->group(function () {    
     // Route::get('/content/cover', [FileController::class, 'cimageShow'])->middleware('CheckImageCAccess')->name('content.cover');
     Route::get('/content/cover', [FileController::class, 'cimageShow'])->name('content.cover');
     Route::get('/content/uprofile', [FileController::class, 'uimageShow'])->name('content.uprofile');
@@ -170,4 +170,4 @@ Route::middleware(['TrackVisitor', 'CheckIPAccess'])->group(function () {
         });
         
     });
-});
+// });

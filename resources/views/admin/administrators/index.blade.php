@@ -24,7 +24,7 @@ use Carbon\Carbon;
                 <a href="{{ route('admin.administrators.create') }}" class="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto mr-8">
                     <button type="button" class="flex items-center justify-center">
                         <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                        Add item
+                        Add Admin
                     </button>
                 </a>
                 <a href="{{ route('admin.administrators.print') }}" class="w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
@@ -64,7 +64,7 @@ use Carbon\Carbon;
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @if (count((array)$administrators) > 0)
+                        @if (count($administrators) > 0)
                             @foreach ($administrators as $administrator)
                                 <tr class="hover:bg-gray-100">
                                     <td class="p-4 w-4">
@@ -87,12 +87,12 @@ use Carbon\Carbon;
                                         <a href="{{ route('admin.administrators.edit', $administrator->id) }}">
                                             <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                 <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
-                                                Edit user
+                                                Edit admin
                                             </button>
                                         </a>
                                         <button id="delete-user-btn" data-item={{ $administrator->id }} type="button" data-modal-toggle="delete-user-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                             <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                            Delete user
+                                            Delete admin
                                         </button>
                                     </td>
                                 </tr>
@@ -127,7 +127,7 @@ use Carbon\Carbon;
             <!-- Modal body -->
             <div class="p-6 pt-0 text-center">
                 <svg class="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to delete this user?</h3>
+                <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to delete this admin?</h3>
                 <button id="confirm-destroy-btn" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
                     <a href="#" id="confirm-destroy-link" data-item="#">
                         Yes, I'm sure

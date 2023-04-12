@@ -69,7 +69,7 @@ class CategoryController extends Controller
                     'name' => ['required', 'string', 'max:255', Rule::unique('categories')],
                 ]);
 
-                $imgvalidator = $this->imgvalidator([$request->file('img_icon')]);
+                $imgvalidator = $this->imgvalidator($request->file());
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
                         ->withErrors($imgvalidator)
@@ -149,7 +149,7 @@ class CategoryController extends Controller
             $category->name = $request->name;
 
             if ($request->file('img_icon')) { 
-                $imgvalidator = $this->imgvalidator([$request->file('img_icon')]);
+                $imgvalidator = $this->imgvalidator($request->file());
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
                         ->withErrors($imgvalidator)

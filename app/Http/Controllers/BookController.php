@@ -63,7 +63,7 @@ class BookController extends Controller
     protected function imgvalidator(array $data)
     {
         return Validator::make($data, [
-            'user_photo' => 'image|mimes:jpeg,png,jpg|max:2048'
+            'img_cover' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
     }
 
@@ -79,7 +79,7 @@ class BookController extends Controller
             if ($request->file('file_ebook') && $request->file('img_cover')) {
 
                 $request->validate([
-                    'isbn' => ['required', 'string', 'min:17', 'max:18', Rule::unique('books')],
+                    'isbn' => ['required', 'string', 'min:10', 'max:13', Rule::unique('books')],
                     'judul' => ['required', 'string', 'max:255'],
                     'kategori' => ['required', 'string', 'min:3', 'max:4'],
                     'penulis' => ['required', 'string', 'max:255'],
@@ -129,7 +129,7 @@ class BookController extends Controller
                     $book2 = Book::find($book->id);
 
                     $file = $request->file('img_cover');
-                    $imgvalidator = $this->imgvalidator([$file]);
+                    $imgvalidator = $this->imgvalidator($request->file());
                     if ($imgvalidator->fails()) {
                         return redirect()->back()
                             ->withErrors($imgvalidator)
@@ -260,7 +260,7 @@ class BookController extends Controller
             $book = Book::find($request->id);
 
             $request->validate([
-                'isbn' => ['required', 'string', 'min:17', 'max:18', Rule::unique('books')->ignore($request->isbn, 'isbn')],
+                'isbn' => ['required', 'string', 'min:10', 'max:13', Rule::unique('books')->ignore($request->isbn, 'isbn')],
                 'judul' => ['required', 'string', 'max:255'],
                 'kategori' => ['required', 'string', 'min:3', 'max:4'],
                 'penulis' => ['required', 'string', 'max:255'],
@@ -279,7 +279,7 @@ class BookController extends Controller
 
             if ($request->file('img_cover')) {
                 $file = $request->file('img_cover');
-                $imgvalidator = $this->imgvalidator([$file]);
+                $imgvalidator = $this->imgvalidator($request->file());
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
                         ->withErrors($imgvalidator)

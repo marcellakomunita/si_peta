@@ -109,7 +109,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
 
         $user->save();
-        return redirect('admin/users/');
+        return redirect('admin/users/')->with('success', 'User berhasil ditambahkan');
     }
 
     public function storeAdmin(Request $request)

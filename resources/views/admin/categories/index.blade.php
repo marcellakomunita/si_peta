@@ -4,7 +4,7 @@
 <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200  ">
     <div class="mb-1 w-full">
         <div class="mb-4">
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Data Kategori Buku</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900">Data Category</h1>
         </div>
 
         <div class="flex flex-col-reverse md:flex-row justify-start md:justify-between">
@@ -20,7 +20,7 @@
                 <a href="{{ route('admin.categories.create') }}" class="w-full md:w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
                     <button type="button" class="flex items-center justify-center">
                         <svg class="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                        Add category
+                        Add Category
                     </button>
                 </a>
             </div>

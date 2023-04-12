@@ -66,7 +66,7 @@ class UserProfileController extends Controller
             if($request->file('user_photo')) {
                 $file = $request->file('user_photo');
                 
-                $imgvalidator = $this->imgvalidator([$file]);
+                $imgvalidator = $this->imgvalidator($request->file());
                 if ($imgvalidator->fails()) {
                     return redirect()->back()
                         ->withErrors($imgvalidator)
