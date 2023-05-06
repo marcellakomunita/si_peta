@@ -41,14 +41,20 @@
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <label for="penulis" class="{{ $errors->first('penulis') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Penulis</label>
-                    <input type="text" name="penulis" id="penulis" value="{{ old('penulis', $book->penulis) }}" class="{{ !$errors->first('penulis') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Dyan Nuranindya" required>
-                    <p class="text-sm text-red-600">{{ $errors->first('penulis') }}</p>
+                    <label for="penulis" class="text-sm font-medium text-gray-900 block mb-2">Penulis Buku</label>
+                    <select name="penulis" id="penulis" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required>
+                        @foreach($authors as $author)
+                            <option value="{{ $author->id }}" {{ old('author') == $author->id || $book->penulis_id == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <label for="penerbit" class="{{ $errors->first('penerbit') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Penerbit</label>
-                    <input type="text" name="penerbit" id="penerbit" value="{{ old('penerbit', $book->penerbit) }}" class="{{ !$errors->first('penerbit') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Gramedia Pustaka Utama" required>
-                    <p class="text-sm text-red-600">{{ $errors->first('penerbit') }}</p>
+                    <select name="penerbit" id="penerbit" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required>
+                        @foreach($publishers as $publisher)
+                            <option value="{{ $publisher->id }}" {{ old('publisher') == $publisher->id || $book->penerbit_id == $publisher->id ? 'selected' : '' }}>{{ $publisher->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <label for="sinopsis" class="{{ $errors->first('sinopsis') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Sinopsis</label>

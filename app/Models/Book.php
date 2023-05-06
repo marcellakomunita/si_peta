@@ -62,16 +62,16 @@ class Book extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function publishers()
+    public function publisher()
     {
-        return $this->hasOne(Publisher::class);
+        return $this->belongsTo(Publisher::class, 'penerbit_id', 'id');
     }
 
-    public function authors()
+    public function author()
     {
-        return $this->hasOne(Author::class);
+        return $this->belongsTo(Author::class, 'penulis_id', 'id');
     }
 }

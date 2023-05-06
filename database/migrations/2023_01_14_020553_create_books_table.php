@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('isbn')->unique();
             $table->string('judul');
-            $table->unsignedBigInteger('penulis_id');
-            $table->unsignedBigInteger('penerbit_id');
+            $table->unsignedBigInteger('penulis_id')->references('id')->on('authors');
+            $table->unsignedBigInteger('penerbit_id')->references('id')->on('publishers');;
             $table->string('tgl_terbit');
             $table->text('sinopsis');
             $table->string('img_cover')->nullable();

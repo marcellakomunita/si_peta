@@ -29,15 +29,20 @@ class BookController extends Controller
             'key' => ['string', 'max:255']
         ]);
 
-        $books = Book::where([
-            [function ($query) use ($request) {
-                if (($key = $request->key)) {
-                    $query->orWhere('judul', 'LIKE', '%' . $key . '%')
-                        ->orWhere('penulis', 'LIKE', '%' . $key . '%')
-                        ->get();
-                }
-            }]
-        ])->orderBy('updated_at', 'desc')->paginate(10);
+       $books = Book::where(function ($query) use ($request) {
+            if (($key = $request->key)) {
+                $query->orWhere('judul', 'LIKE', '%' . $key . '%')
+                    ->orWhereHas('author', function ($authorQuery) use ($key) {
+                        $authorQuery->where('name', 'LIKE', '%' . $key . '%');
+                    });
+            }
+        })
+        ->join('authors', 'books.penulis_id', '=', 'authors.id')
+        ->join('publishers', 'books.penerbit_id', '=', 'publishers.id')
+        ->select('books.*', 'authors.name as penulis', 'publishers.name as penerbit')
+        ->orderBy('updated_at', 'desc')
+        ->paginate(10);
+
         return view('admin.books.index', [
             'books' => $books,
         ]);
@@ -50,8 +55,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
-        return view('admin.books.create', compact('categories'));
+        $categories = Category::select('id', 'name')->get();
+        $authors = Author::select('id', 'name')->get();
+        $publishers = Publisher::select('id', 'name')->get();
+        return view('admin.books.create', compact('categories', 'authors', 'publishers'));
     }
 
     /**
@@ -82,8 +89,8 @@ class BookController extends Controller
                     'isbn' => ['required', 'string', 'min:10', 'max:13', Rule::unique('books')],
                     'judul' => ['required', 'string', 'max:255'],
                     'kategori' => ['required', 'string', 'min:3', 'max:4'],
-                    'penulis' => ['required', 'string', 'max:255'],
-                    'penerbit' => ['required', 'string', 'max:255'],
+                    'penulis' => ['required', 'string', 'max:3'],
+                    'penerbit' => ['required', 'string', 'max:3'],
                     'sinopsis' => ['required', 'string', 'max:800'],
                     'tgl_terbit' => ['required']
                 ]);
@@ -97,29 +104,14 @@ class BookController extends Controller
                 
                 DB::beginTransaction();
                 try {
-
-                    $author = DB::table('authors')->where('name', $request->penulis)->first();
-                    if (!$author) {
-                        $author = new Author();
-                        $author->name = $request->penulis;
-                        $author->save();
-                    }
-                    
-                    $publisher = DB::table('publishers')->where('name', $request->penerbit)->first();
-                    if (!$publisher) {
-                        $publisher = new Publisher();
-                        $publisher->name = $request->penerbit;
-                        $publisher->save();
-                    }
-
                     $book = new Book();
                     $id = Str::random(16);
                     $book->id = $id;
                     $book->category_id = $request->kategori;
                     $book->isbn = $request->isbn;
                     $book->judul = $request->judul;
-                    $book->penulis = $request->penulis;
-                    $book->penerbit = $request->penerbit;
+                    $book->penulis_id = $request->penulis;
+                    $book->penerbit_id = $request->penerbit;
                     $book->sinopsis = $request->sinopsis;
                     $book->tgl_terbit = $request->tgl_terbit;
                     $book->file_ebook = 'x';
@@ -242,8 +234,10 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
-        $categories = Category::get();
-        return view('admin.books.edit', compact('book', 'categories'));
+        $categories = Category::select('id', 'name')->get();
+        $authors = Author::select('id', 'name')->get();
+        $publishers = Publisher::select('id', 'name')->get();
+        return view('admin.books.edit', compact('book', 'categories', 'authors', 'publishers'));
     }
 
     /**
@@ -263,8 +257,8 @@ class BookController extends Controller
                 'isbn' => ['required', 'string', 'min:10', 'max:13', Rule::unique('books')->ignore($request->isbn, 'isbn')],
                 'judul' => ['required', 'string', 'max:255'],
                 'kategori' => ['required', 'string', 'min:3', 'max:4'],
-                'penulis' => ['required', 'string', 'max:255'],
-                'penerbit' => ['required', 'string', 'max:255'],
+                'penulis' => ['required', 'string', 'max:3'],
+                'penerbit' => ['required', 'string', 'max:3'],
                 'sinopsis' => ['required', 'string', 'max:800'],
                 'tgl_terbit' => ['required']
             ]);
@@ -272,8 +266,8 @@ class BookController extends Controller
             $book->category_id = $request->kategori;
             $book->isbn = $request->isbn;
             $book->judul = $request->judul;
-            $book->penulis = $request->penulis;
-            $book->penerbit = $request->penerbit;
+            $book->penulis_id = $request->penulis;
+            $book->penerbit_id = $request->penerbit;
             $book->sinopsis = $request->sinopsis;
             $book->tgl_terbit = $request->tgl_terbit;
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ADashboardController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookRController;
 use App\Http\Controllers\CategoryController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\UserPanel\UDashboardController;
 use App\Http\Controllers\UserPanel\UReviewController;
 use App\Http\Controllers\UserPanel\UserFavoritesController;
@@ -156,6 +158,18 @@ use Illuminate\Support\Facades\Route;
             Route::put('/update', 'update')->name('update');
             Route::get('/destroy', 'destroy')->name('destroy');
             Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+        });
+        Route::prefix('/authors')->name('authors.')->controller(AuthorController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
+            Route::post('/store', 'store')->name('store');
+        });
+        Route::prefix('/publishers')->name('publishers.')->controller(PublisherController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::put('/update', 'update')->name('update');
             Route::post('/store', 'store')->name('store');
         });
         Route::prefix('/reviews')->name('reviews.')->controller(ReviewController::class)->group(function () {
