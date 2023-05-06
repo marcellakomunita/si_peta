@@ -58,6 +58,16 @@ class UserPanelController extends Controller
     public function show(Request $request, Book $book)
     {
         $book = Book::findOrFail($request->id);
+        $penulis = DB::table('authors')
+                    ->select('name')
+                    ->where('id', '=', $book->penulis_id)
+                    ->first();
+        $penulis = $penulis->name;
+        $penerbit = DB::table('publishers')
+                    ->select('name')
+                    ->where('id', '=', $book->penerbit_id)
+                    ->first();
+        $penerbit = $penerbit->name;
         $number_of_reads = DB::table('book_read_history')
                             ->select('id')
                             ->where('book_id', '=', $request->id)
@@ -91,7 +101,7 @@ class UserPanelController extends Controller
                             ->take(5)
                             ->get();
 
-        return view('user.books.book', compact('book', 'is_favorite', 'reviews', 'book_rate', 'number_of_reads', 'related_books'));
+        return view('user.books.book', compact('book', 'penulis', 'penerbit', 'is_favorite', 'reviews', 'book_rate', 'number_of_reads', 'related_books'));
     }
 
     public function authors()

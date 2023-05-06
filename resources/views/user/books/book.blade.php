@@ -13,7 +13,7 @@ use Carbon\Carbon;
                 <div class="mx-auto flex flex-wrap">
                     <img alt="ecommerce" class="lg:w-1/3 p-4 w-full object-cover object-center rounded border border-gray-200" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->img_cover]) : asset('images/nocover.png')}}" >
                     <div class="lg:w-1/2 w-full lg:pl-16 lg:py-6 mt-6 lg:mt-0">
-                        <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ $book->penulis }}</h2>
+                        <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ $penulis }}</h2>
                         <h1 class="text-gray-900 text-3xl title-font font-medium my-1">{{ $book->judul }}</h1>
                         <div class="flex mb-4">
                             <span class="flex items-center">
@@ -36,7 +36,7 @@ use Carbon\Carbon;
                             <p class="mb-3 text-lg font-silk">Detail Ebook</p>
                             <div class="grid grid-cols-2 gap-3">
                                 <p><span class="font-bold text-gray-400">ISBN</span><br>{{ $book->isbn }}</p>
-                                <p><span class="font-bold text-gray-400">Penerbit</span><br>{{ $book->penerbit }}</p>
+                                <p><span class="font-bold text-gray-400">Penerbit</span><br>{{ $penerbit }}</p>
                                 <p><span class="font-bold text-gray-400">Jumlah Halaman</span><br>312</p>
                                 <p><span class="font-bold text-gray-400">Tanggal Terbit</span><br>{{ $book->tgl_terbit->format('d-m-Y') }}</p>
                             </div>
@@ -168,7 +168,7 @@ use Carbon\Carbon;
                                 {{ $book->judul }}
                             </a>
                             </h3>
-                            <p class="mt-1 text-sm text-gray-500">{{ $book->penulis }}</p>
+                            <p class="mt-1 text-sm text-gray-500">{{ $penulis }}</p>
                         </div>
                         {{-- <p class="text-sm font-medium text-gray-900">$35</p> --}}
                     </div>
