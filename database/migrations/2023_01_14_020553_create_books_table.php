@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->char('id', 16)->primary();
+            $table->string('id', 16)->primary();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->string('isbn')->unique();
+            $table->string('isbn', 13)->unique();
             $table->string('judul');
             $table->unsignedBigInteger('penulis_id')->references('id')->on('authors');
             $table->unsignedBigInteger('penerbit_id')->references('id')->on('publishers');;

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('visit_histories', function (Blueprint $table) {
             $table->id();
-            $table->char('session_id', 50);
+            $table->string('session_id', 50);
             $table->timestamps();
         });
     }
