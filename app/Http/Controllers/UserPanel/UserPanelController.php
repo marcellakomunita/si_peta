@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\UserPanel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Publisher;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,11 +108,7 @@ class UserPanelController extends Controller
 
     public function authors()
     {
-        $authors = DB::table('books')
-                    ->select('authors.name','authors.id')
-                    ->join('authors', 'authors.name', '=', 'books.penulis')
-                    ->distinct()
-                    ->get();
+        $authors = Author::get();
 
         $authorsByLetter = [];
         foreach ($authors as $author) {
@@ -133,8 +131,8 @@ class UserPanelController extends Controller
     public function author(Request $request)
     {
         $books = DB::table('authors')
-                    ->select('books.*', 'authors.id as aid')
-                    ->join('books', 'books.penulis', '=', 'authors.name')
+                    ->select('books.*', 'authors.name as penulis', 'authors.id as aid')
+                    ->join('books', 'books.penulis_id', '=', 'authors.id')
                     ->where('authors.id', '=', $request->id)
                     ->get();
         $author = DB::table('authors')
@@ -146,11 +144,7 @@ class UserPanelController extends Controller
 
     public function publishers()
     {
-        $publishers = DB::table('books')
-                    ->select('publishers.name','publishers.id')
-                    ->join('publishers', 'publishers.name', '=', 'books.penerbit')
-                    ->distinct()
-                    ->get();
+        $publishers = Publisher::get();
 
         $publishersByLetter = [];
         foreach ($publishers as $publisher) {
@@ -171,9 +165,10 @@ class UserPanelController extends Controller
 
     public function publisher(Request $request)
     {
-        $books = DB::table('publishers')
-                    ->select('books.*', 'publishers.id as aid')
-                    ->join('books', 'books.penerbit', '=', 'publishers.name')
+        $books = DB::table('authors')
+                    ->select('books.*', 'authors.name as penulis', 'authors.id as aid')
+                    ->join('books', 'books.penulis_id', '=', 'authors.id')
+                    ->join('publishers', 'publishers.id', '=', 'books.penerbit_id')
                     ->where('publishers.id', '=', $request->id)
                     ->get();
                     

@@ -35,7 +35,7 @@
                                     {{ $favorite->judul }}
                                 </a>
                             </h3>
-                            <p class="mt-1 text-sm text-gray-500">{{ $favorite->penulis }}</p>
+                            <p class="mt-1 text-sm text-gray-500">{{ $favorite->name }}</p>
                         </div>
                         
                         <button id="delete-user-btn" data-item='{{ $favorite->fid }}' type="button" data-modal-toggle="delete-user-modal" class="z-20 text-red-600 font-medium text-sm  items-center ">
