@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->char('book_id');
             $table->unsignedBigInteger('user_id');
+            $table->char('book_id', 16);
             $table->integer('star');
             $table->text('review')->nullable();
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');

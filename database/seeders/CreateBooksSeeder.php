@@ -1,4 +1,5 @@
 <?php
+/*
 
 namespace Database\Seeders;
 
@@ -9,11 +10,6 @@ use Illuminate\Database\Seeder;
 
 class CreateBooksSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $books = [
@@ -144,3 +140,4 @@ class CreateBooksSeeder extends Seeder
         }
     }
 }
+*/

@@ -10,7 +10,7 @@
     </div>
     <!-- Modal body -->
     <div class=" space-y-6">
-        <form role="form" action="{{ route('admin.jumbotrons.update', ['id'=>$jumbotron->id]) }}" method="POST" enctype="multipart/form-data">
+        <form role="form" action="{{ route('admin.sliders.update', ['id'=>$slider->id]) }}" method="POST" enctype="multipart/form-data">
             <div class="grid grid-cols-2 gap-6">
                 @csrf
                 @method('PUT')
@@ -28,10 +28,10 @@
                         </div>
                          
                         <div class="rounded-md border-gray-500 shadow-sm w-full mx-auto my-4 collapse" id="preview-container">
-                            @if($jumbotron->img_slide == '' || is_null(($jumbotron->img_slide)))
+                            @if($slider->img_slide == '' || is_null(($slider->img_slide)))
                                 <img src="{{ asset('images/nocover.png') }}" alt="" class="w-full h-full" id="preview">
                             @else
-                                <img src="{{ asset('images/jumbotrons') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $jumbotron->id))) . '.' . substr( strrchr($jumbotron->img_slide, '.'), 1) }}" alt="book_photo"  class="w-full h-full" id="preview">
+                                <img src="{{ asset('images/sliders') . '/' . strtolower(str_replace(' ', '_', str_replace(' & ', '_', $slider->id))) . '.' . substr( strrchr($slider->img_slide, '.'), 1) }}" alt="book_photo"  class="w-full h-full" id="preview">
                             @endif
                         </div>
                     </label>

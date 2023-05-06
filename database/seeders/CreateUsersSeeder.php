@@ -15,24 +15,22 @@ class CreateUsersSeeder extends Seeder
      */
     public function run()
     {
-        // $value = unpack('H*', "Stack");
-        // echo base_convert($value[1], 16, 2);
         $users = [
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
-                'name'=>'Admin User',
-                'email'=>'admin@tutsmake.com',
+                'name'=>'Admin SIPETA',
+                'email'=>'admin@sipeta.com',
                 'phone'=>'08123131231',
                 'type'=>1,
-                'password'=> bcrypt('123456'),
+                'password'=> bcrypt('123qweasd'),
             ],
             [
                 // 'id'=>\Ramsey\Uuid\Uuid::uuid4()->getBytes(),  
-                'name'=>'User',
-                'email'=>'user@tutsmake.com',
+                'name'=>'Teddy',
+                'email'=>'teddy@mil.com',
                 'phone'=>'18123131231',
                 'type'=>0,
-                'password'=> bcrypt('123456'),
+                'password'=> bcrypt('123qweasd'),
             ],
         ];
     

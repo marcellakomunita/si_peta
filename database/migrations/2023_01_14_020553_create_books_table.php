@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->char('id', 16)->primary();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('isbn')->unique();
             $table->string('judul');
-            $table->string('penulis');
-            $table->string('penerbit');
+            $table->unsignedBigInteger('penulis_id');
+            $table->unsignedBigInteger('penerbit_id');
             $table->string('tgl_terbit');
             $table->text('sinopsis');
             $table->string('img_cover')->nullable();

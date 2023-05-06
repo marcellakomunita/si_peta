@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Jumbotron;
+use App\Models\Slider;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CreateJumbotronsSeeder extends Seeder
+class CreateSlidersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class CreateJumbotronsSeeder extends Seeder
      */
     public function run()
     {
-        $jumbotrons = [
+        $sliders = [
             [
                 'img_slide' => '1.png'
             ],
@@ -27,8 +27,8 @@ class CreateJumbotronsSeeder extends Seeder
             ]
         ];
         
-        foreach ($jumbotrons as $key => $jumbotron) {
-            Jumbotron::create($jumbotron);
+        foreach ($sliders as $key => $slider) {
+            Slider::create($slider);
         }
     }
 }

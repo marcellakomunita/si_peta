@@ -22,9 +22,10 @@ class Book extends Model
      */
     protected $fillable = [
         'isbn',
+        'category_id',
         'judul',
-        'penulis',
-        'penerbit',
+        'penulis_id',
+        'penerbit_id',
         'tgl_terbit',
         'sinopsis',
         'img_cover',

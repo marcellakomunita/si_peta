@@ -12,7 +12,7 @@
         <div class="flex">
             <x-user.asidehome :categories="$categories"/>
             <div class="w-full">
-                <!-- Jumbotron -->
+                <!-- Slider -->
                 <div>
                 {{-- <div class="p-12 text-center relative overflow-hidden bg-no-repeat bg-cover rounded-lg h-[250px] md:h-[400px] mt-4"> --}}
                     {{-- <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
@@ -35,15 +35,15 @@
                             <!-- Item 1 -->
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                 <span class="absolute text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
-                                <img src="{{ asset('images/jumbotrons') . '/' . $jumbotrons[0]->img_slide }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                                <img src="{{ asset('images/sliders') . '/' . $sliders[0]->img_slide }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                             </div>
                             <!-- Item 2 -->
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                <img src="{{ asset('images/jumbotrons') . '/' . $jumbotrons[1]->img_slide }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                                <img src="{{ asset('images/sliders') . '/' . $sliders[1]->img_slide }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                             </div>
                             <!-- Item 3 -->
                             <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                <img src="{{ asset('images/jumbotrons') . '/' . $jumbotrons[2]->img_slide }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                                <img src="{{ asset('images/sliders') . '/' . $sliders[2]->img_slide }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                             </div>
                         </div>
                         <!-- Slider indicators -->
@@ -68,7 +68,7 @@
                     </div>
 
                 </div>
-                <!-- Jumbotron -->
+                <!-- Slider -->
 
                 <!-- Categories -->
                 <div class="mx-auto py-8 lg:hidden">

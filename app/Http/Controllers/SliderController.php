@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jumbotron;
+use App\Models\Slider;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class JumbotronController extends Controller
+class SliderController extends Controller
 {
     public function index()
     {
         
-        $jumbotrons = Jumbotron::get();
+        $sliders = Slider::get();
 
-        return view('admin.jumbotrons.index', [
-            'jumbotrons' => $jumbotrons,
+        return view('admin.sliders.index', [
+            'sliders' => $sliders,
         ]);
     }
 
@@ -28,16 +28,16 @@ class JumbotronController extends Controller
 
     public function edit($id)
     {
-        $jumbotron = Jumbotron::find($id);
-        return view('admin.jumbotrons.edit', [
-            'jumbotron' => $jumbotron,
+        $slider = Slider::find($id);
+        return view('admin.sliders.edit', [
+            'slider' => $slider,
         ]);
     }
 
     public function update(Request $request)
     {
         try {
-            $jumbotron = Jumbotron::find($request->id);
+            $slider = Slider::find($request->id);
 			
             if ($request->file('img_slide')) { 
                 $imgvalidator = $this->imgvalidator($request->file());
@@ -47,22 +47,22 @@ class JumbotronController extends Controller
                         ->withInput();
                 }
     
-                if(!is_null($jumbotron->img_slide) && file_exists(str_replace('\\', '/', public_path()) . '/' . 'images/jumbotrons/' . $jumbotron->img_slide)) {
-                    unlink(str_replace('\\', '/', public_path()) . '/' . 'images/jumbotrons/' . $jumbotron->img_slide);
+                if(!is_null($slider->img_slide) && file_exists(str_replace('\\', '/', public_path()) . '/' . 'images/sliders/' . $slider->img_slide)) {
+                    unlink(str_replace('\\', '/', public_path()) . '/' . 'images/sliders/' . $slider->img_slide);
                 }
 
                 $file = $request->file('img_slide');
-                $fileName = strtolower(str_replace(' ', '_', str_replace(' & ', '_', $jumbotron->id))) . '.' . $file->extension();
-                $path = public_path() . '/' . 'images/jumbotrons/' . $fileName;
+                $fileName = strtolower(str_replace(' ', '_', str_replace(' & ', '_', $slider->id))) . '.' . $file->extension();
+                $path = public_path() . '/' . 'images/sliders/' . $fileName;
                 move_uploaded_file($file->getRealPath(), str_replace('\\', '/', $path));
-                $jumbotron->img_slide = $fileName;
+                $slider->img_slide = $fileName;
             }
 
-            $jumbotron->save();
+            $slider->save();
         } catch (QueryException $ex) { 
             dd($ex->errorInfo[1]);
         }  
 
-        return redirect('/admin/jumbotrons/');
+        return redirect('/admin/sliders/');
     }
 }
