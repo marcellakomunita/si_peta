@@ -21,18 +21,22 @@ class UserPanelController extends Controller
        $validatedData = $request->validate([
             'q' => 'nullable|string',
             'category' => 'nullable|numeric|exists:categories,id',
-           'based_on' => 'nullable|in:latest,most-favorite',
+            'based_on' => 'nullable|in:latest,most-favorite',
        ]);
 
         $query = DB::table('books')
-                ->select('books.id', 'books.judul', 'books.penulis', 'books.img_cover', DB::raw('COUNT(book_read_history.id) as number_of_reads'), DB::raw('COUNT(reviews.id) as number_of_reviews'))
+                ->select('books.id', 'books.judul', 'a.name as penulis', 'books.img_cover', DB::raw('COUNT(book_read_history.id) as number_of_reads'), DB::raw('COUNT(reviews.id) as number_of_reviews'))
+                ->leftJoin('authors as a', 'books.penulis_id', '=', 'a.id')
                 ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
                 ->leftJoin('reviews', 'books.id', '=', 'reviews.book_id')
                 ->groupBy('books.id');
 
         // Search for books by judul
         if ($request->has('q')) {
-            $query->where('judul', 'like', '%'.$request->q.'%');
+            $query->where(function($query) use ($request) {
+                $query->where('books.judul', 'like', '%'.$request->q.'%')
+                    ->orWhere('a.name', 'like', '%'.$request->q.'%');
+            });
         }
 
         if ($request->has('category')) {

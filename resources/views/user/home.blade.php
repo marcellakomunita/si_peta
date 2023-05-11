@@ -78,7 +78,7 @@
                             <p class="text-xs text-gray-800 hover:text-red-500">Lihat semua</p>
                         </a>
                     </div>
-                    <div class="mt-4 grid grid-cols-3 gap-y-10 gap-x-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-5 xl:gap-x-8">
+                    <div class="mt-4 grid grid-cols-3 gap-y-10 gap-x-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-5">
                         @foreach($categories as $key => $category)
                         <div class="group relative">
                             <div class="flex flex-col justify-between h-full max-w-sm py-4 rounded-lg text-gray-800">
@@ -109,7 +109,7 @@
                             <p class="text-xs text-gray-800 hover:text-red-500">Lihat semua</p>
                         </a>
                     </div>
-                    <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
+                    <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                         @foreach($favorite_books as $book)
                         <div class="group relative rounded-t-xl">
                             <div class="">
@@ -144,7 +144,7 @@
                             <p class="text-xs text-gray-800 hover:text-red-500">Lihat semua</p>
                         </a>
                     </div>
-                    <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
+                    <div class="mt-4 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                         
                         @foreach($latest_books as $book)
                         <div class="group relative rounded-t-xl">
