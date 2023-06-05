@@ -15,7 +15,7 @@
                 @csrf
                 @method('PUT')
                 <div class="col-span-6 sm:col-span-3">
-                    <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Nama</label>
+                    <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Name<br><i>Maximum 150 characters</i></label>
                     <input value="{{ old('name', $author->name) }}" type="text" name="name" id="name" class="{{ !$errors->first('name') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Biografi" required>
                     <p class="text-sm text-red-600">{{ $errors->first('name') }}</p>
                 </div>

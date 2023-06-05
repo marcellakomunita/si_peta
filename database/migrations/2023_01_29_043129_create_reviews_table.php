@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('book_id', 16);
             $table->integer('star');
-            $table->text('review')->nullable();
+            $table->text('review', 800)->nullable();
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

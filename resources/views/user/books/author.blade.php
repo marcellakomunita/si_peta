@@ -18,7 +18,6 @@
                         <div>
                             <h3 class="font-bold text-gray-700">
                                 <a href="{{ route('user.books.book', ['id'=>$book->id]) }}">
-                                <span aria-hidden="true" class="absolute inset-0"></span>
                                 {{ $book->judul }}
                             </a>
                             </h3>

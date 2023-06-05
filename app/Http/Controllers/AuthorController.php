@@ -21,16 +21,17 @@ class AuthorController extends Controller
             'key' => ['string', 'max:255']
         ]);
         
-        $authors = Author::leftJoin('books', 'authors.id', '=', 'books.penulis_id')
-                    ->select('authors.*', DB::raw('count(books.penulis_id) as book_count'))
-                    ->where(function ($query) use ($request) {
-                        if (($key = $request->key)) {
-                            $query->orWhere('authors.name', 'LIKE', '%' . $key . '%');
-                        }
-                    })
-                    ->groupBy('authors.id')
-                    ->orderBy('authors.name', 'asc')
-                    ->paginate(20);
+        $authors = Author::leftJoin('books_authors', 'authors.id', '=', 'books_authors.author_id')
+                ->leftJoin('books', 'books_authors.book_id', '=', 'books.id')
+                ->select('authors.*', DB::raw('count(books.id) as book_count'))
+                ->where(function ($query) use ($request) {
+                    if (($key = $request->key)) {
+                        $query->orWhere('authors.name', 'LIKE', '%' . $key . '%');
+                    }
+                })
+                ->groupBy('authors.id')
+                ->orderBy('authors.name', 'asc')
+                ->paginate(20);
         return view('admin.authors.index', [
             'authors' => $authors,
         ]);
@@ -47,7 +48,7 @@ class AuthorController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required', 'string', 'max:255', Rule::unique('authors')],
+                'name' => ['required', 'string', 'max:150', Rule::unique('authors')],
             ]);
             $author = new Author();
             $author->name = $request->name;

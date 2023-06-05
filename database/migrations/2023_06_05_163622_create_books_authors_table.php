@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id()->startingValue(100);
-            $table->string('name', 100)->unique();
-            $table->string('img_icon')->nullable();
-            $table->timestamps();
+        Schema::create('books_authors', function (Blueprint $table) {
+            $table->string('book_id', 16);
+            $table->bigInteger('author_id');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('books_authors');
     }
 };

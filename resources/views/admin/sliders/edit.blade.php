@@ -24,7 +24,9 @@
                                 <path d="M12 11v6"></path>
                                 <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
                             </svg>
-                            File Slide 
+                             <p>
+                                File Slide<br><i>Support JPG, PNG, or JPEG file with maximum size 2MB</i>
+                            </p>
                         </div>
                          
                         <div class="rounded-md border-gray-500 shadow-sm w-full mx-auto my-4 collapse" id="preview-container">

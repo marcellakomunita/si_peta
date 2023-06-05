@@ -24,20 +24,22 @@ class UserPanelController extends Controller
             'based_on' => 'nullable|in:latest,most-favorite',
        ]);
 
-        $query = DB::table('books')
-                ->select('books.id', 'books.judul', 'a.name as penulis', 'books.img_cover', DB::raw('COUNT(book_read_history.id) as number_of_reads'), DB::raw('COUNT(reviews.id) as number_of_reviews'))
-                ->leftJoin('authors as a', 'books.penulis_id', '=', 'a.id')
-                ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
-                ->leftJoin('reviews', 'books.id', '=', 'reviews.book_id')
-                ->groupBy('books.id');
+        $query = Book::query()
+            ->select('books.id', 'books.judul', 'books.img_cover', DB::raw('COUNT(book_read_history.id) as number_of_reads'), DB::raw('COUNT(reviews.id) as number_of_reviews'))
+            ->leftJoin('book_read_history', 'books.id', '=', 'book_read_history.book_id')
+            ->leftJoin('reviews', 'books.id', '=', 'reviews.book_id')
+            ->groupBy('books.id');
 
         // Search for books by judul
         if ($request->has('q')) {
-            $query->where(function($query) use ($request) {
-                $query->where('books.judul', 'like', '%'.$request->q.'%')
-                    ->orWhere('a.name', 'like', '%'.$request->q.'%');
+            $query->where(function ($query) use ($request) {
+                $query->where('books.judul', 'like', '%' . $request->q . '%')
+                    ->orWhereHas('author', function ($authorQuery) use ($request) {
+                        $authorQuery->where('name', 'like', '%' . $request->q . '%');
+                    });
             });
         }
+
 
         if ($request->has('category')) {
             $query->where('category_id', $request->category);
@@ -64,11 +66,6 @@ class UserPanelController extends Controller
     public function show(Request $request, Book $book)
     {
         $book = Book::findOrFail($request->id);
-        $penulis = DB::table('authors')
-                    ->select('name')
-                    ->where('id', '=', $book->penulis_id)
-                    ->first();
-        $penulis = $penulis->name;
         $penerbit = DB::table('publishers')
                     ->select('name')
                     ->where('id', '=', $book->penerbit_id)
@@ -107,7 +104,7 @@ class UserPanelController extends Controller
                             ->take(5)
                             ->get();
 
-        return view('user.books.book', compact('book', 'penulis', 'penerbit', 'is_favorite', 'reviews', 'book_rate', 'number_of_reads', 'related_books'));
+        return view('user.books.book', compact('book', 'penerbit', 'is_favorite', 'reviews', 'book_rate', 'number_of_reads', 'related_books'));
     }
 
     public function authors()

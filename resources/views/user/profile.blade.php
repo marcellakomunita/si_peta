@@ -14,17 +14,17 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="col-span-1">
-                                        <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Nama</label>
+                                        <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Nam<br><i>Maximum 150 characters</i></label>
                                         <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="{{ !$errors->first('name') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Ari Norma" required>
                                         <p class="text-sm text-red-600">{{ $errors->first('name') }}</p>
                                     </div>
                                     <div class="col-span-1">
-                                        <label for="email" class="{{ $errors->first('email') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Email</label>
+                                        <label for="email" class="{{ $errors->first('email') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Email<br><i>Maximum 70 characters</i></label>
                                         <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="{{ !$errors->first('email') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="example@company.com" required>
                                         <p class="text-sm text-red-600">{{ $errors->first('email') }}</p>
                                     </div>
                                     <div class="col-span-1">
-                                        <label for="phone" class="{{ $errors->first('phone') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Phone Number</label>
+                                        <label for="phone" class="{{ $errors->first('phone') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Phone Number<br><i>Maximum 13 characters</i></label>
                                         <input type="text" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" class="{{ !$errors->first('phone') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }}shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. 081121411211" required>
                                         <p class="text-sm text-red-600">{{ $errors->first('phone') }}</p>
                                     </div>

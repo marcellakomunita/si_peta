@@ -33,9 +33,9 @@ class ProfileController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
-            'phone' => ['required', 'string', 'regex:/^(?:0)(?:\d{9,15})$/', Rule::unique('users')->ignore(Auth::user()->id)],
+            'name' => ['required', 'string', 'max:150'],
+            'email' => ['required', 'string', 'email', 'max:70', Rule::unique('users')->ignore(Auth::user()->id)],
+            'phone' => ['required', 'string', 'regex:/^(?:0)(?:\d{9,15})$/', 'max:13', Rule::unique('users')->ignore(Auth::user()->id)],
         ]);
     }
 

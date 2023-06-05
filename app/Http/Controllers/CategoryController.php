@@ -66,7 +66,7 @@ class CategoryController extends Controller
             if ($request->file('img_icon')) {
 
                 $request->validate([
-                    'name' => ['required', 'string', 'max:255', Rule::unique('categories')],
+                    'name' => ['required', 'string', 'max:100', Rule::unique('categories')],
                 ]);
 
                 $imgvalidator = $this->imgvalidator($request->file());

@@ -19,6 +19,9 @@ class CreateAuthorsSeeder extends Seeder
             [
                 'name' => 'Dyan Nuranindya'
             ],
+            [
+                'name' => 'Eliz Ran'
+            ],
         ];
 
         foreach($authors as $key => $author) {

@@ -27,7 +27,7 @@ class UReviewController extends Controller
     {
         return Validator::make($data, [
             'rating' => ['required', 'integer', 'between:1,5'],
-            'review' => ['nullable', 'string', 'max:500']
+            'review' => ['nullable', 'string', 'max:800']
         ], [
             'rating.between' => 'This rate field is required'
         ]);

@@ -58,6 +58,9 @@
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
                                 Tahun Terbit
                             </th>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                Last Modified
+                            </th>
                             <th scope="col" class="p-4">
                             </th>
                         </tr>
@@ -80,10 +83,18 @@
                                             <div class="text-sm font-normal text-gray-500">{{ $book->isbn }}</div>
                                         </div>
                                     </td>
-                                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900">{{ $book->penulis }}</td>
+                                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900">
+                                         @foreach ($book->author as $author)
+                                            {{ $author->name }}
+                                            <br>
+                                         @endforeach
+                                    </td>
                                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900">{{ $book->penerbit }}</td>
                                     <td class="whitespace-nowrap p-4 text-base font-normal text-gray-900">
                                         {{ $book->tgl_terbit->format('Y'); }}
+                                    </td>
+                                    <td class="whitespace-nowrap p-4 text-base font-normal text-gray-900">
+                                        {{ $book->updated_at->format('d-m-Y'); }}<br>{{ $book->updated_at->format('H:i:s'); }}
                                     </td>
                                     <td class="p-4 whitespace-nowrap space-x-2">
                                         <a href="{{ route('admin.books.edit', $book->id) }}">

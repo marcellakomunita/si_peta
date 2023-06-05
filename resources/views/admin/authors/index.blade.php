@@ -18,7 +18,7 @@
                 <form role="form" action="{{ route('admin.authors.store') }}" class="flex flex-row lg:pr-3" method="POST" >
                     @csrf
                     <div class="relative w-full md:w-96 mr-4">
-                        <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} sr-only">Create Author</label>
+                        <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} sr-only">Create Author<br><i>Maximum 150 characters</i></label>
                         <input value="{{ old('name') }}" type="text" name="name" id="name" class="{{ !$errors->first('name') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Create new author">
                         <p class="text-sm text-red-600">{{ $errors->first('name') }}</p>
                     </div>
@@ -71,6 +71,9 @@
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase text-center">
                                 Total Books
                             </th>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                                Last Updated
+                            </th>
                             <th scope="col" class="p-4">
                             </th>
                         </tr>
@@ -93,6 +96,9 @@
                                         </div>
                                     </td>
                                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 text-center">{{ $author->book_count }}</td>
+                                    <td class="whitespace-nowrap p-4 text-base font-normal text-gray-900">
+                                        {{ $author->updated_at->format('d-m-Y'); }}<br>{{ $author->updated_at->format('H:i:s'); }}
+                                    </td>
                                     <td colspan="2" class="p-4 whitespace-nowrap space-x-2">
                                         <a href="{{ route('admin.authors.edit', $author->id) }}">
                                             <button type="button" class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">

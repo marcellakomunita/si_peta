@@ -13,7 +13,12 @@ use Carbon\Carbon;
                 <div class="mx-auto flex flex-wrap">
                     <img alt="ecommerce" class="lg:w-1/3 p-4 w-full object-cover object-center rounded border border-gray-200" src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->img_cover]) : asset('images/nocover.png')}}" >
                     <div class="lg:w-1/2 w-full lg:pl-16 lg:py-6 mt-6 lg:mt-0">
-                        <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ $penulis }}</h2>
+                        <h2 class="text-sm title-font text-gray-500 tracking-widest">
+                            @foreach ($book->author as $author)
+                                {{ $author->name }}
+                                <br>
+                            @endforeach
+                        </h2>
                         <h1 class="text-gray-900 text-3xl title-font font-medium my-1">{{ $book->judul }}</h1>
                         <div class="flex mb-4">
                             <span class="flex items-center">
@@ -91,7 +96,7 @@ use Carbon\Carbon;
                 </div>
                 <p class="text-sm text-red-600 mt-1">{{ $errors->first('rating') }}</p>   
                 <div class="mt-4 relative">
-                  <input type="text" name="review" value="{{ old('review') }}"" placeholder="Tulis sebuah ulasan.." class="{{ $errors->first('review') ? 'text-red-700' : 'text-gray-900' }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full py-8">
+                  <input type="text" name="review" value="{{ old('review') }}"" placeholder="Tulis ulasan, maksimal 800 karakter" class="{{ $errors->first('review') ? 'text-red-700' : 'text-gray-900' }} bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full py-8">
                   <p class="text-sm text-red-600">{{ $errors->first('review') }}</p>
                 </div>
 
@@ -164,7 +169,6 @@ use Carbon\Carbon;
                         <div>
                             <h3 class="font-bold text-gray-700">
                             <a href="{{ route('user.books.book', ['id'=>$book->id]) }}">
-                                <span aria-hidden="true" class="absolute inset-0"></span>
                                 {{ $book->judul }}
                             </a>
                             </h3>

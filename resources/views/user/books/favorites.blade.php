@@ -31,7 +31,6 @@
                         <div>
                             <h3 class="font-bold text-gray-700">
                                 <a href="{{ route('user.books.book', ['id'=>$favorite->id]) }}">
-                                    <span aria-hidden="true" class="absolute inset-0"></span>
                                     {{ $favorite->judul }}
                                 </a>
                             </h3>

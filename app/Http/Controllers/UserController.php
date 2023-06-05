@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -45,6 +46,8 @@ class UserController extends Controller
             'key' => ['string', 'max:10']
         ]);
 
+        $user = User::where('id', Auth::id())->first();
+
         $administrators = User::where([
             ['type', '=', 1],
             [function ($query) use ($request) {
@@ -56,6 +59,7 @@ class UserController extends Controller
             }]
         ])->orderBy('updated_at', 'desc')->paginate(10);
         return view('admin.administrators.index', [
+            'user' => $user,
             'administrators' => $administrators,
         ]);
     }
@@ -84,9 +88,9 @@ class UserController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
-            'phone' => ['required', 'string', 'regex:/^(?:0)(?:\d{9,15})$/', Rule::unique('users')],
+            'name' => ['required', 'string', 'max:150'],
+            'email' => ['required', 'string', 'email', 'max:70', Rule::unique('users')],
+            'phone' => ['required', 'string', 'regex:/^(?:0)(?:\d{9,15})$/', 'max:13', Rule::unique('users')],
             'password' => ['required', 'string', 'min:8'],
         ]);
     }
@@ -182,9 +186,9 @@ class UserController extends Controller
             $user = User::find($request->id);
 
             $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->email, 'email')],
-                'phone' => ['required', 'string', 'regex:/^(?:0|62)[0-9]{9,15}$/', Rule::unique('users')->ignore($request->phone, 'phone')],
+                'name' => ['required', 'string', 'max:150'],
+                'email' => ['required', 'string', 'email', 'max:70', Rule::unique('users')->ignore($request->email, 'email')],
+                'phone' => ['required', 'string', 'regex:/^(?:0|62)[0-9]{9,15}$/', 'max:13', Rule::unique('users')->ignore($request->phone, 'phone')],
             ]);
 
             $user->name = $request->name;
@@ -204,9 +208,9 @@ class UserController extends Controller
             $administrator = User::find($request->id);
 
             $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($request->email, 'email')],
-                'phone' => ['required', 'string', 'regex:/^(?:0|62)[0-9]{9,15}$/', Rule::unique('users')->ignore($request->phone, 'phone')],
+                'name' => ['required', 'string', 'max:150'],
+                'email' => ['required', 'string', 'email', 'max:70', Rule::unique('users')->ignore($request->email, 'email')],
+                'phone' => ['required', 'string', 'regex:/^(?:0|62)[0-9]{9,15}$/', 'max:13', Rule::unique('users')->ignore($request->phone, 'phone')],
             ]);
 
             $administrator->name = $request->name;

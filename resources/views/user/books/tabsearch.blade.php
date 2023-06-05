@@ -30,7 +30,6 @@
                                 <div>
                                     <h3 class="font-bold text-gray-700">
                                     <a href="#">
-                                        <span aria-hidden="true" class="absolute inset-0"></span>
                                         Springs in London
                                     </a>
                                     </h3>
@@ -60,7 +59,6 @@
                                 <div>
                                     <h3 class="font-bold text-gray-700">
                                     <a href="#">
-                                        <span aria-hidden="true" class="absolute inset-0"></span>
                                         {{ $book->judul }}
                                     </a>
                                     </h3>

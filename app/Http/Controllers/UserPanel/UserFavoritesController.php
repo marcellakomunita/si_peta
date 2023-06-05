@@ -17,17 +17,19 @@ class UserFavoritesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $favorites = DB::table('favorites')
-    ->select('favorites.id as fid', 'books.id', 'books.judul', 'books.img_cover', 'authors.name')
-    ->leftJoin('books', 'favorites.book_id', '=', 'books.id')
-    ->leftJoin('authors', 'books.penulis_id', '=', 'authors.id')
-    ->where('favorites.user_id', '=', Auth::id())
-    ->get();
+{
+    $favorites = DB::table('favorites')
+        ->select('favorites.id as fid', 'books.id', 'books.judul', 'books.img_cover', DB::raw('GROUP_CONCAT(authors.name SEPARATOR ", ") as name'))
+        ->leftJoin('books', 'favorites.book_id', '=', 'books.id')
+        ->leftJoin('books_authors', 'books.id', '=', 'books_authors.book_id')
+        ->leftJoin('authors', 'books_authors.author_id', '=', 'authors.id')
+        ->where('favorites.user_id', '=', Auth::id())
+        ->groupBy('favorites.id', 'books.id', 'books.judul', 'books.img_cover')
+        ->get();
 
-        // $favorites = Favorites::where('user_id', '=', Auth::id())->get();
-        return view('user.books.favorites', compact('favorites'));
-    }
+    return view('user.books.favorites', compact('favorites'));
+}
+
 
 
     /**

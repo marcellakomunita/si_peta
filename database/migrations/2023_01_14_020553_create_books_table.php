@@ -18,11 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('isbn', 13)->unique();
-            $table->string('judul');
-            $table->unsignedBigInteger('penulis_id')->references('id')->on('authors');
+            $table->string('judul', 150);
+            // $table->unsignedBigInteger('penulis_id')->references('id')->on('authors');
             $table->unsignedBigInteger('penerbit_id')->references('id')->on('publishers');;
-            $table->string('tgl_terbit');
-            $table->text('sinopsis');
+            $table->date('tgl_terbit');
+            $table->text('sinopsis', 800);
             $table->string('img_cover')->nullable();
             $table->string('file_ebook')->nullable(); // can be imgs or pdf
             // $table->unsignedBigInteger('number_of_reads');

@@ -20,7 +20,7 @@
             <div class="grid grid-cols-2 gap-6">
                 @csrf
                 <div class="col-span-6 sm:col-span-3">
-                    <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Nama</label>
+                    <label for="name" class="{{ $errors->first('name') ? 'text-red-700' : 'text-gray-900' }} text-sm font-medium text-gray-900 block mb-2">Name<br><i>Maximum 100 characters</i></label>
                     <input value="{{ old('name') }}" type="text" name="name" id="name" class="{{ !$errors->first('name') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. Biografi" required>
                     <p class="text-sm text-red-600">{{ $errors->first('name') }}</p>
                 </div>
@@ -34,7 +34,9 @@
                                 <path d="M12 11v6"></path>
                                 <path d="M9.5 13.5l2.5 -2.5l2.5 2.5"></path>
                             </svg>
-                            File Icon 
+                            <p>
+                                File Icon<br><i>Support JPG, PNG, or JPEG file with maximum size 2MB</i>
+                            </p>
                         </div>
                          
                         <div class="rounded-md border-gray-500 shadow-sm w-48 h-64 mx-auto my-4 collapse" id="preview-container">

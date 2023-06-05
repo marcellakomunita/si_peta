@@ -47,7 +47,7 @@ class PublisherController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['required', 'string', 'max:255', Rule::unique('publishers')],
+                'name' => ['required', 'string', 'max:150', Rule::unique('publishers')],
             ]);
             $publisher = new Publisher();
             $publisher->name = $request->name;

@@ -37,9 +37,9 @@ class BookController extends Controller
                     });
             }
         })
-        ->join('authors', 'books.penulis_id', '=', 'authors.id')
+        ->with('author')
         ->join('publishers', 'books.penerbit_id', '=', 'publishers.id')
-        ->select('books.*', 'authors.name as penulis', 'publishers.name as penerbit')
+        ->select('books.*', 'publishers.name as penerbit')
         ->orderBy('updated_at', 'desc')
         ->paginate(10);
 
@@ -77,7 +77,7 @@ class BookController extends Controller
     protected function pdfvalidator(array $data)
     {
         return Validator::make($data, [
-            'file_ebook' => 'mimes:pdf'
+            'file_ebook' => 'mimes:pdf|max:104857600'
         ]);
     }
     public function store(Request $request)
@@ -87,12 +87,13 @@ class BookController extends Controller
 
                 $request->validate([
                     'isbn' => ['required', 'string', 'min:10', 'max:13', Rule::unique('books')],
-                    'judul' => ['required', 'string', 'max:255'],
+                    'judul' => ['required', 'string', 'max:150'],
                     'kategori' => ['required', 'string', 'min:3', 'max:4'],
-                    'penulis' => ['required', 'string', 'max:3'],
+                    // 'penulis' => ['required', 'string', 'max:3'],
+                    'penulis' => ['required', 'array', 'min:1'],
                     'penerbit' => ['required', 'string', 'max:3'],
                     'sinopsis' => ['required', 'string', 'max:800'],
-                    'tgl_terbit' => ['required']
+                    'tgl_terbit' => ['required', 'date', 'before_or_equal:today'],
                 ]);
 
                 $imgvalidator = $this->imgvalidator([$request->file('img_cover')]);
@@ -101,6 +102,8 @@ class BookController extends Controller
                         ->withErrors($imgvalidator)
                         ->withInput();
                 }
+
+                $selectedPenulis = $request->input('penulis', []);
                 
                 DB::beginTransaction();
                 try {
@@ -110,13 +113,18 @@ class BookController extends Controller
                     $book->category_id = $request->kategori;
                     $book->isbn = $request->isbn;
                     $book->judul = $request->judul;
-                    $book->penulis_id = $request->penulis;
+                    // $book->penulis_id = $request->penulis;
                     $book->penerbit_id = $request->penerbit;
                     $book->sinopsis = $request->sinopsis;
                     $book->tgl_terbit = $request->tgl_terbit;
                     $book->file_ebook = 'x';
                     $book->img_cover = 'x';
                     $book->save();
+
+                    $book->author()->attach($selectedPenulis, [
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
 
                     $book2 = Book::find($book->id);
 
@@ -257,7 +265,8 @@ class BookController extends Controller
                 'isbn' => ['required', 'string', 'min:10', 'max:13', Rule::unique('books')->ignore($request->isbn, 'isbn')],
                 'judul' => ['required', 'string', 'max:255'],
                 'kategori' => ['required', 'string', 'min:3', 'max:4'],
-                'penulis' => ['required', 'string', 'max:3'],
+                // 'penulis' => ['required', 'string', 'max:3'],
+                'penulis' => ['required', 'array', 'min:1'],
                 'penerbit' => ['required', 'string', 'max:3'],
                 'sinopsis' => ['required', 'string', 'max:800'],
                 'tgl_terbit' => ['required']
@@ -266,10 +275,14 @@ class BookController extends Controller
             $book->category_id = $request->kategori;
             $book->isbn = $request->isbn;
             $book->judul = $request->judul;
-            $book->penulis_id = $request->penulis;
+            // $book->penulis_id = $request->penulis;
             $book->penerbit_id = $request->penerbit;
             $book->sinopsis = $request->sinopsis;
             $book->tgl_terbit = $request->tgl_terbit;
+
+            // Sync authors
+            $selectedPenulis = $request->penulis;
+            $book->author()->sync($selectedPenulis);
 
             if ($request->file('img_cover')) {
                 $file = $request->file('img_cover');
