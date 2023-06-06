@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <label for="password" class="block mb-2 text-sm font-semibold {{ $errors->first('password') ? 'text-red-700' : 'text-gray-900' }}">Password</label>
-                    <input type="password" name="password" id="password" required placeholder="••••••••" class="bg-gray-50 border {{ !$errors->first('password') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required="">
+                    <input type="text" name="password" id="password" required placeholder="••••••••" class="bg-gray-50 border {{ !$errors->first('password') ? 'border-gray-300 text-gray-900' : 'border-red-500 text-red-900' }} border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required="">
                     <p class="mt-2 text-sm text-red-600">{{ $errors->first('password') }}</p>
                 </div>
             </div> 
