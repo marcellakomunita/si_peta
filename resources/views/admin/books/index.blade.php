@@ -88,6 +88,7 @@
                                             {{ $author->name }}
                                             <br>
                                          @endforeach
+                                         {{ storage_path(env('COVER_DIR')) }}
                                     </td>
                                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900">{{ $book->penerbit }}</td>
                                     <td class="whitespace-nowrap p-4 text-base font-normal text-gray-900">

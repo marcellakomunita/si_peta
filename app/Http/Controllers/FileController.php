@@ -8,7 +8,7 @@ class FileController extends Controller
 {
     public function cimageShow(Request $request)
     {
-        $path = storage_path(env('COVER_DIR')) . $request->id;
+        $path = str_replace('\\', '/', storage_path(env('COVER_DIR'))) . '/' . $request->id;
         if (!file_exists($path)) {
             // return response()->json(['error' => 'File not found'], 404);
             // return abort(404);
@@ -21,7 +21,7 @@ class FileController extends Controller
 
     public function uimageShow(Request $request)
     {
-        $path =storage_path(env('PROFILE_DIR')) . $request->id;
+        $path = str_replace('\\', '/', storage_path(env('PROFILE_DIR'))) . '/' . $request->id;
         if (!file_exists($path)) {
             return abort(404);
         }
@@ -33,7 +33,7 @@ class FileController extends Controller
 
     public function fileShow(Request $request)
     {
-        $path = storage_path(env('EBOOKS_DIR')) . $request->id;
+        $path = str_replace('\\', '/', storage_path(env('EBOOKS_DIR'))) . '/' . $request->id;
         if (!file_exists($path)) {
             return abort(404);
         }
@@ -43,7 +43,7 @@ class FileController extends Controller
 
     public function filesShow(Request $request)
     {
-        $path = storage_path(env('EBOOKS_DIR')) . $request->file;
+        $path = str_replace('\\', '/', storage_path(env('EBOOKS_DIR'))) . '/' . $request->file;
         if (!file_exists($path)) {
             return abort(404);
         }

@@ -113,7 +113,7 @@
                         @foreach($favorite_books as $book)
                         <div class="flex flex-col">
                             <div class="bg-white min-h-60 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-t-md group-hover:opacity-75 lg:aspect-none lg:h-60">
-                                <img src="{{ $book->img_cover ? route('content.cover', ['id'=>$book->img_cover]) : asset('images/nocover.png')}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
+                                <img src="{{ $book->img_cover || $book->img_cover != '' ? route('content.cover', ['id'=>$book->img_cover]) : asset('images/nocover.png')}}" alt="cover-buku" class="rounded-t-lg h-full w-full object-cover object-center lg:h-full lg:w-full">
                             </div>
                             <div class="rounded-b-lg px-4 py-3 justify-between bg-white flex-1 flex flex-col">
                                 <div>

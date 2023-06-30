@@ -121,10 +121,7 @@ class BookController extends Controller
                     $book->img_cover = 'x';
                     $book->save();
 
-                    $book->author()->attach($selectedPenulis, [
-                        'created_at' => now(),
-                        'updated_at' => now()
-                    ]);
+                    $book->author()->attach($selectedPenulis);
 
                     $book2 = Book::find($book->id);
 
